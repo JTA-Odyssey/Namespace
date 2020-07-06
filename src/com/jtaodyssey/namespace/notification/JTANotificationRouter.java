@@ -17,5 +17,18 @@ public final class JTANotificationRouter implements JTANotificationObserver{
     public void update(JTANotification notification) {
         // facilitate the different notification types here.
         // i.e. if its outgoing call the correct observer
+        /**
+         *
+         * if (notification instanceOf IncomingMessageNotifcation) {
+         *      if (its a text message) {
+         *          // verify that its a valid channel
+         *          PubNubClient.publish(message, channel);
+         *      }
+         *      else if (its a item to be stored local db) {
+         *          // direct call to the appropriate DB interface
+         *      }
+         * }
+         *
+         */
     }
 }
