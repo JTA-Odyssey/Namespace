@@ -9,5 +9,5 @@ import javax.management.Notification;
 public interface JTANotificationSubject {
     void addObserver(JTANotificationObserver o);
     void removeObserver(JTANotificationObserver o);
-    void notify(Notification notification);
+    void notify(JTANotification notification);
 }
