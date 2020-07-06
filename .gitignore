@@ -225,4 +225,7 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
+### Files that I have manually added ###
+.properties
+
 # End of https://www.gitignore.io/api/java,linux,macos,windows,java-web,intellij,code-java
