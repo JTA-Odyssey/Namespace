@@ -33,7 +33,7 @@ public final class PubNubActions {
      */
     public void publish(Object message, String channel)
     {
-        pubNub.publish().message(message).channel(channel);
+        pubNub.publish().message(message).channel(channel).async(((pnPublishResult, pnStatus) -> {}));
     }
 
     /**

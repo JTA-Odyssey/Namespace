@@ -28,7 +28,6 @@ public final class PubNubListener {
        t1 = null;
    }
 
-
    public static PubNubListener getInstance() {
        if (listener == null) {
            synchronized (PubNubListener.class) {
@@ -69,7 +68,7 @@ public final class PubNubListener {
                });
            });
            t1.start();
+           isListening = true;
        }
    }
-
 }
