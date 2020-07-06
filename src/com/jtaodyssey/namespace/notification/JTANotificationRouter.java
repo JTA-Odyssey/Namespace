@@ -7,7 +7,7 @@ package com.jtaodyssey.namespace.notification;
  *
  * This router will sit on its own thread and should be able to run async
  */
-public final class NotificationRouter implements Runnable{
+public final class JTANotificationRouter implements Runnable{
     @Override
     public void run() {
 
