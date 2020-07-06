@@ -1,25 +1,24 @@
 package com.jtaodyssey.namespace.communication;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.pubnub.api.PubNub;
+
+import java.util.List;
 
 /**
  * This class should be called when ready to publish a method to pubnub
  */
-public final class PubNubPublisher {
-    private volatile static PubNubPublisher publisher = null;
+public final class PubNubActions {
+    private volatile static PubNubActions publisher = null;
     private final PubNub pubNub = PubNubClient.getInstance().getPubNub();
 
-    private PubNubPublisher() {}
+    private PubNubActions() {}
 
-    public static PubNubPublisher getInstance()
+    public static PubNubActions getInstance()
     {
         if (publisher == null) {
-            synchronized (PubNubPublisher.class) {
+            synchronized (PubNubActions.class) {
                 if (publisher == null) {
-                    publisher = new PubNubPublisher();
+                    publisher = new PubNubActions();
                 }
             }
         }
@@ -35,5 +34,14 @@ public final class PubNubPublisher {
     public void publish(Object message, String channel)
     {
         pubNub.publish().message(message).channel(channel);
+    }
+
+    /**
+     * Call this method when you want to add a channel to subscribe too
+     * @param channels list of all channels you would like to listen too
+     */
+    public void subscribe(List<String> channels)
+    {
+        pubNub.subscribe().channels(channels).execute();
     }
 }
