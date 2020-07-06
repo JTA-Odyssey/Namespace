@@ -14,8 +14,8 @@ import java.util.Scanner;
 public final class PubNubClient {
     private static PubNubClient pubNubClient = new PubNubClient();
     private final String UUID = "3b364090-17b5-4a6e-bd1e-4175c1939f95";
-    private final String SUB_KEY = "sub-c-8f8d14d0-bf0c-11ea-a57f-4e41fc185ce6";
-    private final String PUB_KEY = "pub-c-a18b5f2b-f067-4ce3-b0b3-51b030b21d0d";
+    private final String SUB_KEY = "";
+    private final String PUB_KEY = "";
     private PubNub pubNub;
 
     // todo generate a device UUID
@@ -30,7 +30,7 @@ public final class PubNubClient {
         pnConfig.setUuid(UUID);
         pnConfig.setPublishKey(PUB_KEY);
         pnConfig.setSubscribeKey(SUB_KEY);
-        //pnConfig.setSecure(true);
+        pnConfig.setSecure(true);
         pubNub = new PubNub(pnConfig);
     }
 
