@@ -3,9 +3,11 @@ package com.jtaodyssey.namespace.communication;
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
 
-import java.lang.reflect.Array;
+import java.io.*;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.Scanner;
+import java.util.UUID;
 
 /**
  * PubNubClient is used to initialize the PubNub client API
@@ -13,42 +15,66 @@ import java.util.Scanner;
  */
 public final class PubNubClient {
     private static PubNubClient pubNubClient = new PubNubClient();
-    private final String UUID = "3b364090-17b5-4a6e-bd1e-4175c1939f95";
-    private final String SUB_KEY = "";
-    private final String PUB_KEY = "";
+    private String DEV_UUID;
+    private String SUB_KEY;
+    private String PUB_KEY;
     private PubNub pubNub;
 
-    // todo generate a device UUID
+    /**
+     * Will read from the application configuration file to load properties
+     * including the device DEV_UUID, Publish Key, and Subscribe Key
+     */
+    private void loadConfig() {
+        Properties appProp = new Properties();
+        String location = "config.properties";
+        try {
+            appProp.load(new BufferedInputStream(new FileInputStream(location)));
+            String id = appProp.getProperty("deviceUUID");
+            if (id.equals("NULL")) {
+                id = UUID.randomUUID().toString();
+                appProp.setProperty("deviceUUID", id);
+                appProp.store(new BufferedOutputStream(new FileOutputStream(location)), null);
+            }
+            DEV_UUID = id;
+            SUB_KEY = appProp.getProperty("pubNubSubscribeKey");
+            PUB_KEY = appProp.getProperty("pubNubPublishKey");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Initializes the PubNub API so that it has a secure connection
      * over the web with an app specific Publisher and Subscriber key
-     * and a device UUID
+     * and a device DEV_UUID
      */
     private PubNubClient()
     {
-        PNConfiguration pnConfig = new PNConfiguration();
-        pnConfig.setUuid(UUID);
-        pnConfig.setPublishKey(PUB_KEY);
-        pnConfig.setSubscribeKey(SUB_KEY);
-        pnConfig.setSecure(true);
-        pubNub = new PubNub(pnConfig);
+        loadConfig();
+//        PNConfiguration pnConfig = new PNConfiguration();
+//        pnConfig.setUuid(DEV_UUID);
+//        pnConfig.setPublishKey(PUB_KEY);
+//        pnConfig.setSubscribeKey(SUB_KEY);
+//        pnConfig.setSecure(true);
+//        pubNub = new PubNub(pnConfig);
     }
 
     public static PubNubClient getInstance() { return pubNubClient; }
     public PubNub getPubNub() { return pubNub; }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
-        PubNubListener.getInstance().listen();
-        System.out.print("Enter your message: ");
-        String message = scanner.nextLine();
-        while (!message.equals("end")) {
-            PubNubActions.getInstance().publish(message, "A");
-            System.out.print("Enter your message: ");
-            message = scanner.nextLine();
-        }
-        pubNubClient.getPubNub().destroy();
+//        Scanner scanner = new Scanner(System.in);
+//
+//        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+//        PubNubListener.getInstance().listen();
+//        System.out.print("Enter your message: ");
+//        String message = scanner.nextLine();
+//        while (!message.equals("end")) {
+//            PubNubActions.getInstance().publish(message, "A");
+//            System.out.print("Enter your message: ");
+//            message = scanner.nextLine();
+//        }
+//        pubNubClient.getPubNub().destroy();
+        PubNubClient.getInstance();
     }
 }
