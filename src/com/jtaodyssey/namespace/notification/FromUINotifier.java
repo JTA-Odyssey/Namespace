@@ -28,9 +28,8 @@ public class FromUINotifier extends JTANotificationSubject {
 
     @Override
     public void notify(JTANotification notification) {
-        Iterator<JTANotificationObserver> iterator = super.observers.iterator();
-        while (iterator.hasNext()) {
-            iterator.next().update(notification);
+        for (JTANotificationObserver o : super.observers) {
+            o.update(notification);
         }
     }
 }
