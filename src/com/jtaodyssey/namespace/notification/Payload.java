@@ -2,5 +2,6 @@ package com.jtaodyssey.namespace.notification;
 
 import java.io.Serializable;
 
-public class Payload implements Serializable {
+public interface Payload extends Serializable {
+    String getType(); 
 }
