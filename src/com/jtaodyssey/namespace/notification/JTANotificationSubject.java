@@ -8,18 +8,14 @@ import java.util.List;
  * types of notifications
  */
 public abstract class JTANotificationSubject implements JTASubject {
-    private List<JTANotificationObserver> observers;
-
-    public JTANotificationSubject() {
-        observers = new ArrayList<>();
-    }
+    protected List<JTANotificationObserver> observers;
 
     public void addObserver(JTANotificationObserver o) {
         observers.add(o);
     }
 
     public void removeObserver(JTANotificationObserver o) {
-        observers.remove(o);
+        observers.removeIf(i -> i == o);
     }
 
     public abstract void notify(JTANotification notification);
