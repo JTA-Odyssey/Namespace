@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application
 {
+    Stage stage = new Stage();
     Parent root;
     double xOffset;
     double yOffset;
@@ -18,11 +19,11 @@ public class Main extends Application
     {
         try
         {
-            root = FXMLLoader.load(getClass().getResource("CreateAccount.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/Login.fxml"));
             Scene scene = new Scene(root);
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setScene(scene);
+            stage.show();
             scene.setFill(Color.TRANSPARENT);
             root.setOnMousePressed(event ->
             {
@@ -31,14 +32,19 @@ public class Main extends Application
             });
             root.setOnMouseDragged(event ->
             {
-                primaryStage.setX(event.getScreenX() - xOffset);
-                primaryStage.setY(event.getScreenY() - yOffset);
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
             });
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    public void setStage(Stage myStage)
+    {
+        myStage = stage;
     }
 
 

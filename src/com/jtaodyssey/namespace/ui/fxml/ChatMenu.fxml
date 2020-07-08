@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="530.0" prefWidth="735.0" stylesheets="@../css/ChatDesign.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jtaodyssey.namespace.ui.controllers.ChatMenu">
+   <children>
+      <JFXScrollPane layoutY="40.0" prefHeight="490.0" prefWidth="149.0">
+         <children>
+            <JFXListView prefHeight="478.0" prefWidth="149.0" />
+         </children>
+      </JFXScrollPane>
+      <AnchorPane layoutX="163.0" layoutY="465.0" prefHeight="51.0" prefWidth="443.0" style="-fx-background-color: Grey; -fx-background-radius: 1em;">
+         <children>
+            <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/addicon.png" />
+               </image>
+            </ImageView>
+            <TextArea layoutX="53.0" layoutY="7.0" prefHeight="38.0" prefWidth="380.0" promptText="Enter message..." style="-fx-background-radius: 1em;" />
+         </children>
+      </AnchorPane>
+      <Separator layoutX="149.0" layoutY="453.0" prefHeight="3.0" prefWidth="466.0" />
+      <JFXScrollPane layoutX="615.0" prefHeight="530.0" prefWidth="120.0">
+         <children>
+            <JFXListView prefHeight="530.0" prefWidth="129.0" />
+         </children>
+      </JFXScrollPane>
+      <TextField alignment="TOP_CENTER" layoutX="8.0" layoutY="8.0" prefHeight="27.0" prefWidth="134.0" promptText="Search" style="-fx-background-radius: 1em;" />
+      <Separator layoutY="39.0" prefHeight="3.0" prefWidth="149.0" />
+      <Separator layoutX="149.0" layoutY="-6.0" orientation="VERTICAL" prefHeight="530.0" prefWidth="3.0" />
+      <Separator layoutX="612.0" orientation="VERTICAL" prefHeight="530.0" prefWidth="6.0" />
+   </children>
+</AnchorPane>
