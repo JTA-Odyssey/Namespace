@@ -7,15 +7,7 @@ import com.jtaodyssey.namespace.notification.JTANotification;
 import com.jtaodyssey.namespace.notification.JTANotificationObserver;
 import com.jtaodyssey.namespace.notification.JTANotificationSubject;
 import com.pubnub.api.PubNub;
-import com.pubnub.api.callbacks.SubscribeCallback;
-import com.pubnub.api.models.consumer.PNStatus;
 import com.pubnub.api.models.consumer.pubsub.PNMessageResult;
-import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
-import com.pubnub.api.models.consumer.pubsub.PNSignalResult;
-import com.pubnub.api.models.consumer.pubsub.message_actions.PNMessageActionResult;
-import com.pubnub.api.models.consumer.pubsub.objects.PNMembershipResult;
-import com.pubnub.api.models.consumer.pubsub.objects.PNSpaceResult;
-import com.pubnub.api.models.consumer.pubsub.objects.PNUserResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -60,7 +52,7 @@ public final class PubNubReceiver extends JTANotificationSubject {
                    public void message(@NotNull PubNub pubNub, @NotNull PNMessageResult pnMessageResult) {
                        JTATextMessage message = new Gson().fromJson(pnMessageResult.getMessage().toString(), JTATextMessage.class);
                        //JTATextMessage message = new JTATextMessage("Incoming Message");
-                       PubNubReceiver.this.notify(new IncomingMessageNotification(message));
+                       PubNubReceiver.this.notify(new IncomingMessageNotification(message, pnMessageResult.getChannel()));
                    }
                });
            });
