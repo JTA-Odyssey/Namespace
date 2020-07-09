@@ -18,5 +18,12 @@ public abstract class JTANotification {
     public void writePayload(Payload payload) { this.payload = payload; }
     public Payload readPayload() { return payload; }
 
-    // implement a toString method once Payload class complete
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\'Payload\' : \'");
+        sb.append(readPayload().toString());
+        sb.append("\'");
+        return sb.toString();
+    }
 }
