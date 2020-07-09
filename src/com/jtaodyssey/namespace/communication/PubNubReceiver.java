@@ -18,6 +18,8 @@ import com.pubnub.api.models.consumer.pubsub.objects.PNSpaceResult;
 import com.pubnub.api.models.consumer.pubsub.objects.PNUserResult;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 /**
  * This object can be used to listen for messages on all channels
  * subscribed too by the client
@@ -32,6 +34,7 @@ public final class PubNubReceiver extends JTANotificationSubject {
        isListening = false;
        pubNub = PubNubClient.getInstance().getPubNub();
        t1 = null;
+       super.observers = new ArrayList<>();
    }
 
    public static PubNubReceiver getInstance() {
@@ -55,8 +58,8 @@ public final class PubNubReceiver extends JTANotificationSubject {
                pubNub.addListener(new PubNubListener() {
                    @Override
                    public void message(@NotNull PubNub pubNub, @NotNull PNMessageResult pnMessageResult) {
-                       //JTATextMessage message = new Gson().fromJson(pnMessageResult.getMessage().toString(), JTATextMessage.class);
-                       JTATextMessage message = new JTATextMessage("Incoming Message");
+                       JTATextMessage message = new Gson().fromJson(pnMessageResult.getMessage().toString(), JTATextMessage.class);
+                       //JTATextMessage message = new JTATextMessage("Incoming Message");
                        PubNubReceiver.this.notify(new IncomingMessageNotification(message));
                    }
                });
@@ -68,6 +71,7 @@ public final class PubNubReceiver extends JTANotificationSubject {
 
     @Override
     public void notify(JTANotification notification) {
+       System.out.println();
         for (JTANotificationObserver o : super.observers) {
             o.update(notification);
         }

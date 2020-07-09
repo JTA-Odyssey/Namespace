@@ -1,5 +1,9 @@
 package com.jtaodyssey.namespace.notification;
 
+import com.jtaodyssey.namespace.communication.PubNubActions;
+import com.jtaodyssey.namespace.communication.PubNubReceiver;
+import com.jtaodyssey.namespace.components.JTATextMessage;
+
 /**
  * This class will facilitate notifications to the appropriate internal
  * component. i.e. OutgoingMessageNotification will be routed the to PubNub
@@ -8,14 +12,17 @@ package com.jtaodyssey.namespace.notification;
  * This router will sit on its own thread and should be able to run async
  */
 public final class JTANotificationRouter implements JTANotificationObserver{
-    private static final JTANotificationRouter notif = new JTANotificationRouter();
+    private static final JTANotificationRouter notif = new JTANotificationRouter(); // happening at compile so call an init
     private final JTANotificationSubject toUINotifier = ToUINotifier.getInstance();
 
     /**
      * This ctor will observe the component that the UI writes notifications too
      */
-    private JTANotificationRouter() {
+    private JTANotificationRouter() { }
+
+    public void init() {
         FromUINotifier.getInstance().addObserver(this);
+        PubNubReceiver.getInstance().addObserver(this);
     }
 
     public static JTANotificationRouter getInstance() { return notif; }
@@ -38,11 +45,20 @@ public final class JTANotificationRouter implements JTANotificationObserver{
          *
          */
         if (notification instanceof OutgoingMessageNotification) {
-            // call pubnub API
+            OutgoingMessageNotification out = (OutgoingMessageNotification)notification;
+            // todo remove after debugging
+            PubNubActions.getInstance().publish((JTATextMessage)out.readPayload(), "A");
+            System.out.println("Message processed going out of Router: ");
+            System.out.print((JTATextMessage)out.readPayload());
         }
         else if (notification instanceof IncomingMessageNotification) {
             // send to the UI
             toUINotifier.notify(notification);
+
+            // todo remove after debug
+            IncomingMessageNotification msg = (IncomingMessageNotification)notification;
+            System.out.println("Message processed coming in Router: ");
+            System.out.print(msg.readPayload());
         }
     }
 }

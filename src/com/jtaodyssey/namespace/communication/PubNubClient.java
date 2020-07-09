@@ -1,5 +1,7 @@
 package com.jtaodyssey.namespace.communication;
 
+import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.notification.*;
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
 
@@ -51,30 +53,33 @@ public final class PubNubClient {
     private PubNubClient()
     {
         loadConfig();
-//        PNConfiguration pnConfig = new PNConfiguration();
-//        pnConfig.setUuid(DEV_UUID);
-//        pnConfig.setPublishKey(PUB_KEY);
-//        pnConfig.setSubscribeKey(SUB_KEY);
-//        pnConfig.setSecure(true);
-//        pubNub = new PubNub(pnConfig);
+        PNConfiguration pnConfig = new PNConfiguration();
+        pnConfig.setUuid(DEV_UUID);
+        pnConfig.setPublishKey(PUB_KEY);
+        pnConfig.setSubscribeKey(SUB_KEY);
+        pnConfig.setSecure(true);
+        pubNub = new PubNub(pnConfig);
     }
 
     public static PubNubClient getInstance() { return pubNubClient; }
     public PubNub getPubNub() { return pubNub; }
+}
 
+class MockController {
     public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
-//        PubNubListener.getInstance().listen();
-//        System.out.print("Enter your message: ");
-//        String message = scanner.nextLine();
-//        while (!message.equals("end")) {
-//            PubNubActions.getInstance().publish(message, "A");
-//            System.out.print("Enter your message: ");
-//            message = scanner.nextLine();
-//        }
-//        pubNubClient.getPubNub().destroy();
-        PubNubClient.getInstance();
+        Scanner scanner = new Scanner(System.in);
+
+        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+        PubNubReceiver.getInstance().listen();
+        JTANotificationRouter.getInstance().init();
+
+        System.out.print("Enter your message: ");
+        String message = scanner.nextLine();
+        while (!message.equals("end")) {
+            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message)));
+
+            System.out.print("Enter your message: ");
+            message = scanner.nextLine();
+        }
     }
 }
