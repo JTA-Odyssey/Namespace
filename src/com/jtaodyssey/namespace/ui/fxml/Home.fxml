@@ -57,7 +57,7 @@
             <Image url="@../images/rsz_logo.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="closeApplicationButton" alignment="CENTER" contentDisplay="CENTER" layoutX="766.0" layoutY="3.0" onMouseClicked="#OnCloseApplicationClicked" prefHeight="40.0" prefWidth="41.0" text="X">
+      <JFXButton fx:id="closeApplicationButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="766.0" layoutY="3.0" onMouseClicked="#OnCloseApplicationClicked" prefHeight="40.0" prefWidth="41.0" text="X">
          <font>
             <Font name="Palatino" size="18.0" />
          </font>

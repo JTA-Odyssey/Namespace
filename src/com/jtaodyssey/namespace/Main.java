@@ -10,10 +10,14 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application
 {
-    Stage stage = new Stage();
-    Parent root;
-    double xOffset;
-    double yOffset;
+    // ***************
+    // * Variable(s) *
+    // ***************
+
+    private Parent root;
+    private double xOffset;
+    private double yOffset;
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {
@@ -21,10 +25,12 @@ public class Main extends Application
         {
             root = FXMLLoader.load(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/Login.fxml"));
             Scene scene = new Scene(root);
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setScene(scene);
-            stage.show();
+
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            primaryStage.setScene(scene);
+            primaryStage.show();
             scene.setFill(Color.TRANSPARENT);
+
             root.setOnMousePressed(event ->
             {
                 xOffset = event.getSceneX();
@@ -32,8 +38,8 @@ public class Main extends Application
             });
             root.setOnMouseDragged(event ->
             {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
             });
         }
         catch (Exception e)
@@ -41,12 +47,6 @@ public class Main extends Application
             e.printStackTrace();
         }
     }
-
-    public void setStage(Stage myStage)
-    {
-        myStage = stage;
-    }
-
 
     public static void main(String[] args)
     {

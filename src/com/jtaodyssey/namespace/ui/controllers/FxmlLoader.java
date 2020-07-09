@@ -10,7 +10,14 @@ import java.util.ResourceBundle;
 
 public class FxmlLoader implements Initializable
 {
+    // ****************
+    // * Container(s) *
+    // ****************
     private Pane view;
+
+    // **************************
+    // * Initialize Function(s) *
+    // **************************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -18,6 +25,11 @@ public class FxmlLoader implements Initializable
 
     }
 
+    // *****************
+    // * Window Loader *
+    // *****************
+
+    // This function gets the fxml file information and displays window inside current scene
     public Pane getPage(String fileName)
     {
         try

@@ -1,32 +1,43 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jtaodyssey.namespace.Main;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Home implements Initializable
 {
+    // ****************
+    // * Container(s) *
+    // ****************
+
     @FXML
     private BorderPane viewScreen;
+
+    // ****************
+    // * ImageView(s) *
+    // ****************
 
     @FXML
     private ImageView chatMenu;
 
+    // *************
+    // * Button(s) *
+    // *************
+
     @FXML
     private JFXButton closeApplicationButton;
+
+    // **************************
+    // * Initialize Function(s) *
+    // **************************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -34,6 +45,11 @@ public class Home implements Initializable
 
     }
 
+    // **************************
+    // * MouseEvent Function(s) *
+    // **************************
+
+    // On "ChatMenu icon" clicked show chat menu in scene window
     @FXML
     public void onClickShowChatMenu(MouseEvent event)
     {
@@ -46,6 +62,6 @@ public class Home implements Initializable
     @FXML
     public void OnCloseApplicationClicked(MouseEvent event)
     {
-        // Implement the code to terminate the program here.
-    }
+        Platform.exit();
+        System.exit(0);    }
 }

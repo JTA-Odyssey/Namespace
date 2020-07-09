@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -21,9 +22,9 @@ import java.util.ResourceBundle;
 
 public class Login implements Initializable
 {
-    // ***********
-    // * Buttons *
-    // ***********
+    // *************
+    // * Button(s) *
+    // *************
 
     @FXML
     private JFXButton loginButton;
@@ -32,14 +33,27 @@ public class Login implements Initializable
     @FXML
     private JFXButton closeApplicationButton;
 
-    // **************
-    // * TextFields *
-    // **************
+    // ****************
+    // * TextField(s) *
+    // ****************
 
     @FXML
     private JFXTextField usernameField;
     @FXML
     private JFXPasswordField passwordField;
+
+    // ************
+    // * Label(s) *
+    // ************
+
+    @FXML
+    private Label errorCheckUsername;
+    @FXML
+    private Label errorCheckPassword;
+
+    // ***************
+    // * Variable(s) *
+    // ***************
 
     private double xOffset;
     private double yOffset;
@@ -95,7 +109,7 @@ public class Login implements Initializable
 
         if(!username.equals("") && !password.equals(""))
         {
-            if(username.equals("test") && password.equals("123"))
+            if(username.equals("test") && password.equals("1234"))
             {
                 swapScene("Home", loginButton);
             }
@@ -111,20 +125,21 @@ public class Login implements Initializable
     @FXML
     public void OnCreateAccountClicked(MouseEvent event)
     {
-        // Implement code to swap scenes from "Login" to "CreateAccount"
+        swapScene("CreateAccount", createAccountButton);
     }
 
     // On "X" clicked this function will terminate the program.
     @FXML
     public void OnCloseApplicationClicked(MouseEvent event)
     {
-        // Implement the code to terminate the program here.
+        Platform.exit();
+        System.exit(0);
     }
 
+    // This function is used to swap scenes between the "Create Account" scene or "Home" scene
     public void swapScene(String fileName, Button button)
     {
         Parent root = null;
-
         try
         {
             root = FXMLLoader.load(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/" + fileName + ".fxml"));
@@ -133,9 +148,11 @@ public class Login implements Initializable
         {
             e.printStackTrace();
         }
+
         Scene scene  = new Scene(root);
         Stage window = (Stage)(button).getScene().getWindow();
 
+        // This event allows the user to move the window wherever if the mouse is dragged in the scene boundaries
         root.setOnMousePressed(event ->
         {
             xOffset = event.getSceneX();

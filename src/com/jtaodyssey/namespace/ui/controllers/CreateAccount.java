@@ -4,18 +4,25 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CreateAccount implements Initializable
 {
-    // ***********
-    // * Buttons *
-    // ***********
+    // *************
+    // * Button(s) *
+    // *************
 
     @FXML
     private JFXButton createAccountButton;
@@ -24,9 +31,9 @@ public class CreateAccount implements Initializable
     @FXML
     private JFXButton closeApplicationButton;
 
-    // **************
-    // * TextFields *
-    // **************
+    // ****************
+    // * TextField(s) *
+    // ****************
 
     @FXML
     private JFXTextField firstNameField;
@@ -38,6 +45,13 @@ public class CreateAccount implements Initializable
     private JFXPasswordField passwordField;
     @FXML
     private JFXPasswordField confirmPasswordField;
+
+    // ***************
+    // * Variable(s) *
+    // ***************
+
+    private double xOffset;
+    private double yOffset;
 
     // **************************
     // * Initialize Function(s) *
@@ -114,13 +128,6 @@ public class CreateAccount implements Initializable
     // * MouseEvent Function(s) *
     // **************************
 
-    // On "X" clicked this function will terminate the program.
-    @FXML
-    public void OnCloseApplicationClicked(MouseEvent event)
-    {
-        // Implement the code to terminate the program here.
-    }
-
     // On "Create Account" clicked this function will create a new account and error check for invalid credentials.
     @FXML
     public void OnCreateAccountClicked(MouseEvent event)
@@ -133,5 +140,48 @@ public class CreateAccount implements Initializable
     public void OnReturnToLoginClicked(MouseEvent event)
     {
         // Implement the code to return back to the login screen here.
+    }
+
+    // On "X" clicked this function will terminate the program.
+    @FXML
+    public void OnCloseApplicationClicked(MouseEvent event)
+    {
+        Platform.exit();
+        System.exit(0);
+    }
+
+    // This function is used to swap scenes between the "Create Account" scene or "Home" scene
+    public void swapScene(String fileName, Button button)
+    {
+        Parent root = null;
+        try
+        {
+            root = FXMLLoader.load(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/" + fileName + ".fxml"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        Scene scene  = new Scene(root);
+        Stage window = (Stage)(button).getScene().getWindow();
+
+        // This event allows the user to move the window wherever if the mouse is dragged in the scene boundaries
+        root.setOnMousePressed(event ->
+        {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event ->
+        {
+            window.setX(event.getScreenX() - xOffset);
+            window.setY(event.getScreenY() - yOffset);
+        });
+
+        Platform.runLater(()->
+        {
+            window.setScene(scene);
+            window.show();
+        });
     }
 }
