@@ -5,18 +5,23 @@ package com.jtaodyssey.namespace.notification;
  * socket
  */
 public class OutgoingMessageNotification extends JTANotification {
+    private String channel;
     /**
      * @param payload is one of our custom data types used to move
      *                data across our system
      */
-    public OutgoingMessageNotification(Payload payload) {
+    public OutgoingMessageNotification(Payload payload, String channel) {
         super(payload);
+        setChannel(channel);
     }
 
-    /**
-     * This ctor will init a null notification. Must manually set the payload
-     */
-    public OutgoingMessageNotification(){}
+    public String getChannel() {
+        return channel;
+    }
+
+    private void setChannel(String channel) {
+        this.channel = channel;
+    }
 
     @Override
     public String getType() {

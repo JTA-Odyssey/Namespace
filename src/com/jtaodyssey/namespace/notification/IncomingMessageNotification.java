@@ -6,18 +6,24 @@ package com.jtaodyssey.namespace.notification;
  * it will only read this message type
  */
 public class IncomingMessageNotification extends JTANotification {
+    private String channel;
+
     /**
      * @param payload is one of our custom data types used to move
      *                data across our system
      */
-    public IncomingMessageNotification(Payload payload) {
+    public IncomingMessageNotification(Payload payload, String channel) {
         super(payload);
+        setChannel(channel);
     }
 
-    /**
-     * This ctor will init a null notification. Must manually set the payload
-     */
-    public IncomingMessageNotification() {}
+    public String getChannel() {
+        return channel;
+    }
+
+    private void setChannel(String channel) {
+        this.channel = channel;
+    }
 
     @Override
     public String getType() {

@@ -76,7 +76,7 @@ class MockController {
         System.out.print("Enter your message: ");
         String message = scanner.nextLine();
         while (!message.equals("end")) {
-            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message)));
+            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message), "A"));
 
             System.out.print("Enter your message: ");
             message = scanner.nextLine();

@@ -47,7 +47,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         if (notification instanceof OutgoingMessageNotification) {
             OutgoingMessageNotification out = (OutgoingMessageNotification)notification;
             // todo remove after debugging
-            PubNubActions.getInstance().publish((JTATextMessage)out.readPayload(), "A");
+            PubNubActions.getInstance().publish((JTATextMessage)out.readPayload(), out.getChannel());
             System.out.println("Message processed going out of Router: ");
             System.out.print((JTATextMessage)out.readPayload());
         }
