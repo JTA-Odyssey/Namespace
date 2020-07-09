@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -175,6 +176,7 @@ public class CreateAccount implements Initializable
 
         Scene scene  = new Scene(root);
         Stage window = (Stage)(button).getScene().getWindow();
+        scene.setFill(Color.TRANSPARENT);
 
         // This event allows the user to move the window wherever if the mouse is dragged in the scene boundaries
         root.setOnMousePressed(event ->

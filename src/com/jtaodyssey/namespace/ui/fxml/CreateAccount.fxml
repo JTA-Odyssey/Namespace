@@ -21,7 +21,7 @@
                         <Font name="Palatino" size="24.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="closeApplicationButton" alignment="CENTER" contentDisplay="CENTER" layoutX="352.0" layoutY="-3.0" onMouseClicked="#OnCloseApplicationClicked" text="X">
+                  <JFXButton fx:id="closeApplicationButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="352.0" layoutY="-3.0" onMouseClicked="#OnCloseApplicationClicked" text="X">
                      <font>
                         <Font name="Palatino" size="18.0" />
                      </font>
