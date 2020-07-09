@@ -1,27 +1,26 @@
 package com.jtaodyssey.namespace.notification;
 
 /**
- * This notification is used to direct all and any incoming message for a client
- * to the UI Module. This class is should never be created by the UI rather
- * it will only read this message type
+ * This class is used to direct all outgoing message from the UI to a
+ * socket
  */
-public class IncomingMessageNotification extends JTANotification {
+public class OutgoingMessageNotification extends JTANotification {
     /**
      * @param payload is one of our custom data types used to move
      *                data across our system
      */
-    public IncomingMessageNotification(Payload payload) {
+    public OutgoingMessageNotification(Payload payload) {
         super(payload);
     }
 
     /**
      * This ctor will init a null notification. Must manually set the payload
      */
-    public IncomingMessageNotification() {}
+    public OutgoingMessageNotification(){}
 
     @Override
     public String getType() {
-        return "Incoming Message";
+        return "Outgoing Message Notification";
     }
 
     @Override
