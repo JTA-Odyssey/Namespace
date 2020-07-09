@@ -1,5 +1,9 @@
 package com.jtaodyssey.namespace.communication;
 
+import com.jtaodyssey.namespace.notification.JTANotification;
+import com.jtaodyssey.namespace.notification.JTANotificationObserver;
+import com.jtaodyssey.namespace.notification.JTANotificationSubject;
+import com.jtaodyssey.namespace.notification.JTASubject;
 import com.pubnub.api.PubNub;
 import com.pubnub.api.callbacks.SubscribeCallback;
 import com.pubnub.api.models.consumer.PNStatus;
@@ -16,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * This object can be used to listen for messages on all channels
  * subscribed too by the client
  */
-public final class PubNubListener {
+public final class PubNubListener extends JTANotificationSubject {
    private static volatile PubNubListener listener = null;
    private boolean isListening;
    private PubNub pubNub;
@@ -71,4 +75,11 @@ public final class PubNubListener {
            isListening = true;
        }
    }
+
+    @Override
+    public void notify(JTANotification notification) {
+        for (JTANotificationObserver o : super.observers) {
+            o.update(notification);
+        }
+    }
 }
