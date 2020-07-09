@@ -1,5 +1,8 @@
 package com.jtaodyssey.namespace.communication;
 
+import com.google.gson.Gson;
+import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.notification.IncomingMessageNotification;
 import com.jtaodyssey.namespace.notification.JTANotification;
 import com.jtaodyssey.namespace.notification.JTANotificationObserver;
 import com.jtaodyssey.namespace.notification.JTANotificationSubject;
@@ -52,7 +55,9 @@ public final class PubNubReceiver extends JTANotificationSubject {
                pubNub.addListener(new PubNubListener() {
                    @Override
                    public void message(@NotNull PubNub pubNub, @NotNull PNMessageResult pnMessageResult) {
-                       //PubNubReceiver.this.notify(null);
+                       //JTATextMessage message = new Gson().fromJson(pnMessageResult.getMessage().toString(), JTATextMessage.class);
+                       JTATextMessage message = new JTATextMessage("Incoming Message");
+                       PubNubReceiver.this.notify(new IncomingMessageNotification(message));
                    }
                });
            });
