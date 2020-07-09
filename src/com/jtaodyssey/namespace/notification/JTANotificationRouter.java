@@ -9,8 +9,15 @@ package com.jtaodyssey.namespace.notification;
  */
 public final class JTANotificationRouter implements JTANotificationObserver{
     private static final JTANotificationRouter notif = new JTANotificationRouter();
+    private final JTANotificationSubject toUINotifier = ToUINotifier.getInstance();
 
-    private JTANotificationRouter() {}
+    /**
+     * This ctor will observe the component that the UI writes notifications too
+     */
+    private JTANotificationRouter() {
+        FromUINotifier.getInstance().addObserver(this);
+    }
+
     public static JTANotificationRouter getInstance() { return notif; }
 
         @Override
@@ -30,5 +37,12 @@ public final class JTANotificationRouter implements JTANotificationObserver{
          * }
          *
          */
+        if (notification instanceof OutgoingMessageNotification) {
+            // call pubnub API
+        }
+        else if (notification instanceof IncomingMessageNotification) {
+            // send to the UI
+            toUINotifier.notify(notification);
+        }
     }
 }
