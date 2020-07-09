@@ -44,6 +44,11 @@
                         <Font name="Palatino" size="13.0" />
                      </font>
                   </JFXPasswordField>
+                  <Label fx:id="errorCheckLabel" layoutX="91.0" layoutY="142.0" prefHeight="17.0" prefWidth="197.0" text="* Invalid username/password" textFill="RED">
+                     <font>
+                        <Font name="Palatino" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="520.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff); background-image: linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff); -fx-background-radius: 1em;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">

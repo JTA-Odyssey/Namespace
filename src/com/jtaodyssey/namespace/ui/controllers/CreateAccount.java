@@ -132,14 +132,24 @@ public class CreateAccount implements Initializable
     @FXML
     public void OnCreateAccountClicked(MouseEvent event)
     {
-        // Implement the code to create a new account here.
+        String firstName       = firstNameField.getText();
+        String lastName        = lastNameField.getText();
+        String username        = usernameField.getText();
+        String password        = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+        if(!firstName.equals("") && !lastName.equals("") && !username.equals("")
+                && !password.equals("") && !confirmPassword.equals(""))
+        {
+            // Implement checks with database to see if username matches any other user's in the system
+        }
     }
 
     // On "Return to Login" clicked this function will return the user to the login screen.
     @FXML
     public void OnReturnToLoginClicked(MouseEvent event)
     {
-        // Implement the code to return back to the login screen here.
+        swapScene("Login", returnToLoginButton);
     }
 
     // On "X" clicked this function will terminate the program.

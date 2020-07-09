@@ -47,9 +47,7 @@ public class Login implements Initializable
     // ************
 
     @FXML
-    private Label errorCheckUsername;
-    @FXML
-    private Label errorCheckPassword;
+    private Label errorCheckLabel;
 
     // ***************
     // * Variable(s) *
@@ -65,6 +63,8 @@ public class Login implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        errorCheckLabel.setVisible(false);
+
         RequiredFieldValidator validator = new RequiredFieldValidator();
 
         usernameField.getValidators().add(validator);
@@ -114,10 +114,9 @@ public class Login implements Initializable
                 swapScene("Home", loginButton);
             }
         }
-        else
-        {
-            // If a field is missing then output validation messages
-        }
+
+        errorCheckLabel.setVisible(true);
+        passwordField.clear();
 
     }
 
