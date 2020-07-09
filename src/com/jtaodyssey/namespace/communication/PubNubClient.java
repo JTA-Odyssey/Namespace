@@ -65,8 +65,22 @@ public final class PubNubClient {
     public PubNub getPubNub() { return pubNub; }
 }
 
-class MockController {
+class MockController implements JTANotificationObserver {
+    public MockController() {
+        ToUINotifier.getInstance().addObserver(this);
+    }
+
+    @Override
+    public void update(JTANotification notification) {
+        if (notification instanceof IncomingMessageNotification) {
+            //todo remove after run in production
+            System.out.print("End point controller reached: ");
+            System.out.println(((JTATextMessage)notification.readPayload()).toString());
+        }
+    }
+
     public static void main(String[] args) {
+        new MockController();
         Scanner scanner = new Scanner(System.in);
 
         PubNubActions.getInstance().subscribe(Arrays.asList("A"));
@@ -81,5 +95,6 @@ class MockController {
             System.out.print("Enter your message: ");
             message = scanner.nextLine();
         }
+        PubNubClient.getInstance().getPubNub().forceDestroy();
     }
 }
