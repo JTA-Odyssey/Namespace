@@ -1,7 +1,7 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import javafx.event.EventHandler;
+import javafx.css.CssMetaData;
+import javafx.css.Styleable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -12,10 +12,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable
@@ -28,6 +30,10 @@ public class ChatMenu implements Initializable
     private ScrollPane chatScrollPane;
     @FXML
     private VBox chatBox;
+
+    // ****************
+    // * Text Area(s) *
+    // ****************
     @FXML
     private TextArea chatArea;
 
@@ -49,6 +55,7 @@ public class ChatMenu implements Initializable
                 HBox hBox = new HBox(12);
                 Label label = new Label("User: ");
                 hBox.setPadding(new Insets(20,0,0,30));
+                tempFlow.getStyleClass().add("textFlow");
                 hBox.getChildren().addAll(label, tempFlow);
 
                 if(!text.equals(""))
