@@ -10,26 +10,22 @@ public abstract class JTAUser {
     private String fn;
     private String ln;
     private String alias;
-    private String id;
+    protected String id;
 
     public JTAUser() {
-        this("", "", "", null);
+        this("", "", "");
     }
 
     public JTAUser(String fn, String ln) {
-        this(fn, ln, "", null);
+        this(fn, ln, "");
     }
 
     public JTAUser(String fn, String ln, String alias) {
-        this(fn, ln, alias, null);
-    }
-
-    protected JTAUser(String fn, String ln, String alias, String id) {
         setFirstName(fn);
         setLastName(ln);
         setAlias(alias);
-        setId(id);
     }
+
 
     public String getFn() { return fn; }
     public String getLn() { return ln; }
