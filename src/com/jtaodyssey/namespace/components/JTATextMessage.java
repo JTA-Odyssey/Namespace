@@ -13,7 +13,7 @@ public class JTATextMessage implements Payload {
     private String message;
     private String timestamp;
     private String userID;
-    // private transient JTAUser user; // info is stored if contact exists for id
+    private transient JTAUser user; // info is stored if contact exists for id
 
     public JTATextMessage() {
         this(null);
@@ -44,6 +44,10 @@ public class JTATextMessage implements Payload {
     public String getUserID() {
         return userID;
     }
+
+    public JTAUser getUser() { return user; }
+
+    public void setUser(JTAUser user) { this.user = user; }
 
     // todo we need to figure out how we want this to be set
     //  inlucde checks that make sure its valid
