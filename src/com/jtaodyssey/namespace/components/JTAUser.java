@@ -1,5 +1,7 @@
 package com.jtaodyssey.namespace.components;
 
+import java.util.Objects;
+
 /**
  * This represents a basic user that can be extended to add additional
  * functionality
@@ -53,5 +55,38 @@ public abstract class JTAUser {
 
     private boolean verifyString(String str, String pattern) {
         return str.matches(pattern);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fn, ln, id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+       if (obj == null) {
+           return false;
+       }
+       else if (!(obj instanceof JTAUser)) {
+           return false;
+       }
+       else {
+           return this.id.equals(((JTAUser) obj).id);
+       }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ First Name: ");
+        sb.append(fn);
+        sb.append(", Last Name: ");
+        sb.append(ln);
+        sb.append(", alias: ");
+        sb.append(alias);
+        sb.append(", ID: ");
+        sb.append(id);
+        sb.append("}");
+        return sb.toString();
     }
 }
