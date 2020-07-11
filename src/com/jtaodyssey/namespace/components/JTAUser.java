@@ -27,8 +27,8 @@ public abstract class JTAUser {
     }
 
 
-    public String getFn() { return fn; }
-    public String getLn() { return ln; }
+    public String getFirstName() { return fn; }
+    public String getLastName() { return ln; }
     public String getAlias() { return alias; }
     public String getId() { return id; }
     public void setAlias(String alias) { this.alias = alias; }
