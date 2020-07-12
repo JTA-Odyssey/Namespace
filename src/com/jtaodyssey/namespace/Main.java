@@ -1,5 +1,8 @@
 package com.jtaodyssey.namespace;
 
+import com.jtaodyssey.namespace.communication.PubNubActions;
+import com.jtaodyssey.namespace.communication.PubNubReceiver;
+import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.Arrays;
 
 public class Main extends Application
 {
@@ -46,6 +51,10 @@ public class Main extends Application
         {
             e.printStackTrace();
         }
+
+        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+        PubNubReceiver.getInstance().listen();
+        JTANotificationRouter.getInstance().init();
     }
 
     public static void main(String[] args)
