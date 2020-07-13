@@ -7,19 +7,31 @@ import java.util.UUID;
  * is the predominant concrete class used in the project
  */
 public class BasicUser extends JTAUser {
+    private String username;
+
     public BasicUser(String fn, String ln) {
-        this(fn, ln, "");
+        this(fn, ln, "", "");
     }
 
     public BasicUser(String fn, String ln, String alias){
-        super(fn, ln, alias);
-        setId(UUID.randomUUID().toString());
+        this(fn, ln, alias, "");
     }
 
+    public BasicUser(String fn, String ln, String alias, String username) {
+        super(fn, ln, alias);
+        setUsername(username);
+    }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
     @Override
-    protected void setId(String id) {
+    public void setId(String id) {
         if (!isUUID(id)) {
-            throw new IllegalArgumentException(id + " for basic user is not a UUID");
+            throw new IllegalArgumentException("BasicUser ID must be a UUID");
+        }
+        else if (super.id != null) {
+            throw new IllegalArgumentException("ID has already been set");
         }
         super.id = id;
     }
@@ -37,6 +49,11 @@ public class BasicUser extends JTAUser {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ username: ");
+        sb.append(username);
+        sb.append(",");
+        sb.append(super.toString().substring(1));
+        return sb.toString();
     }
 }
