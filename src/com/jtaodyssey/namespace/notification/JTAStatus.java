@@ -6,4 +6,5 @@ package com.jtaodyssey.namespace.notification;
  */
 public interface JTAStatus {
     String getStatus();
+    String getTime();
 }
