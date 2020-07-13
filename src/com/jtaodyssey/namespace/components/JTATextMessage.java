@@ -57,7 +57,7 @@ public class JTATextMessage implements Payload {
 
     @Override
     public String getType() {
-        return "Text Message";
+        return "TextMessage";
     }
 
     @Override
