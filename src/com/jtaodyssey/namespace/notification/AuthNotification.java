@@ -6,7 +6,7 @@ import com.jtaodyssey.namespace.components.JTALogin;
  * This notification type will be used to send login credentials
  * to the appropriate component
  */
-public class AuthenticationNotification extends JTANotification {
+public class AuthNotification extends JTANotification {
     @Override
     public void writePayload(Payload payload) {
         if (!(payload instanceof JTALogin)) {
