@@ -47,7 +47,7 @@ public abstract class JTAUser {
         this.ln = ln;
     }
 
-    protected abstract void setId(String id);
+    public abstract void setId(String id);
 
     private boolean verifyString(String str, String pattern) {
         return str.matches(pattern);
