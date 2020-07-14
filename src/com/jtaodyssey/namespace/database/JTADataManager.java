@@ -56,7 +56,7 @@ public class JTADataManager {
      * This method should be called every-time a user is logged-in
      */
     public void addWriter(JTAUser user) {
-        writers.put(user.getFirstName(), new JTADataWriter());
+        writers.put(user.getFirstName(), new JTADataWriter(user));
     }
 
     public static String getStoragePath() { return userStoragePath; }
