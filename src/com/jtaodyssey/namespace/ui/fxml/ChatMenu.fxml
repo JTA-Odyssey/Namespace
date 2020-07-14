@@ -37,7 +37,7 @@
       <Separator layoutX="612.0" orientation="VERTICAL" prefHeight="530.0" prefWidth="6.0" />
       <ScrollPane fx:id="chatScrollPane" fitToWidth="true" layoutX="152.0" layoutY="46.0" prefHeight="404.0" prefWidth="460.0" stylesheets="@../css/ChatDesign.css">
          <content>
-            <VBox fx:id="chatBox" prefHeight="398.0" prefWidth="454.0" spacing="20.0">
+            <VBox fx:id="chatBox" prefHeight="398.0" prefWidth="454.0" spacing="30.0">
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding></VBox>
