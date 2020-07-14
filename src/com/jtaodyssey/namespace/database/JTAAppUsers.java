@@ -9,36 +9,37 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
-public class JTADataManager {
-    private static volatile JTADataManager manager = null;
+public class JTAAppUsers {
+    private static volatile JTAAppUsers manager = null;
     private static String userStoragePath;
-    private HashMap<String, JTADataWriter> writers;
+    private HashMap<JTAUser, JTACachedUser> cachedUsers; // all users while app
+                                                        // has been running
 
     private void initialize() {
         Properties appProp = new Properties();
         String location = "config.properties";
         try {
             appProp.load(new BufferedInputStream(new FileInputStream(location)));
-            JTADataManager.userStoragePath = appProp.getProperty("userStoragePath");
+            JTAAppUsers.userStoragePath = appProp.getProperty("userStoragePath");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private JTADataManager() {
+    private JTAAppUsers() {
         initialize();
         File root = new File(userStoragePath);
         if (!root.isDirectory()) {
             root.mkdir();
         }
-        writers = new HashMap<>();
+        this.cachedUsers = new HashMap<>();
     }
 
-    public static JTADataManager getInstance() {
+    public static JTAAppUsers getInstance() {
         if (manager == null) {
-            synchronized (JTADataManager.class) {
+            synchronized (JTAAppUsers.class) {
                 if (manager == null) {
-                    manager = new JTADataManager();
+                    manager = new JTAAppUsers();
                 }
             }
         }
@@ -46,18 +47,17 @@ public class JTADataManager {
     }
 
     /**
-     * @return the data writer for the given user
+     * Users are added to this list upon login
+     * @return will return null if that user does not exist or the
      */
-    public JTADataWriter getWriter(JTAUser user) {
-        return writers.get(user.getFirstName());
+    public JTACachedUser getUser(JTAUser user) {
+        if (cachedUsers.get(user).equals(user)) {
+            return cachedUsers.get(user);
+        }
+        return null;
     }
 
-    /**
-     * This method should be called every-time a user is logged-in
-     */
-    public void addWriter(JTAUser user) {
-        writers.put(user.getFirstName(), new JTADataWriter(user));
-    }
+    // todo login is what promotes a user from being added to this list
 
     public static String getStoragePath() { return userStoragePath; }
 }
