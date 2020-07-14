@@ -1,6 +1,4 @@
-package com.jtaodyssey.namespace.database;
-
-import com.jtaodyssey.namespace.components.JTAUser;
+package com.jtaodyssey.namespace.components;
 
 import java.io.BufferedInputStream;
 import java.io.File;

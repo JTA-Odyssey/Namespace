@@ -1,6 +1,7 @@
-package com.jtaodyssey.namespace.database;
+package com.jtaodyssey.namespace.components;
 
-import com.jtaodyssey.namespace.components.JTAUser;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class will save data to the appropriate location
@@ -8,6 +9,8 @@ import com.jtaodyssey.namespace.components.JTAUser;
 public class JTACachedUser {
     private JTAUser user;
     private String userPath;
+    private HashMap<String, List<JTATextMessage>> messages; // maps texts to the channel
+                                                            // they were found on
 
     public JTACachedUser(JTAUser user) {
         setUser(user);
@@ -29,6 +32,8 @@ public class JTACachedUser {
     private void setUserPath(String userPath) {
         this.userPath = userPath;
     }
+
+
 
     //    public void saveUserInfo() {
 //        File userRoot = new File(userPath);
