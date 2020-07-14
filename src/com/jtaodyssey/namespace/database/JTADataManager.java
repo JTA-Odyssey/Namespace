@@ -58,4 +58,6 @@ public class JTADataManager {
     public void addWriter(JTAUser user) {
         writers.put(user.getFirstName(), new JTADataWriter());
     }
+
+    public static String getStoragePath() { return userStoragePath; }
 }
