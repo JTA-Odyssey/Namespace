@@ -1,6 +1,6 @@
 package com.jtaodyssey.namespace.database;
 
-import com.jtaodyssey.namespace.components.JTAUser;
+import com.jtaodyssey.namespace.components.JTALogin;
 
 import java.sql.*;
 
@@ -17,14 +17,15 @@ public class SQLDatabase implements DBManager
     // * User Table Field(s) *
     // ***********************
 
-    private int uniqueID       = 1;
-    private int username       = 2;
-    private int password       = 3;
-    private int firstName      = 4;
-    private int lastName       = 5;
-    private int alias          = 6;
-    private int profilePicture = 7;
-    private int accountStatus  = 8;
+    private int tableID        = 1;
+    private int uniqueID       = 2;
+    private int username       = 3;
+    private int password       = 4;
+    private int firstName      = 5;
+    private int lastName       = 6;
+    private int alias          = 7;
+    private int profilePicture = 8;
+    private int accountStatus  = 9;
 
     // ***************
     // * Constructor *
@@ -94,7 +95,7 @@ public class SQLDatabase implements DBManager
     }
 
     @Override
-    public int getUniqueID(JTAUser JTAUser) throws Exception
+    public int getUniqueID(JTALogin JTALogin) throws Exception
     {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -103,15 +104,13 @@ public class SQLDatabase implements DBManager
 
         try
         {
-            ps = connection.prepareStatement("Select * FROM USER WHERE Username = ? AND Password = ? AND FirstName = ? AND LastName = ?");
-//            ps.setString(1, JTAUser.getUsername());
-//            ps.setString(2, JTAUser.getPassword());
-            ps.setString(3, JTAUser.getFirstName());
-            ps.setString(4, JTAUser.getLastName());
+            ps = connection.prepareStatement("Select * FROM USER WHERE Username = ? AND Password = ?");
+            ps.setString(1, JTALogin.getUsername());
+            ps.setString(2, JTALogin.getPassword());
 
             rs = ps.executeQuery();
 
-            return rs.getInt(this.uniqueID);
+            return rs.getInt(this.tableID);
         }
         catch(Exception e)
         {
@@ -120,8 +119,5 @@ public class SQLDatabase implements DBManager
         }
 
     }
-
-
-
 
 }
