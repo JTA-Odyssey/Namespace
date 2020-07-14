@@ -11,10 +11,13 @@ public class JTACachedUser {
     private String userPath;
     private HashMap<String, List<JTATextMessage>> messages; // maps texts to the channel
                                                             // they were found on
+    private HashMap<String, JTAChannel> channels;
 
     public JTACachedUser(JTAUser user) {
         setUser(user);
         setUserPath(JTAAppUsers.getStoragePath() + user.getFirstName() + "/");
+        this.messages = new HashMap<>();
+        this.channels = new HashMap<>();
     }
 
     public JTAUser getUser() {
