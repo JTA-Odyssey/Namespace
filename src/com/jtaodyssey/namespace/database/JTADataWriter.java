@@ -1,6 +1,8 @@
 package com.jtaodyssey.namespace.database;
 
+import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTAUser;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 
 import java.io.*;
 import java.nio.file.InvalidPathException;
@@ -44,6 +46,21 @@ public class JTADataWriter {
     }
 
     public void save(JTAUser user) {
-        // check if the user has a folder
+        if (!(user instanceof BasicUser)) {
+            throw new IllegalArgumentException("Cannot save " + user.getClass()
+                    + " user type");
+        }
+
+        String loc = userDataPath + user.getFirstName() + "/";
+        File userRoot = new File(loc);
+        if (!userRoot.isDirectory()) {
+            userRoot.mkdir();
+        }
+        try {
+            OutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(loc + "user.dat")));
+        }
+        catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 }
