@@ -1,5 +1,7 @@
 package com.jtaodyssey.namespace.database;
 
+import com.jtaodyssey.namespace.components.JTAUser;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,5 +43,19 @@ public class JTADataManager {
             }
         }
         return manager;
+    }
+
+    /**
+     * @return the data writer for the given user
+     */
+    public JTADataWriter getWriter(JTAUser user) {
+        return writers.get(user.getFirstName());
+    }
+
+    /**
+     * This method should be called every-time a user is logged-in
+     */
+    public void addWriter(JTAUser user) {
+        writers.put(user.getFirstName(), new JTADataWriter());
     }
 }
