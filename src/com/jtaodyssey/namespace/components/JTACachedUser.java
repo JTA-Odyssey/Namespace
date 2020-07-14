@@ -63,17 +63,20 @@ public class JTACachedUser {
         }).start();
     }
 
-    //    public void saveUserInfo() {
-//        File userRoot = new File(userPath);
-//        if (!userRoot.isDirectory()) {
-//            userRoot.mkdir();
-//        }
-//        try {
-//            ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userPath + "user.dat")));
-//            os.writeObject(user);
-//        }
-//        catch (IOException io) {
-//            io.printStackTrace();
-//        }
-//    }
+    private void loadMessages() {
+        // todo will it be necessary to thread this
+        File fin = new File(userPath + "messages.dat");
+        if (fin.exists()) {
+            try {
+                ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userPath + "messages.dat")));
+                messages = (HashMap<String, List<JTATextMessage>>)in.readObject();
+            }
+            catch (IOException io) {
+                io.printStackTrace();
+            }
+            catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
