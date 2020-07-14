@@ -4,6 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
+import com.jtaodyssey.namespace.notification.JTANotification;
+import com.jtaodyssey.namespace.notification.JTANotificationObserver;
+import com.jtaodyssey.namespace.notification.ToUINotifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CreateAccount implements Initializable
+public class CreateAccount implements Initializable, JTANotificationObserver
 {
     // *************
     // * Button(s) *
@@ -54,9 +57,18 @@ public class CreateAccount implements Initializable
     private double xOffset;
     private double yOffset;
 
-    // **************************
-    // * Initialize Function(s) *
-    // **************************
+    // ***************
+    // * Constructor *
+    // ***************
+
+    public CreateAccount()
+    {
+        ToUINotifier.getInstance().addObserver(this);
+    }
+
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -122,6 +134,16 @@ public class CreateAccount implements Initializable
                 confirmPasswordField.validate();
             }
         });
+
+    }
+
+    // ***********************
+    // * Notification Update *
+    // ***********************
+
+    @Override
+    public void update(JTANotification notification)
+    {
 
     }
 
@@ -196,4 +218,6 @@ public class CreateAccount implements Initializable
             window.show();
         });
     }
+
+
 }

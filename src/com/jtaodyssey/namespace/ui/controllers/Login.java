@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jtaodyssey.namespace.Main;
+import com.jtaodyssey.namespace.notification.JTANotification;
+import com.jtaodyssey.namespace.notification.JTANotificationObserver;
+import com.jtaodyssey.namespace.notification.ToUINotifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -22,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Login implements Initializable
+public class Login implements Initializable, JTANotificationObserver
 {
     // *************
     // * Button(s) *
@@ -58,13 +62,38 @@ public class Login implements Initializable
     private double xOffset;
     private double yOffset;
 
-    // **************************
-    // * Initialize Function(s) *
-    // **************************
+    // ***************
+    // * Constructor *
+    // ***************
+
+    public Login()
+    {
+        ToUINotifier.getInstance().addObserver(this);
+    }
+
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+
+        usernameField.setOnKeyPressed(keyEvent ->
+        {
+            if(keyEvent.getCode() == KeyCode.TAB)
+            {
+                passwordField.isFocused();
+                passwordField.setOnKeyPressed(keyEvent1 ->
+                {
+                    if(keyEvent1.getCode() == KeyCode.ENTER || keyEvent1.getCode() == KeyCode.CANCEL)
+                    {
+                        OnLoginClicked();
+                    }
+                });
+            }
+        });
+
         errorCheckLabel.setVisible(false);
 
         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -95,6 +124,15 @@ public class Login implements Initializable
                 passwordField.validate();
             }
         });
+    }
+
+    // ***********************
+    // * Notification Update *
+    // ***********************
+
+    @Override
+    public void update(JTANotification notification)
+    {
 
     }
 
@@ -104,7 +142,7 @@ public class Login implements Initializable
 
     // On "Login" clicked this function will verify login credentials and log the user in.
     @FXML
-    public void OnLoginClicked(MouseEvent event)
+    public void OnLoginClicked()
     {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -124,7 +162,7 @@ public class Login implements Initializable
 
     // On "Create Account" clicked this function will swap scenes to the "CreateAccount" scene.
     @FXML
-    public void OnCreateAccountClicked(MouseEvent event)
+    public void OnCreateAccountClicked()
     {
         swapScene("CreateAccount", createAccountButton);
     }

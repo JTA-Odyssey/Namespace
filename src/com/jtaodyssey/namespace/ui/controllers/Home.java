@@ -1,18 +1,20 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jtaodyssey.namespace.notification.JTANotification;
+import com.jtaodyssey.namespace.notification.JTANotificationObserver;
+import com.jtaodyssey.namespace.notification.ToUINotifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Home implements Initializable
+public class Home implements Initializable, JTANotificationObserver
 {
     // ****************
     // * Container(s) *
@@ -35,12 +37,31 @@ public class Home implements Initializable
     @FXML
     private JFXButton closeApplicationButton;
 
-    // **************************
-    // * Initialize Function(s) *
-    // **************************
+    // ***************
+    // * Constructor *
+    // ***************
+
+    public Home()
+    {
+        ToUINotifier.getInstance().addObserver(this);
+    }
+
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+
+    }
+
+    // ***********************
+    // * Notification Update *
+    // ***********************
+
+    @Override
+    public void update(JTANotification notification)
     {
 
     }
@@ -51,7 +72,7 @@ public class Home implements Initializable
 
     // On "ChatMenu icon" clicked show chat menu in scene window
     @FXML
-    public void onClickShowChatMenu(MouseEvent event)
+    public void onClickShowChatMenu()
     {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("ChatMenu");
@@ -60,8 +81,10 @@ public class Home implements Initializable
 
     // On "X" clicked this function will terminate the program.
     @FXML
-    public void OnCloseApplicationClicked(MouseEvent event)
+    public void OnCloseApplicationClicked()
     {
+        ToUINotifier.getInstance().removeObserver(this);
         Platform.exit();
-        System.exit(0);    }
+        System.exit(0);
+    }
 }

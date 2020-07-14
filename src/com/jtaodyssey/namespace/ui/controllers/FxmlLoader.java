@@ -15,9 +15,9 @@ public class FxmlLoader implements Initializable
     // ****************
     private Pane view;
 
-    // **************************
-    // * Initialize Function(s) *
-    // **************************
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
