@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jtaodyssey.namespace.Main;
+import com.jtaodyssey.namespace.notification.JTANotification;
+import com.jtaodyssey.namespace.notification.JTANotificationObserver;
+import com.jtaodyssey.namespace.notification.ToUINotifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Login implements Initializable
+public class Login implements Initializable, JTANotificationObserver
 {
     // *************
     // * Button(s) *
@@ -59,9 +62,18 @@ public class Login implements Initializable
     private double xOffset;
     private double yOffset;
 
-    // **************************
-    // * Initialize Function(s) *
-    // **************************
+    // ***************
+    // * Constructor *
+    // ***************
+
+    public Login()
+    {
+        ToUINotifier.getInstance().addObserver(this);
+    }
+
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -112,6 +124,16 @@ public class Login implements Initializable
                 passwordField.validate();
             }
         });
+    }
+
+    // ***********************
+    // * Notification Update *
+    // ***********************
+
+    @Override
+    public void update(JTANotification notification)
+    {
+
     }
 
     // **************************

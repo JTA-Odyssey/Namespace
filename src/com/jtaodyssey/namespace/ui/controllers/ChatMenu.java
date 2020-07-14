@@ -36,12 +36,14 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     // ****************
     // * Text Area(s) *
     // ****************
+
     @FXML
     private TextArea chatArea;
 
     // ***************
     // * Constructor *
     // ***************
+
     public ChatMenu()
     {
         ToUINotifier.getInstance().addObserver(this);
