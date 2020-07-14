@@ -1,6 +1,7 @@
 package com.jtaodyssey.namespace.components;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class MessagingChannel implements JTAChannel {
     private static final String CH_PREFIX = "jta";
@@ -28,4 +29,27 @@ public class MessagingChannel implements JTAChannel {
 
     @Override
     public String getNameIncludePrefix() { return CH_PREFIX + channelName; }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(CH_PREFIX, channelName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        else if (!(obj instanceof MessagingChannel)) {
+            return false;
+        }
+        else {
+            return channelName.equals(((MessagingChannel) obj).channelName);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
