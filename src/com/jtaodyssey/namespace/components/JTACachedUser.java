@@ -1,5 +1,7 @@
 package com.jtaodyssey.namespace.components;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,7 +38,30 @@ public class JTACachedUser {
         this.userPath = userPath;
     }
 
+    public void record(JTAChannel channel, JTATextMessage message) {
+        if (messages.get(channel.getName()) == null) {
+            messages.put(channel.getName(), new ArrayList<>());
+        }
+        messages.get(channel.getName()).add(message);
+        persistMessages();
+    }
 
+    private void persistMessages() {
+        File userRoot = new File(userPath);
+        new Thread(()-> {
+            if (!userRoot.isDirectory()) {
+                userRoot.mkdir();
+            }
+            try {
+                ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userPath + "messages.dat")));
+                os.writeObject(user);
+                os.flush();
+                os.close();
+            } catch (IOException io) {
+                io.printStackTrace();
+            }
+        }).start();
+    }
 
     //    public void saveUserInfo() {
 //        File userRoot = new File(userPath);
