@@ -29,6 +29,6 @@ public class JTAInitializerService {
         JTACachedUser loadedUser = JTAAppUsers.getInstance().getUser(user);
         loadedUser.loadMessages();
         LoggedInUser.getInstance().setUser(loadedUser);
-        //
+        // we will want to load contacts and channels in this step as well
     }
 }

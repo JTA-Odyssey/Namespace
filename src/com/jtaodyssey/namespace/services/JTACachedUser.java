@@ -3,10 +3,7 @@ package com.jtaodyssey.namespace.services;
 import com.jtaodyssey.namespace.components.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This class will save data to the appropriate location
@@ -92,6 +89,17 @@ public class JTACachedUser {
 
     HashMap<String, List<JTATextMessage>> getMessages() { return messages; }
 
+    public List<JTATextMessage> getMessages(String channel) {
+        return Collections.unmodifiableList(messages.get(channel));
+    }
+
+    public List<JTATextMessage> getMessages(JTAChannel channel) {
+        return getMessages(channel.getName());
+    }
+
+    public Collection<JTAChannel> getChannels() {
+        return Collections.unmodifiableCollection(channels.values());
+    }
 
     public static void main(String[] args) throws Exception {
         JTAAppUsers.getInstance();
