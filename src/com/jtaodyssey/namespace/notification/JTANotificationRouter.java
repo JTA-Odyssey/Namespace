@@ -2,6 +2,8 @@ package com.jtaodyssey.namespace.notification;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
+import com.jtaodyssey.namespace.components.JTAAppUsers;
+import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTATextMessage;
 
 /**
@@ -62,6 +64,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         }
         else if (notification instanceof AuthNotification) {
             // send to the service that authenticates messages
+            JTAAppUsers.getInstance().login((JTALogin)notification.readPayload());
         }
         else if (notification instanceof AuthStatusNotification) {
             toUINotifier.notify(notification);

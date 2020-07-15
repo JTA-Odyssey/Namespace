@@ -18,7 +18,9 @@ public class JTACachedUser {
 
     public JTACachedUser(JTAUser user) {
         setUser(user);
-        setUserPath(JTAAppUsers.getStoragePath() + user.getFirstName() + "/");
+        setUserPath(JTAAppUsers.getStoragePath()
+                + user.getFirstName().toLowerCase()
+                + "_" + user.getLastName().toLowerCase() + "/");
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
         loadMessages();
