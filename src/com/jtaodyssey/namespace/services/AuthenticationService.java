@@ -20,7 +20,7 @@ public final class AuthenticationService implements JTAAuthenticator {
         }
         return auth;
     }
-    
+
     @Override
     public boolean authorize(String username, String password) {
         return false;

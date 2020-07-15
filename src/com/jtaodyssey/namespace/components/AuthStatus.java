@@ -1,4 +1,7 @@
-package com.jtaodyssey.namespace.notification;
+package com.jtaodyssey.namespace.components;
+
+import com.jtaodyssey.namespace.components.JTAStatus;
+import com.jtaodyssey.namespace.notification.Payload;
 
 import java.time.LocalDateTime;
 
@@ -7,7 +10,7 @@ import java.time.LocalDateTime;
  * Results range from simple success, to invalid username/password,
  * to account not found, to suspended account etc
  */
-public class AuthStatus implements JTAStatus {
+public class AuthStatus implements JTAStatus, Payload {
     private String message;
     private boolean isValidated;
     private String timeStamp;
@@ -62,4 +65,9 @@ public class AuthStatus implements JTAStatus {
 
     @Override
     public String toString() { return getStatus(); }
+
+    @Override
+    public String getType() {
+        return "Authorize Status";
+    }
 }

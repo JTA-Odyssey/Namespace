@@ -55,11 +55,5 @@ public class JTAAppUsers {
         return null;
     }
 
-    // todo login is what promotes a user from being added to this list
-
-    public void login(JTALogin login) {
-        // make a call to the users database
-    }
-
     public static String getStoragePath() { return userStoragePath; }
 }

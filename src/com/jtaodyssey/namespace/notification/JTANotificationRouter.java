@@ -2,9 +2,10 @@ package com.jtaodyssey.namespace.notification;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
-import com.jtaodyssey.namespace.components.JTAAppUsers;
+import com.jtaodyssey.namespace.components.AuthStatus;
 import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.services.AuthenticationService;
 
 /**
  * This class will facilitate notifications to the appropriate internal
@@ -29,23 +30,8 @@ public final class JTANotificationRouter implements JTANotificationObserver{
 
     public static JTANotificationRouter getInstance() { return notif; }
 
-        @Override
+    @Override
     public void update(JTANotification notification) {
-        // facilitate the different notification types here.
-        // i.e. if its outgoing call the correct observer
-        /**
-         *
-         * if (notification instanceOf IncomingMessageNotifcation) {
-         *      if (its a text message) {
-         *          // verify that its a valid channel
-         *          PubNubClient.publish(message, channel);
-         *      }
-         *      else if (its a item to be stored local db) {
-         *          // direct call to the appropriate DB interface
-         *      }
-         * }
-         *
-         */
         if (notification instanceof OutgoingMessageNotification) {
             OutgoingMessageNotification out = (OutgoingMessageNotification)notification;
             // todo remove after debugging
@@ -63,11 +49,25 @@ public final class JTANotificationRouter implements JTANotificationObserver{
 //            System.out.print(msg.readPayload());
         }
         else if (notification instanceof AuthNotification) {
-            // send to the service that authenticates messages
-            JTAAppUsers.getInstance().login((JTALogin)notification.readPayload());
+            actionOnLogin((JTALogin)notification.readPayload());
         }
-        else if (notification instanceof AuthStatusNotification) {
-            toUINotifier.notify(notification);
+    }
+
+    private void actionOnLogin(JTALogin login) {
+        String authMsg = "";
+        boolean isValidated = false;
+        if (AuthenticationService.getInstance().authorize(login)) {
+            // call to initialize the system and then after its init
+            // proceed to allow user into application
+            authMsg = "username and password authorized";
+            isValidated = true;
         }
+        else {
+            authMsg = "Invalid username/password";
+        }
+        AuthStatus status = new AuthStatus(authMsg, isValidated);
+        JTANotification notif = new AuthStatusNotification();
+        notif.writePayload(status);
+        toUINotifier.notify(notif);
     }
 }

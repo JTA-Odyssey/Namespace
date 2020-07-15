@@ -1,6 +1,6 @@
 package com.jtaodyssey.namespace.notification;
 
-import com.jtaodyssey.namespace.components.JTALogin;
+import com.jtaodyssey.namespace.components.JTAStatus;
 
 public class AuthStatusNotification extends JTANotification {
     @Override
