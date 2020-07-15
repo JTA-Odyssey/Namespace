@@ -1,4 +1,6 @@
-package com.jtaodyssey.namespace.components;
+package com.jtaodyssey.namespace.services;
+
+import com.jtaodyssey.namespace.components.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,7 +25,6 @@ public class JTACachedUser {
                 + "_" + user.getLastName().toLowerCase() + "/");
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
-        loadMessages();
     }
 
     public JTAUser getUser() {

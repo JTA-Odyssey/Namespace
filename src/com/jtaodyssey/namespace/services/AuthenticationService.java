@@ -33,6 +33,7 @@ public final class AuthenticationService implements JTAAuthenticator {
 
     @Override
     public boolean authorize(JTALogin login) {
+        // todo add the app user to by calling JTAAppUsers.getInstance().addUser();
         return false;
     }
 }
