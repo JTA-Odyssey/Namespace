@@ -44,8 +44,9 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else if (notification instanceof IncomingMessageNotification) {
             // send to the UI
             toUINotifier.notify(notification);
-            LoggedInUser.getInstance().getUser().record(((IncomingMessageNotification) notification).getChannelInfo(),
-                    ((JTATextMessage)notification.readPayload()));
+//            LoggedInUser.getInstance().getUser().record(((IncomingMessageNotification) notification).getChannelInfo(),
+//                    ((JTATextMessage)notification.readPayload()));
+
             // todo remove after debug
 //            IncomingMessageNotification msg = (IncomingMessageNotification)notification;
 //            System.out.println("Message processed coming in Router: ");
