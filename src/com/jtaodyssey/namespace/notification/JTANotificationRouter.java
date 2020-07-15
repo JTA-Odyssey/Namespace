@@ -5,7 +5,9 @@ import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.AuthStatus;
 import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.services.AuthenticationService;
+import com.jtaodyssey.namespace.services.JTAAppUsers;
 
 /**
  * This class will facilitate notifications to the appropriate internal
@@ -42,7 +44,8 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else if (notification instanceof IncomingMessageNotification) {
             // send to the UI
             toUINotifier.notify(notification);
-
+            LoggedInUser.getInstance().getUser().record(((IncomingMessageNotification) notification).getChannelInfo(),
+                    ((JTATextMessage)notification.readPayload()));
             // todo remove after debug
 //            IncomingMessageNotification msg = (IncomingMessageNotification)notification;
 //            System.out.println("Message processed coming in Router: ");

@@ -2,7 +2,13 @@ package com.jtaodyssey.namespace;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
+import com.jtaodyssey.namespace.components.BasicUser;
+import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.components.JTAUser;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.JTANotificationRouter;
+import com.jtaodyssey.namespace.services.JTACachedUser;
+import com.jtaodyssey.namespace.services.JTAInitializerService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +18,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class Main extends Application
 {
@@ -55,6 +64,15 @@ public class Main extends Application
         PubNubActions.getInstance().subscribe(Arrays.asList("A"));
         PubNubReceiver.getInstance().listen();
         JTANotificationRouter.getInstance().init();
+//
+//        JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");
+//        user.setId(UUID.randomUUID().toString());
+//        JTAInitializerService.getInstance().init(user);
+//        JTACachedUser cached = LoggedInUser.getInstance().getUser();
+//        List<JTATextMessage> list = cached.getMessages("A");
+//        for (JTATextMessage m : list) {
+//            System.out.println(m);
+//        }
     }
 
     public static void main(String[] args)

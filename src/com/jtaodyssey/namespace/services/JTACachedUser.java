@@ -105,6 +105,9 @@ public class JTACachedUser {
     HashMap<String, List<JTATextMessage>> getMessages() { return messages; }
 
     public List<JTATextMessage> getMessages(String channel) {
+        if (messages.get(channel) == null) {
+            return new ArrayList<>();
+        }
         return Collections.unmodifiableList(messages.get(channel));
     }
 
