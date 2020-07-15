@@ -26,6 +26,9 @@ public class LoggedInUser {
     public void setUser(JTACachedUser cached) {
         this.user = cached;
     }
+
+    public JTACachedUser getUser() { return user; }
+
     // have a function that once a user logs-in, it goes to the local DB
     // and pulls all of the necessary credentials
 }

@@ -117,9 +117,10 @@ public class JTACachedUser {
     }
 
     public static void main(String[] args) throws Exception {
-        JTAAppUsers.getInstance();
         JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");
-        JTACachedUser cached = new JTACachedUser(user);
+        user.setId(UUID.randomUUID().toString());
+        JTAInitializerService.getInstance().init(user);
+        JTACachedUser cached = LoggedInUser.getInstance().getUser();
 
         System.out.print("Message: ");
         Scanner scanner = new Scanner(System.in);
@@ -136,6 +137,7 @@ public class JTACachedUser {
         Thread.sleep(500);
 
         cached = new JTACachedUser(user);
+        cached.loadMessages();
         HashMap<String, List<JTATextMessage>> map = cached.getMessages();
         for (String channel : map.keySet()) {
             for (JTATextMessage m : map.get(channel)) {

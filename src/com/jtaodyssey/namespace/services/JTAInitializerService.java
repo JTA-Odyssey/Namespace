@@ -50,6 +50,7 @@ public class JTAInitializerService {
      */
     public void init(JTAUser user) {
         //todo this service should also make sure the filepaths are correctly set
+        JTAAppUsers.getInstance().addUser(user);
         JTACachedUser loadedUser = JTAAppUsers.getInstance().getUser(user);
         loadedUser.loadMessages();
         LoggedInUser.getInstance().setUser(loadedUser);

@@ -68,6 +68,9 @@ public abstract class JTAUser implements Serializable {
            return false;
        }
        else {
+           if (id == null) {
+               throw new IllegalArgumentException("User does have set id");
+           }
            return this.id.equals(((JTAUser) obj).id);
        }
     }
