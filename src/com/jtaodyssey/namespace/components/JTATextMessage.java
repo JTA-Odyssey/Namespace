@@ -2,6 +2,7 @@ package com.jtaodyssey.namespace.components;
 
 import com.jtaodyssey.namespace.notification.Payload;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
  * different users of the system. Please note that timestamp is a Java
  * LocalDateTime
  */
-public class JTATextMessage implements Payload {
+public class JTATextMessage implements Payload, Serializable {
     private String message;
     private String timestamp;
     private String userID;

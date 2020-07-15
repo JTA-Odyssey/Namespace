@@ -1,6 +1,8 @@
 package com.jtaodyssey.namespace.components;
 
-public interface JTAChannel {
+import java.io.Serializable;
+
+public interface JTAChannel extends Serializable {
     String getType();
     String getName();
     String getNameIncludePrefix();

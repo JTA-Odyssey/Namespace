@@ -1,12 +1,13 @@
 package com.jtaodyssey.namespace.components;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * This represents a basic user that can be extended to add additional
  * functionality
  */
-public abstract class JTAUser {
+public abstract class JTAUser implements Serializable {
     private String fn;
     private String ln;
     private String alias;
