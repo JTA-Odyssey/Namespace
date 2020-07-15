@@ -9,15 +9,30 @@ import java.util.*;
  * This class will save data to the appropriate location
  */
 public class JTACachedUser {
+    private static String storageRoot = null;
     private JTAUser user;
     private String userPath;
     private HashMap<String, List<JTATextMessage>> messages; // maps texts to the channel
                                                             // they were found on
     private HashMap<String, JTAChannel> channels;
 
+    private void initStorageRoot() {
+        if (storageRoot == null) {
+            Properties appProp = new Properties();
+            String location = "config.properties";
+            try {
+                appProp.load(new BufferedInputStream(new FileInputStream(location)));
+                JTACachedUser.storageRoot = appProp.getProperty("userStoragePath");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public JTACachedUser(JTAUser user) {
         setUser(user);
-        setUserPath(JTAAppUsers.getStoragePath()
+        initStorageRoot();
+        setUserPath(storageRoot
                 + user.getFirstName().toLowerCase()
                 + "_" + user.getLastName().toLowerCase() + "/");
         this.messages = new HashMap<>();

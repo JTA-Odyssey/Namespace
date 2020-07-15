@@ -11,27 +11,9 @@ import java.util.Properties;
 
 public class JTAAppUsers {
     private static volatile JTAAppUsers manager = null;
-    private static String userStoragePath;
     private HashMap<JTAUser, JTACachedUser> cachedUsers; // all users while app
                                                         // has been running
-
-    private void initialize() {
-        Properties appProp = new Properties();
-        String location = "config.properties";
-        try {
-            appProp.load(new BufferedInputStream(new FileInputStream(location)));
-            JTAAppUsers.userStoragePath = appProp.getProperty("userStoragePath");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private JTAAppUsers() {
-        initialize();
-        File root = new File(userStoragePath);
-        if (!root.isDirectory()) {
-            root.mkdir();
-        }
         this.cachedUsers = new HashMap<>();
     }
 
@@ -65,6 +47,4 @@ public class JTAAppUsers {
         }
         return null;
     }
-
-    public static String getStoragePath() { return userStoragePath; }
 }
