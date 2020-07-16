@@ -8,4 +8,5 @@ public interface JTARegistration {
     String getLastName();
     String getUsername();
     String getPassword();
+    String getID();
 }

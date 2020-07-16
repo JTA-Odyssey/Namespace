@@ -55,6 +55,9 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else if (notification instanceof AuthNotification) {
             actionOnLogin((JTALogin)notification.readPayload());
         }
+        else if (notification instanceof RegistrationNotification) {
+
+        }
     }
 
     private void actionOnLogin(JTALogin login) {

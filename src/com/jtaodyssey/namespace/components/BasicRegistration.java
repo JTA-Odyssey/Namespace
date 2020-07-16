@@ -1,6 +1,7 @@
 package com.jtaodyssey.namespace.components;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class BasicRegistration implements JTARegistration {
     private JTAUser user;
@@ -8,6 +9,7 @@ public class BasicRegistration implements JTARegistration {
 
     public BasicRegistration(String fn, String ln, String username, String password) {
         this(new BasicUser(fn, ln), new JTALogin(username, password));
+        user.setId(UUID.randomUUID().toString().substring(0, 9));
     }
 
     public BasicRegistration(JTAUser user, JTALogin login) {
@@ -26,6 +28,8 @@ public class BasicRegistration implements JTARegistration {
     public String getUsername() { return login.getUsername(); }
     @Override
     public String getPassword() { return login.getPassword(); }
+    @Override
+    public String getID() { return user.getId(); }
 
     @Override
     public int hashCode() { return Objects.hash(login.getUsername(), login.getPassword()); }
@@ -52,6 +56,8 @@ public class BasicRegistration implements JTARegistration {
         sb.append(user.getLastName());
         sb.append(", username: ");
         sb.append(login.getUsername());
+        sb.append(", ID: ");
+        sb.append(user.getId());
         sb.append(" }");
         return sb.toString();
     }
