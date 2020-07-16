@@ -119,33 +119,33 @@ public class JTACachedUser {
         return Collections.unmodifiableCollection(channels.values());
     }
 
-    public static void main(String[] args) throws Exception {
-        JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");
-        user.setId(UUID.randomUUID().toString());
-        JTAInitializerService.getInstance().init(user);
-        JTACachedUser cached = LoggedInUser.getInstance().getUser();
-
-        System.out.print("Message: ");
-        Scanner scanner = new Scanner(System.in);
-
-        String message = scanner.nextLine();
-        while (!message.equals("done")) {
-            cached.record(new MessagingChannel("A"), new JTATextMessage(message));
-
-            System.out.print("Message: ");
-            message = scanner.nextLine();
-        }
-        cached.persistMessages();
-
-        Thread.sleep(500);
-
-        cached = new JTACachedUser(user);
-        cached.loadMessages();
-        HashMap<String, List<JTATextMessage>> map = cached.getMessages();
-        for (String channel : map.keySet()) {
-            for (JTATextMessage m : map.get(channel)) {
-                System.out.println(m);
-            }
-        }
-    }
+//    public static void main(String[] args) throws Exception {
+//        JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");
+//        user.setId(UUID.randomUUID().toString());
+//        JTAInitializerService.getInstance().init(user);
+//        JTACachedUser cached = LoggedInUser.getInstance().getUser();
+//
+//        System.out.print("Message: ");
+//        Scanner scanner = new Scanner(System.in);
+//
+//        String message = scanner.nextLine();
+//        while (!message.equals("done")) {
+//            cached.record(new MessagingChannel("A"), new JTATextMessage(message));
+//
+//            System.out.print("Message: ");
+//            message = scanner.nextLine();
+//        }
+//        cached.persistMessages();
+//
+//        Thread.sleep(500);
+//
+//        cached = new JTACachedUser(user);
+//        cached.loadMessages();
+//        HashMap<String, List<JTATextMessage>> map = cached.getMessages();
+//        for (String channel : map.keySet()) {
+//            for (JTATextMessage m : map.get(channel)) {
+//                System.out.println(m);
+//            }
+//        }
+//    }
 }

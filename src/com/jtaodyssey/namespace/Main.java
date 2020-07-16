@@ -62,8 +62,9 @@ public class Main extends Application
         }
 
         //todo add the following lines to the initializer
-        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
-        PubNubReceiver.getInstance().listen();
+//        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+//        PubNubReceiver.getInstance().listen();
+        JTAInitializerService.getInstance().prepare();
         JTANotificationRouter.getInstance().init();
 //
 //        JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");

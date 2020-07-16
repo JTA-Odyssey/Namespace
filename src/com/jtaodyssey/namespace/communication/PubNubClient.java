@@ -1,15 +1,16 @@
 package com.jtaodyssey.namespace.communication;
 
+import com.jtaodyssey.namespace.components.AuthStatus;
+import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.*;
+import com.jtaodyssey.namespace.services.JTAInitializerService;
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * PubNubClient is used to initialize the PubNub client API
@@ -66,6 +67,7 @@ public final class PubNubClient {
 }
 
 class MockController implements JTANotificationObserver {
+    private static volatile boolean valid = false;
     public MockController() {
         ToUINotifier.getInstance().addObserver(this);
     }
@@ -77,15 +79,41 @@ class MockController implements JTANotificationObserver {
             System.out.print("End point controller reached: ");
             System.out.println(((JTATextMessage)notification.readPayload()).toString());
         }
+        else if (notification instanceof AuthStatusNotification) {
+            boolean res = ((AuthStatus)notification.readPayload()).isValidated();
+            if (res) {
+                System.out.println("Valid Login System init");
+                valid = true;
+            }
+            else {
+                System.out.println("Invalid login, try again");
+            }
+        }
     }
 
     public static void main(String[] args) {
         new MockController();
         Scanner scanner = new Scanner(System.in);
 
-        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
-        PubNubReceiver.getInstance().listen();
+//        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+//        PubNubReceiver.getInstance().listen();
+        JTAInitializerService.getInstance().prepare();
         JTANotificationRouter.getInstance().init();
+
+        System.out.print("Enter Username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter Password: ");
+        String pwd = scanner.nextLine();
+
+        FromUINotifier.getInstance().notify(new AuthNotification(new JTALogin(username, pwd)));
+
+        while (!valid) { }
+
+        List<JTATextMessage> msg = LoggedInUser.getInstance().getUser().getMessages("A");
+        System.out.println(msg.size());
+        for (JTATextMessage m : msg) {
+            System.out.println(m);
+        }
 
         System.out.print("Enter your message: ");
         String message = scanner.nextLine();

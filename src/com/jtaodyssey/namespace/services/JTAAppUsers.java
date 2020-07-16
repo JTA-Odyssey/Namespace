@@ -42,9 +42,10 @@ public class JTAAppUsers {
      * @return will return null if that user does not exist or the
      */
     public JTACachedUser getUser(JTAUser user) {
-        if (cachedUsers.get(user).getUser().equals(user)) {
-            return cachedUsers.get(user);
-        }
-        return null;
+//        if (cachedUsers.get(user).getUser().equals(user)) {
+//            return cachedUsers.get(user);
+//        }
+        return cachedUsers.get(user);
+        //return null;
     }
 }

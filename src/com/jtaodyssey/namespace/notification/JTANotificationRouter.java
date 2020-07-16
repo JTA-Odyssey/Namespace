@@ -37,15 +37,15 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         if (notification instanceof OutgoingMessageNotification) {
             OutgoingMessageNotification out = (OutgoingMessageNotification)notification;
             // todo remove after debugging
-            PubNubActions.getInstance().publish((JTATextMessage)out.readPayload(), out.getChannel());
+            PubNubActions.getInstance().publish(out.readPayload(), out.getChannel());
 //            System.out.println("Message processed going out of Router: ");
 //            System.out.print((JTATextMessage)out.readPayload());
         }
         else if (notification instanceof IncomingMessageNotification) {
             // send to the UI
             toUINotifier.notify(notification);
-//            LoggedInUser.getInstance().getUser().record(((IncomingMessageNotification) notification).getChannelInfo(),
-//                    ((JTATextMessage)notification.readPayload()));
+            LoggedInUser.getInstance().getUser().record(((IncomingMessageNotification) notification).getChannelInfo(),
+                    ((JTATextMessage)notification.readPayload()));
 
             // todo remove after debug
 //            IncomingMessageNotification msg = (IncomingMessageNotification)notification;
@@ -54,6 +54,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         }
         else if (notification instanceof AuthNotification) {
             actionOnLogin((JTALogin)notification.readPayload());
+            System.out.println(notification.readPayload());
         }
         else if (notification instanceof RegistrationNotification) {
 
@@ -72,8 +73,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
             authMsg = "Invalid username/password";
         }
         AuthStatus status = new AuthStatus(authMsg, isValidated);
-        JTANotification notif = new AuthStatusNotification();
-        notif.writePayload(status);
+        JTANotification notif = new AuthStatusNotification(status);
         toUINotifier.notify(notif);
     }
 }

@@ -47,7 +47,7 @@ public class SQLDatabase implements DBManager
         {
             // This is the connection to the database holding the user table
             Class.forName("org.sqlite.JDBC");
-            this.connection = DriverManager.getConnection("jdbc:sqlite:JTAOdyssey.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:.storage/database.db");
 
             System.out.println("Connected!");
 
@@ -132,7 +132,7 @@ public class SQLDatabase implements DBManager
 
             rs = ps.executeQuery();
 
-            if (!rs.getString(this.status).equals("Inactive"))
+            if (rs.getString(this.status).equals("Inactive"))
             {
                 throw new Exception("This user is inactive!");
             }

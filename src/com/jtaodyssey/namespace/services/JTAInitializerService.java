@@ -1,12 +1,16 @@
 package com.jtaodyssey.namespace.services;
 
+import com.jtaodyssey.namespace.communication.PubNubActions;
+import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.JTAUser;
 import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -27,6 +31,18 @@ public class JTAInitializerService {
         }
     }
     private JTAInitializerService() {
+//        initialize();
+//        File root = new File(userStoragePath);
+//        if (!root.isDirectory()) {
+//            root.mkdir();
+//        }
+    }
+
+    /**
+     * Should be called before anything else to make sure file structure
+     * is in place
+     */
+    public void prepare() {
         initialize();
         File root = new File(userStoragePath);
         if (!root.isDirectory()) {
@@ -50,6 +66,8 @@ public class JTAInitializerService {
      */
     public void init(JTACachedUser user) {
         //todo this service should also make sure the filepaths are correctly set
+        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+        PubNubReceiver.getInstance().listen();
         user.loadMessages();
         // we will want to load contacts and channels in this step as well
     }

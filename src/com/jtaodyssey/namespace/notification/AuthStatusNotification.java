@@ -3,6 +3,10 @@ package com.jtaodyssey.namespace.notification;
 import com.jtaodyssey.namespace.components.JTAStatus;
 
 public class AuthStatusNotification extends JTANotification {
+    public AuthStatusNotification(Payload payload) {
+        super(payload);
+    }
+
     @Override
     public void writePayload(Payload payload) {
         if (!(payload instanceof JTAStatus)) {
