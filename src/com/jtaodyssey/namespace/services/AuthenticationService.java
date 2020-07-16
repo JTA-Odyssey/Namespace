@@ -2,6 +2,7 @@ package com.jtaodyssey.namespace.services;
 
 import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTAUser;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.database.DBManager;
 import com.jtaodyssey.namespace.database.SQLDatabase;
 
@@ -38,6 +39,7 @@ public final class AuthenticationService implements JTAAuthenticator {
             JTAUser user = manager.Login(login);
             if (user != null) {
                 JTAAppUsers.getInstance().addUser(user);
+                LoggedInUser.getInstance().setUser(JTAAppUsers.getInstance().getUser(user));
                 return true;
             }
         } catch (Exception e) {

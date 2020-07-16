@@ -7,7 +7,7 @@ import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTATextMessage;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.services.AuthenticationService;
-import com.jtaodyssey.namespace.services.JTAAppUsers;
+import com.jtaodyssey.namespace.services.JTAInitializerService;
 
 /**
  * This class will facilitate notifications to the appropriate internal
@@ -64,8 +64,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         String authMsg = "";
         boolean isValidated = false;
         if (AuthenticationService.getInstance().authorize(login)) {
-            // call to initialize the system and then after its init
-            // proceed to allow user into application
+            JTAInitializerService.getInstance().init(LoggedInUser.getInstance().getUser());
             authMsg = "username and password authorized";
             isValidated = true;
         }

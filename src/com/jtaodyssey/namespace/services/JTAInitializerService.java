@@ -48,12 +48,9 @@ public class JTAInitializerService {
     /**
      * loads all the files and caches information for use
      */
-    public void init(JTAUser user) {
+    public void init(JTACachedUser user) {
         //todo this service should also make sure the filepaths are correctly set
-        //JTAAppUsers.getInstance().addUser(user);
-        JTACachedUser loadedUser = JTAAppUsers.getInstance().getUser(user);
-        loadedUser.loadMessages();
-        LoggedInUser.getInstance().setUser(loadedUser);
+        user.loadMessages();
         // we will want to load contacts and channels in this step as well
     }
 }

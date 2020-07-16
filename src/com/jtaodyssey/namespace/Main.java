@@ -61,6 +61,7 @@ public class Main extends Application
             e.printStackTrace();
         }
 
+        //todo add the following lines to the initializer
         PubNubActions.getInstance().subscribe(Arrays.asList("A"));
         PubNubReceiver.getInstance().listen();
         JTANotificationRouter.getInstance().init();
