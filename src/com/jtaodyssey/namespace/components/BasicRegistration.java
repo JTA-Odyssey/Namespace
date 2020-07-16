@@ -1,5 +1,7 @@
 package com.jtaodyssey.namespace.components;
 
+import java.util.Objects;
+
 public class BasicRegistration implements JTARegistration {
     private JTAUser user;
     private JTALogin login;
@@ -24,4 +26,33 @@ public class BasicRegistration implements JTARegistration {
     public String getUsername() { return login.getUsername(); }
     @Override
     public String getPassword() { return login.getPassword(); }
+
+    @Override
+    public int hashCode() { return Objects.hash(login.getUsername(), login.getPassword()); }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        else if (!(obj instanceof BasicRegistration)) {
+            return false;
+        }
+        else {
+            return login.getUsername().equals(((BasicRegistration) obj).getUsername());
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ firstname: ");
+        sb.append(user.getFirstName());
+        sb.append(", lastname: ");
+        sb.append(user.getLastName());
+        sb.append(", username: ");
+        sb.append(login.getUsername());
+        sb.append(" }");
+        return sb.toString();
+    }
 }
