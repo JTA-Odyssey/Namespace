@@ -98,10 +98,79 @@
 
 
 
+#channelScrollPane
+{
+    -fx-background-color: rgb(40, 40, 40);
+}
+#channelScrollPane >.viewport
+{
+    -fx-background-color: transparent;
+}
+
+#channelScrollPane .scroll-bar:vertical
+{
+    -fx-background-color:inherit;
+
+}
+
+#channelScrollPane .scroll-bar:vertical .track
+{
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+
+}
+
+#channelScrollPane .scroll-bar:horizontal
+{
+    -fx-background-color:inherit;
+
+}
+
+#channelScrollPane .scroll-bar:horizontal .track
+{
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+
+}
+
+#channelScrollPane .scroll-bar:vertical .increment-button,
+#channelScrollPane .scroll-bar:vertical .decrement-button
+{
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+
+}
+
+#channelScrollPane  .scroll-bar .increment-arrow,
+#channelScrollPane  .scroll-bar .decrement-arrow
+{
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+#channelScrollPane .scroll-bar:vertical .thumb
+{
+    -fx-background-color:transparent;
+
+}
+#channelScrollPane:hover .scroll-bar:vertical .thumb
+{
+    -fx-background-color:rgba(0,0,0,0.6);
+    -fx-background-insets: 4, 0, 0;
+    -fx-background-radius: 2em;
+}
 
 
-
-
+.channelLabel
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0.5, 0.5, 2, 2);
+}
 
 
 

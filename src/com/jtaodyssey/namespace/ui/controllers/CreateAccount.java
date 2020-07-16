@@ -170,14 +170,14 @@ public class CreateAccount implements Initializable, JTANotificationObserver
 
     // On "Return to Login" clicked this function will return the user to the login screen.
     @FXML
-    public void OnReturnToLoginClicked(MouseEvent event)
+    public void OnReturnToLoginClicked()
     {
         swapScene("Login", returnToLoginButton);
     }
 
     // On "X" clicked this function will terminate the program.
     @FXML
-    public void OnCloseApplicationClicked(MouseEvent event)
+    public void OnCloseApplicationClicked()
     {
         Platform.exit();
         System.exit(0);
