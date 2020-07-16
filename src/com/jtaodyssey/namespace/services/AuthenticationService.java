@@ -1,6 +1,7 @@
 package com.jtaodyssey.namespace.services;
 
 import com.jtaodyssey.namespace.components.JTALogin;
+import com.jtaodyssey.namespace.components.JTAUser;
 import com.jtaodyssey.namespace.database.DBManager;
 import com.jtaodyssey.namespace.database.SQLDatabase;
 
@@ -28,12 +29,20 @@ public final class AuthenticationService implements JTAAuthenticator {
 
     @Override
     public boolean authorize(String username, String password) {
-        return false;
+        return authorize(new JTALogin(username, password));
     }
 
     @Override
     public boolean authorize(JTALogin login) {
-        // todo add the app user to by calling JTAAppUsers.getInstance().addUser();
+        try {
+            JTAUser user = manager.Login(login);
+            if (user != null) {
+                JTAAppUsers.getInstance().addUser(user);
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

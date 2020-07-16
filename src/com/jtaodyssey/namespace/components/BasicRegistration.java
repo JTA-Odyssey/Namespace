@@ -9,7 +9,7 @@ public class BasicRegistration implements JTARegistration {
 
     public BasicRegistration(String fn, String ln, String username, String password) {
         this(new BasicUser(fn, ln), new JTALogin(username, password));
-        user.setId(UUID.randomUUID().toString().substring(0, 9));
+        user.setId(UUID.randomUUID().toString());
     }
 
     public BasicRegistration(JTAUser user, JTALogin login) {
@@ -57,7 +57,7 @@ public class BasicRegistration implements JTARegistration {
         sb.append(", username: ");
         sb.append(login.getUsername());
         sb.append(", ID: ");
-        sb.append(user.getId());
+        sb.append(getID());
         sb.append(" }");
         return sb.toString();
     }
