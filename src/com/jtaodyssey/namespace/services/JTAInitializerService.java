@@ -43,6 +43,7 @@ public class JTAInitializerService {
      * is in place
      */
     public void prepare() {
+        JTANotificationRouter.getInstance().init();
         initialize();
         File root = new File(userStoragePath);
         if (!root.isDirectory()) {

@@ -98,7 +98,7 @@ class MockController implements JTANotificationObserver {
 //        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
 //        PubNubReceiver.getInstance().listen();
         JTAInitializerService.getInstance().prepare();
-        JTANotificationRouter.getInstance().init();
+        //JTANotificationRouter.getInstance().init();
 
         System.out.print("Enter Username: ");
         String username = scanner.nextLine();

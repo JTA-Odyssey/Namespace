@@ -60,12 +60,18 @@ public class Main extends Application
         {
             e.printStackTrace();
         }
+        JTAInitializerService.getInstance().prepare();
+    }
 
-        //todo add the following lines to the initializer
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
+}
+
+//todo add the following lines to the initializer
 //        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
 //        PubNubReceiver.getInstance().listen();
-        JTAInitializerService.getInstance().prepare();
-        JTANotificationRouter.getInstance().init();
 //
 //        JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");
 //        user.setId(UUID.randomUUID().toString());
@@ -75,10 +81,3 @@ public class Main extends Application
 //        for (JTATextMessage m : list) {
 //            System.out.println(m);
 //        }
-    }
-
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
-}
