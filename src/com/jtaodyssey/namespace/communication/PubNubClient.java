@@ -1,9 +1,6 @@
 package com.jtaodyssey.namespace.communication;
 
-import com.jtaodyssey.namespace.components.AuthStatus;
-import com.jtaodyssey.namespace.components.JTALogin;
-import com.jtaodyssey.namespace.components.JTATextMessage;
-import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.components.*;
 import com.jtaodyssey.namespace.notification.*;
 import com.jtaodyssey.namespace.services.JTAInitializerService;
 import com.pubnub.api.PNConfiguration;
@@ -99,6 +96,8 @@ class MockController implements JTANotificationObserver {
 //        PubNubReceiver.getInstance().listen();
         JTAInitializerService.getInstance().prepare();
         //JTANotificationRouter.getInstance().init();
+        BasicRegistration reg = new BasicRegistration("Tucker", "Harvey", "tharvey556", "1234");
+        FromUINotifier.getInstance().notify(new RegistrationNotification(reg));
 
         System.out.print("Enter Username: ");
         String username = scanner.nextLine();

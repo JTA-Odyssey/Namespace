@@ -1,9 +1,11 @@
 package com.jtaodyssey.namespace.components;
 
+import com.jtaodyssey.namespace.notification.Payload;
+
 import java.util.Objects;
 import java.util.UUID;
 
-public class BasicRegistration implements JTARegistration {
+public class BasicRegistration implements JTARegistration, Payload {
     private JTAUser user;
     private JTALogin login;
 
@@ -30,6 +32,8 @@ public class BasicRegistration implements JTARegistration {
     public String getPassword() { return login.getPassword(); }
     @Override
     public String getID() { return user.getId(); }
+    @Override
+    public String getType() { return "Basic Registration"; }
 
     @Override
     public int hashCode() { return Objects.hash(login.getUsername(), login.getPassword()); }

@@ -69,7 +69,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else {
             authMsg = "Username was not unique";
         }
-        toUINotifier.notify(new AuthNotification( new AuthStatus(authMsg, isValidated)));
+        toUINotifier.notify(new AuthStatusNotification(new AuthStatus(authMsg, isValidated)));
     }
 
     private void actionOnLogin(JTALogin login) {

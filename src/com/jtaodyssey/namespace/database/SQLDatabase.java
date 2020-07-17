@@ -157,22 +157,25 @@ public class SQLDatabase implements DBManager
 
         try
         {
-            ps = connection.prepareStatement("Select * FROM USER WHERE Username = ?");
-            ps.setString(1, registration.getUsername());
+            ps = connection.prepareStatement("INSERT INTO USER(ID, Username, Password, FirstName, LastName, Alias, Status, ProfilePicture) VALUES(?,?,?,?,?,?,?,?)");
+            ps.setString(1, registration.getID());
+            ps.setString(2, registration.getUsername());
+            ps.setString(3, registration.getPassword());
+            ps.setString(4, registration.getFirstName());
+            ps.setString(5, registration.getLastName());
+            ps.setString(6, "");
+            ps.setString(7, "Active");
+            ps.setString(8, "");
 
             rs = ps.executeQuery();
-
-            if(rs.getString(this.username).equals(registration.getUsername()))
-            {
-                return false;
-            }
-
             return true;
+
         }
         catch(Exception e)
         {
             System.out.println(e.toString());
             throw new Exception("This username already exists!");
+
         }
     }
 }
