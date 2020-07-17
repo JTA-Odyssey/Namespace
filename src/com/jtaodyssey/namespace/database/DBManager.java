@@ -15,7 +15,5 @@ public interface DBManager
 
     BasicUser Login(JTALogin userLogin) throws Exception;
 
-    Boolean Registration(JTARegistration registration) throws Exception;
-
-    Boolean addBasicUser(BasicUser basicUser) throws Exception;
+    Boolean Registration(BasicUser basicUser, String password) throws Exception;
 }

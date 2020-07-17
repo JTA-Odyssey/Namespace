@@ -150,65 +150,33 @@ public class SQLDatabase implements DBManager
     }
 
     @Override
-    public Boolean Registration(JTARegistration registration) throws Exception
+    public Boolean Registration(BasicUser basicUser, String password) throws Exception
     {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try
         {
-            ps = connection.prepareStatement("Select * FROM USER WHERE Username = ?");
-            ps.setString(1, registration.getUsername());
+            ps = connection.prepareStatement("INSERT INTO USER(ID, Username, Password, FirstName, LastName, Alias, Status, ProfilePicture) VALUES(?,?,?,?,?,?,?,?)");
+            ps.setString(1, basicUser.getId());
+            ps.setString(2, basicUser.getUsername());
+            ps.setString(3, password);
+            ps.setString(4, basicUser.getFirstName());
+            ps.setString(5, basicUser.getLastName());
+            ps.setString(6, basicUser.getAlias());
+            ps.setString(7, "Active");
+            ps.setString(8, "");
 
             rs = ps.executeQuery();
-
-            if(!rs.getString(this.username).equals(registration.getUsername()))
-            {
-                return true;
-            }
-
+            return true;
 
         }
         catch(Exception e)
         {
             System.out.println(e.toString());
             throw new Exception("This username already exists!");
-        }
-        return false;
-    }
-
-    @Override
-    public Boolean addBasicUser(BasicUser basicUser) throws Exception
-    {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        int counter = 0;
-
-        try
-        {
-            ps = connection.prepareStatement("INSERT INTO USER(ID, Username, Password, FirstName, LastName, Alias, Status, ProfilePicture) VALUES(?,?,?,?,?,?,?,?)");
-            ps.setString(1, basicUser.getUsername());
-//            ps.setString(2, basicUser.getPassword());
-            ps.setString(3, basicUser.getFirstName());
-            ps.setString(4, basicUser.getLastName());
-            ps.setString(5, "Active");
-            ps.setInt(6, 0);
-            ps.setInt(7, 0);
-            ps.setInt(8, 0);
-
-
-            counter = ps.executeUpdate();
-
-            return true;
-        }
-        catch(Exception e)
-        {
-            System.out.println(e.toString());
-            return false;
 
         }
-
 
     }
 
