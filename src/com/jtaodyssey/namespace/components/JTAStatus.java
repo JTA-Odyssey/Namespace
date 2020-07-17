@@ -7,4 +7,5 @@ package com.jtaodyssey.namespace.components;
 public interface JTAStatus {
     String getStatus();
     String getTime();
+    String getStatusType();
 }

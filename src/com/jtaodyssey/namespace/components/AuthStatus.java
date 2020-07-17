@@ -14,15 +14,25 @@ public class AuthStatus implements JTAStatus, Payload {
     private String message;
     private boolean isValidated;
     private String timeStamp;
+    private String statusType;
 
     public AuthStatus() {
-        this("", false);
+        this("", false, "Default");
     }
 
-    public AuthStatus(String message, boolean isValidated) {
+    public AuthStatus(String message, boolean isValidated, String statusType) {
         setMessage(message);
         setValidated(isValidated);
         setTimeStamp(LocalDateTime.now().toString());
+        setStatusType(statusType);
+    }
+
+    private void setStatusType(String statusType) {
+        // todo add an enum class
+        if (!statusType.toLowerCase().equals("login") || !statusType.toLowerCase().equals("registration")) {
+            throw new IllegalArgumentException(statusType + "not of login or registration");
+        }
+        this.statusType = statusType;
     }
 
     private void setTimeStamp(String timeStamp) {
@@ -69,5 +79,10 @@ public class AuthStatus implements JTAStatus, Payload {
     @Override
     public String getType() {
         return "Authorize Status";
+    }
+
+    @Override
+    public String getStatusType() {
+        return statusType;
     }
 }
