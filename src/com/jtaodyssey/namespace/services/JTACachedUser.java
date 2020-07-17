@@ -146,4 +146,8 @@ public class JTACachedUser {
     public Collection<JTAChannel> getChannels() {
         return Collections.unmodifiableCollection(channels.values());
     }
+
+    Set<String> getChannelNames() {
+        return Collections.unmodifiableSet(channels.keySet());
+    }
 }

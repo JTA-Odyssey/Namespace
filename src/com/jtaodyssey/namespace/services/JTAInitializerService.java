@@ -2,14 +2,15 @@ package com.jtaodyssey.namespace.services;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
+import com.jtaodyssey.namespace.components.JTAChannel;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * This service is used to load all user files once they login
@@ -63,11 +64,13 @@ public class JTAInitializerService {
     /**
      * loads all the files and caches information for use
      */
-    public void init(JTACachedUser user) {
+    public void init() {
         //todo this service should also make sure the filepaths are correctly set
-        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+
         PubNubReceiver.getInstance().listen();
+        JTACachedUser user = LoggedInUser.getInstance().getUser();
         user.loadMessageData();
-        // we will want to load contacts and channels in this step as well
+        PubNubActions.getInstance().subscribe(Arrays.asList("A")); //todo remove soon
+        PubNubActions.getInstance().subscribe(new ArrayList<>(user.getChannelNames()));
     }
 }

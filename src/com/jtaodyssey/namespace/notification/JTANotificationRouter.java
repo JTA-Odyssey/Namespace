@@ -76,7 +76,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         String authMsg = "";
         boolean isValidated = false;
         if (AuthenticationService.getInstance().authorize(login)) {
-            JTAInitializerService.getInstance().init(LoggedInUser.getInstance().getUser());
+            JTAInitializerService.getInstance().init();
             authMsg = "username and password authorized";
             isValidated = true;
         }
