@@ -2,8 +2,6 @@ package com.jtaodyssey.namespace.services;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
-import com.jtaodyssey.namespace.components.JTAUser;
-import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 
 import java.io.BufferedInputStream;
@@ -69,7 +67,7 @@ public class JTAInitializerService {
         //todo this service should also make sure the filepaths are correctly set
         PubNubActions.getInstance().subscribe(Arrays.asList("A"));
         PubNubReceiver.getInstance().listen();
-        user.loadMessages();
+        user.loadMessageData();
         // we will want to load contacts and channels in this step as well
     }
 }

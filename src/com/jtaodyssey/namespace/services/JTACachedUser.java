@@ -12,10 +12,11 @@ public class JTACachedUser {
     private static String storageRoot = null;
     private JTAUser user;
     private String userPath;
-    private HashMap<String, List<JTATextMessage>> messages; // maps texts to the channel
+    private Map<String, List<JTATextMessage>> messages; // maps texts to the channel
                                                             // they were found on
-    private HashMap<String, JTAChannel> channels;
+    private Map<String, JTAChannel> channels;
 
+    // todo we should be able to remove this
     private void initStorageRoot() {
         if (storageRoot == null) {
             Properties appProp = new Properties();
@@ -25,6 +26,10 @@ public class JTACachedUser {
                 JTACachedUser.storageRoot = appProp.getProperty("userStoragePath");
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            File userRoot = new File(userPath);
+            if (!userRoot.isDirectory()) {
+                userRoot.mkdir();
             }
         }
     }
@@ -59,23 +64,45 @@ public class JTACachedUser {
         if (messages.get(channel.getName()) == null) {
             messages.put(channel.getName(), new ArrayList<>());
         }
+        processChannel(channel);
         messages.get(channel.getName()).add(message);
-        persistMessages();
+        saveMessageData();
+    }
+
+    /**
+     * Process channels. If they don't exist then add it to the list of
+     * channels that the user currently follows
+     */
+    private void processChannel(JTAChannel channel) {
+        channels.putIfAbsent(channel.getName(), channel);
     }
 
     /**
      * because this runs on a thread. if another thread tries to read before
      * it closes there will be a problem
      */
-    private void persistMessages() {
-        File userRoot = new File(userPath);
+    private void saveMessageData() {
+        saveFile(userPath + "messages.dat", messages);
+        saveFile(userPath + "channels.dat", channels);
+    }
+
+    void loadMessageData() {
+        // todo will it be necessary to thread this
+        Object o = loadFile(userPath + "messages.dat");
+        if (o instanceof HashMap) {
+            messages = (HashMap<String, List<JTATextMessage>>)o;
+        }
+        o = loadFile(userPath + "channels.dat");
+        if (o instanceof HashMap) {
+            channels =  (HashMap<String, JTAChannel>)o;
+        }
+    }
+
+    private void saveFile(String relativeFilePath, Object o) {
         new Thread(()-> {
-            if (!userRoot.isDirectory()) {
-                userRoot.mkdir();
-            }
             try {
-                ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(userPath + "messages.dat")));
-                os.writeObject(messages);
+                ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(relativeFilePath)));
+                os.writeObject(o);
                 os.flush();
                 os.close();
             } catch (IOException io) {
@@ -84,14 +111,14 @@ public class JTACachedUser {
         }).start();
     }
 
-    void loadMessages() {
-        // todo will it be necessary to thread this
-        File fin = new File(userPath + "messages.dat");
+    private Object loadFile(String relativePathFromRoot) {
+        File fin = new File(relativePathFromRoot);
         if (fin.exists()) {
             try {
-                ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(userPath + "messages.dat")));
-                messages = (HashMap<String, List<JTATextMessage>>)in.readObject();
+                ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(relativePathFromRoot)));
+                Object o = in.readObject();
                 in.close();
+                return o;
             }
             catch (IOException io) {
                 io.printStackTrace();
@@ -100,9 +127,10 @@ public class JTACachedUser {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
-    HashMap<String, List<JTATextMessage>> getMessages() { return messages; }
+    Map<String, List<JTATextMessage>> getMessages() { return messages; }
 
     public List<JTATextMessage> getMessages(String channel) {
         if (messages.get(channel) == null) {
@@ -118,34 +146,4 @@ public class JTACachedUser {
     public Collection<JTAChannel> getChannels() {
         return Collections.unmodifiableCollection(channels.values());
     }
-
-//    public static void main(String[] args) throws Exception {
-//        JTAUser user = new BasicUser("Tucker", "Harvey", "Raft", "tharvey556");
-//        user.setId(UUID.randomUUID().toString());
-//        JTAInitializerService.getInstance().init(user);
-//        JTACachedUser cached = LoggedInUser.getInstance().getUser();
-//
-//        System.out.print("Message: ");
-//        Scanner scanner = new Scanner(System.in);
-//
-//        String message = scanner.nextLine();
-//        while (!message.equals("done")) {
-//            cached.record(new MessagingChannel("A"), new JTATextMessage(message));
-//
-//            System.out.print("Message: ");
-//            message = scanner.nextLine();
-//        }
-//        cached.persistMessages();
-//
-//        Thread.sleep(500);
-//
-//        cached = new JTACachedUser(user);
-//        cached.loadMessages();
-//        HashMap<String, List<JTATextMessage>> map = cached.getMessages();
-//        for (String channel : map.keySet()) {
-//            for (JTATextMessage m : map.get(channel)) {
-//                System.out.println(m);
-//            }
-//        }
-//    }
 }
