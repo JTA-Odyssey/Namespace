@@ -26,8 +26,8 @@ public class SQLDatabase implements DBManager
     private int firstName      = 4;
     private int lastName       = 5;
     private int alias          = 6;
-    private int profilePicture = 7;
-    private int status  = 8;
+    private int status         = 7;
+    private int profilePicture = 8;
 
     // ***************
     // * Constructor *
@@ -162,18 +162,54 @@ public class SQLDatabase implements DBManager
 
             rs = ps.executeQuery();
 
-            if(rs.getString(this.username).equals(registration.getUsername()))
+            if(!rs.getString(this.username).equals(registration.getUsername()))
             {
-                return false;
+                return true;
             }
 
-            return true;
+
         }
         catch(Exception e)
         {
             System.out.println(e.toString());
             throw new Exception("This username already exists!");
         }
+        return false;
+    }
+
+    @Override
+    public Boolean addBasicUser(BasicUser basicUser) throws Exception
+    {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        int counter = 0;
+
+        try
+        {
+            ps = connection.prepareStatement("INSERT INTO USER(ID, Username, Password, FirstName, LastName, Alias, Status, ProfilePicture) VALUES(?,?,?,?,?,?,?,?)");
+            ps.setString(1, basicUser.getUsername());
+//            ps.setString(2, basicUser.getPassword());
+            ps.setString(3, basicUser.getFirstName());
+            ps.setString(4, basicUser.getLastName());
+            ps.setString(5, "Active");
+            ps.setInt(6, 0);
+            ps.setInt(7, 0);
+            ps.setInt(8, 0);
+
+
+            counter = ps.executeUpdate();
+
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.toString());
+            return false;
+
+        }
+
+
     }
 
 }
