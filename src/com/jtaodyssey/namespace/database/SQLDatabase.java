@@ -2,6 +2,7 @@ package com.jtaodyssey.namespace.database;
 
 import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTALogin;
+import com.jtaodyssey.namespace.components.JTARegistration;
 
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.*;
@@ -148,8 +149,32 @@ public class SQLDatabase implements DBManager
         }
     }
 
+    @Override
+    public Boolean Registration(JTARegistration registration) throws Exception
+    {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
+        try
+        {
+            ps = connection.prepareStatement("Select * FROM USER WHERE Username = ?");
+            ps.setString(1, registration.getUsername());
 
+            rs = ps.executeQuery();
+
+            if(rs.getString(this.username).equals(registration.getUsername()))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.toString());
+            throw new Exception("This username already exists!");
+        }
+    }
 }
 
 
