@@ -2,12 +2,10 @@ package com.jtaodyssey.namespace.notification;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
-import com.jtaodyssey.namespace.components.AuthStatus;
-import com.jtaodyssey.namespace.components.JTALogin;
-import com.jtaodyssey.namespace.components.JTATextMessage;
-import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.components.*;
 import com.jtaodyssey.namespace.services.AuthenticationService;
 import com.jtaodyssey.namespace.services.JTAInitializerService;
+import com.jtaodyssey.namespace.services.JTARegistrationService;
 
 /**
  * This class will facilitate notifications to the appropriate internal
@@ -57,8 +55,21 @@ public final class JTANotificationRouter implements JTANotificationObserver{
             System.out.println(notification.readPayload());
         }
         else if (notification instanceof RegistrationNotification) {
-
+            handleRegistration((JTARegistration)notification.readPayload());
         }
+    }
+
+    private void handleRegistration(JTARegistration registration) {
+        String authMsg = "";
+        boolean isValidated = false;
+        if (JTARegistrationService.getInstance().register(registration)) {
+            authMsg = "Registration successful";
+            isValidated = true;
+        }
+        else {
+            authMsg = "Username was not unique";
+        }
+        toUINotifier.notify(new AuthNotification( new AuthStatus(authMsg, isValidated)));
     }
 
     private void actionOnLogin(JTALogin login) {
