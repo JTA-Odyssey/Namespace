@@ -1,20 +1,15 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
 import com.jtaodyssey.namespace.components.JTATextMessage;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.*;
 import com.jtaodyssey.namespace.services.JTACachedUser;
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
