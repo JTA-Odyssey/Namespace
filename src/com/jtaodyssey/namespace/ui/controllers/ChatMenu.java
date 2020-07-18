@@ -32,6 +32,7 @@ import javafx.scene.text.TextFlow;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable, JTANotificationObserver
@@ -124,7 +125,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
             System.out.println(message);
 
-            Platform.runLater(()-> formatMessage(message.getMessage()));
+            Platform.runLater(()-> formatMessage(message));
         }
     }
 
@@ -133,10 +134,10 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     // ************************
 
     // TO-DO - Add username/User to format message to output the username of the person who sent the message
-    public void formatMessage(String text)
+    public void formatMessage(JTATextMessage text)
     {
         // Creating & Formatting Text
-        Text textMessage = new Text(text);
+        Text textMessage = new Text(text.getMessage());
         textMessage.setFill(Color.WHITE);
         textMessage.getStyleClass().add("textMessage");
 
@@ -196,7 +197,12 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 //            textMessageBox.getChildren().add(img);
 //        }
 
-        if(text.equals("Hello") || text.equals("What's up"))
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
+        String myID = cachedUser.getUser().getId();
+
+
+
+        if(text.getUserID() == null || !text.getUserID().equals(myID))
         {
             tempFlow.getStyleClass().add("tempFlowReceiver");
             flow.getStyleClass().add("textFlowReceiver");
@@ -286,6 +292,16 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     private void loadMessages()
     {
         chatBox.getChildren().clear();
+
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
+//        String channel = currentChannelID;
+        String channel = "A";
+        List<JTATextMessage> messageList = cachedUser.getMessages(channel);
+
+        for(JTATextMessage m : messageList)
+        {
+            formatMessage(m);
+        }
     }
 
 
