@@ -139,6 +139,7 @@ public class SQLDatabase implements DBManager
             }
 
             BasicUser user = new BasicUser(rs.getString(this.firstName), rs.getString(this.lastName), rs.getString(this.alias), rs.getString(this.username));
+            user.setId(rs.getString(this.uniqueID));
 
             return user;
         }
