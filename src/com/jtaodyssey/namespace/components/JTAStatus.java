@@ -1,4 +1,4 @@
-package com.jtaodyssey.namespace.notification;
+package com.jtaodyssey.namespace.components;
 
 /**
  * This class will represent the different types of statuses that occur
@@ -7,4 +7,5 @@ package com.jtaodyssey.namespace.notification;
 public interface JTAStatus {
     String getStatus();
     String getTime();
+    String getStatusType();
 }

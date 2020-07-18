@@ -1,15 +1,13 @@
 package com.jtaodyssey.namespace.communication;
 
-import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.components.*;
 import com.jtaodyssey.namespace.notification.*;
+import com.jtaodyssey.namespace.services.JTAInitializerService;
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * PubNubClient is used to initialize the PubNub client API
@@ -66,6 +64,7 @@ public final class PubNubClient {
 }
 
 class MockController implements JTANotificationObserver {
+    private static volatile boolean valid = false;
     public MockController() {
         ToUINotifier.getInstance().addObserver(this);
     }
@@ -77,20 +76,62 @@ class MockController implements JTANotificationObserver {
             System.out.print("End point controller reached: ");
             System.out.println(((JTATextMessage)notification.readPayload()).toString());
         }
+        else if (notification instanceof AuthStatusNotification) {
+            AuthStatusNotification auth = (AuthStatusNotification)notification;
+            handleAuthStatus((AuthStatus)auth.readPayload());
+        }
+    }
+
+    private void handleAuthStatus(AuthStatus auth) {
+        if (auth.getStatusType().equals("login")) {
+            if (auth.isValidated()) {
+                System.out.println("Valid Login System init");
+                valid = true;
+            }
+            else {
+                System.out.println("Invalid login, try again");
+            }
+        }
+        else {
+            if (auth.isValidated()) {
+                System.out.println("User was successfully registered");
+            }
+            else {
+                System.out.println("User could not be registered");
+            }
+        }
     }
 
     public static void main(String[] args) {
         new MockController();
         Scanner scanner = new Scanner(System.in);
 
-        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
-        PubNubReceiver.getInstance().listen();
-        JTANotificationRouter.getInstance().init();
+//        PubNubActions.getInstance().subscribe(Arrays.asList("A"));
+//        PubNubReceiver.getInstance().listen();
+        JTAInitializerService.getInstance().prepare();
+        //JTANotificationRouter.getInstance().init();
+        BasicRegistration reg = new BasicRegistration("Tucker", "Harvey", "tharvey556", "1234");
+        FromUINotifier.getInstance().notify(new RegistrationNotification(reg));
+
+        System.out.print("Enter Username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter Password: ");
+        String pwd = scanner.nextLine();
+
+        FromUINotifier.getInstance().notify(new AuthNotification(new JTALogin(username, pwd)));
+
+        while (!valid) { }
+
+        List<JTATextMessage> msg = LoggedInUser.getInstance().getUser().getMessages("A");
+        System.out.println(msg.size());
+        for (JTATextMessage m : msg) {
+            System.out.println(m);
+        }
 
         System.out.print("Enter your message: ");
         String message = scanner.nextLine();
         while (!message.equals("end")) {
-            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message), "A"));
+            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message, LoggedInUser.getInstance().getUser().getUser()), "A"));
 
             System.out.print("Enter your message: ");
             message = scanner.nextLine();

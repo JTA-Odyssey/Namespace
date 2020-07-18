@@ -2,6 +2,7 @@ package com.jtaodyssey.namespace.database;
 
 import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTALogin;
+import com.jtaodyssey.namespace.components.JTARegistration;
 
 import java.sql.*;
 
@@ -137,6 +138,7 @@ public class SQLDatabase implements DBManager
             }
 
             BasicUser user = new BasicUser(rs.getString(this.firstName), rs.getString(this.lastName), rs.getString(this.alias), rs.getString(this.username));
+            user.setId(rs.getString(this.uniqueID));
 
             return user;
         }
@@ -148,24 +150,24 @@ public class SQLDatabase implements DBManager
     }
 
     @Override
-    public Boolean Registration(BasicUser basicUser, String password) throws Exception
+    public Boolean Registration(JTARegistration registration) throws Exception
     {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try
         {
-            ps = connection.prepareStatement("INSERT INTO USER(ID, Username, Password, FirstName, LastName, Alias, Status, ProfilePicture) VALUES(?,?,?,?,?,?,?,?)");
-            ps.setString(1, basicUser.getId());
-            ps.setString(2, basicUser.getUsername());
-            ps.setString(3, password);
-            ps.setString(4, basicUser.getFirstName());
-            ps.setString(5, basicUser.getLastName());
-            ps.setString(6, basicUser.getAlias());
+            ps = connection.prepareStatement("INSERT INTO USER(uniqueID, Username, Password, FirstName, LastName, Alias, Status, Picture) VALUES(?,?,?,?,?,?,?,?)");
+            ps.setString(1, registration.getID());
+            ps.setString(2, registration.getUsername());
+            ps.setString(3, registration.getPassword());
+            ps.setString(4, registration.getFirstName());
+            ps.setString(5, registration.getLastName());
+            ps.setString(6, "");
             ps.setString(7, "Active");
             ps.setString(8, "");
 
-            rs = ps.executeQuery();
+            ps.executeUpdate();
             return true;
 
         }
@@ -175,9 +177,7 @@ public class SQLDatabase implements DBManager
             throw new Exception("This username already exists!");
 
         }
-
     }
-
 }
 
 

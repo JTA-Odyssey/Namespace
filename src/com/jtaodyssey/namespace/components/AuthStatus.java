@@ -1,4 +1,7 @@
-package com.jtaodyssey.namespace.notification;
+package com.jtaodyssey.namespace.components;
+
+import com.jtaodyssey.namespace.components.JTAStatus;
+import com.jtaodyssey.namespace.notification.Payload;
 
 import java.time.LocalDateTime;
 
@@ -7,19 +10,29 @@ import java.time.LocalDateTime;
  * Results range from simple success, to invalid username/password,
  * to account not found, to suspended account etc
  */
-public class AuthStatus implements JTAStatus {
+public class AuthStatus implements JTAStatus, Payload {
     private String message;
     private boolean isValidated;
     private String timeStamp;
+    private String statusType;
 
     public AuthStatus() {
-        this("", false);
+        this("", false, "Default");
     }
 
-    public AuthStatus(String message, boolean isValidated) {
+    public AuthStatus(String message, boolean isValidated, String statusType) {
         setMessage(message);
         setValidated(isValidated);
         setTimeStamp(LocalDateTime.now().toString());
+        setStatusType(statusType);
+    }
+
+    private void setStatusType(String statusType) {
+        // todo add an enum class
+        if (!(statusType.toLowerCase().equals("login") || statusType.toLowerCase().equals("registration"))) {
+            throw new IllegalArgumentException(statusType + " not of login or registration");
+        }
+        this.statusType = statusType;
     }
 
     private void setTimeStamp(String timeStamp) {
@@ -62,4 +75,14 @@ public class AuthStatus implements JTAStatus {
 
     @Override
     public String toString() { return getStatus(); }
+
+    @Override
+    public String getType() {
+        return "Authorize Status";
+    }
+
+    @Override
+    public String getStatusType() {
+        return statusType;
+    }
 }

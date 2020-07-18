@@ -3,7 +3,6 @@ package com.jtaodyssey.namespace.database;
 import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTARegistration;
-import com.jtaodyssey.namespace.components.JTAUser;
 
 import java.sql.SQLException;
 
@@ -15,5 +14,5 @@ public interface DBManager
 
     BasicUser Login(JTALogin userLogin) throws Exception;
 
-    Boolean Registration(BasicUser basicUser, String password) throws Exception;
+    Boolean Registration(JTARegistration registration) throws Exception;
 }

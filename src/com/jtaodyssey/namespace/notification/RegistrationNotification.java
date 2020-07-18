@@ -1,23 +1,22 @@
 package com.jtaodyssey.namespace.notification;
 
-import com.jtaodyssey.namespace.components.JTAStatus;
+import com.jtaodyssey.namespace.components.JTARegistration;
 
-public class AuthStatusNotification extends JTANotification {
-    public AuthStatusNotification(Payload payload) {
+public class RegistrationNotification extends JTANotification {
+    public RegistrationNotification(Payload payload) {
         super(payload);
     }
 
     @Override
     public void writePayload(Payload payload) {
-        if (!(payload instanceof JTAStatus)) {
+        if (!(payload instanceof JTARegistration)) {
             throw new IllegalArgumentException("Authentication message must " +
-                    "be of type JTAStatus");
+                    "be of type JTARegistration");
         }
         super.writePayload(payload);
     }
-
     @Override
     public String getType() {
-        return "status";
+        return "Registration Notification";
     }
 }

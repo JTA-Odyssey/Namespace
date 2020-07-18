@@ -1,8 +1,14 @@
 package com.jtaodyssey.namespace.notification;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
+import com.jtaodyssey.namespace.communication.PubNubClient;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
-import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.components.*;
+import com.jtaodyssey.namespace.services.AuthenticationService;
+import com.jtaodyssey.namespace.services.JTAInitializerService;
+import com.jtaodyssey.namespace.services.JTARegistrationService;
+
+import java.util.Arrays;
 
 /**
  * This class will facilitate notifications to the appropriate internal
@@ -27,33 +33,21 @@ public final class JTANotificationRouter implements JTANotificationObserver{
 
     public static JTANotificationRouter getInstance() { return notif; }
 
-        @Override
+    @Override
     public void update(JTANotification notification) {
-        // facilitate the different notification types here.
-        // i.e. if its outgoing call the correct observer
-        /**
-         *
-         * if (notification instanceOf IncomingMessageNotifcation) {
-         *      if (its a text message) {
-         *          // verify that its a valid channel
-         *          PubNubClient.publish(message, channel);
-         *      }
-         *      else if (its a item to be stored local db) {
-         *          // direct call to the appropriate DB interface
-         *      }
-         * }
-         *
-         */
         if (notification instanceof OutgoingMessageNotification) {
             OutgoingMessageNotification out = (OutgoingMessageNotification)notification;
             // todo remove after debugging
-            PubNubActions.getInstance().publish((JTATextMessage)out.readPayload(), out.getChannel());
+            PubNubActions.getInstance().publish(out.readPayload(), out.getChannel());
+            verifyChannelSubscription(out.getChannel());
 //            System.out.println("Message processed going out of Router: ");
 //            System.out.print((JTATextMessage)out.readPayload());
         }
         else if (notification instanceof IncomingMessageNotification) {
             // send to the UI
             toUINotifier.notify(notification);
+            LoggedInUser.getInstance().getUser().record(((IncomingMessageNotification) notification).getChannelInfo(),
+                    ((JTATextMessage)notification.readPayload()));
 
             // todo remove after debug
 //            IncomingMessageNotification msg = (IncomingMessageNotification)notification;
@@ -61,10 +55,53 @@ public final class JTANotificationRouter implements JTANotificationObserver{
 //            System.out.print(msg.readPayload());
         }
         else if (notification instanceof AuthNotification) {
-            // send to the service that authenticates messages
+            actionOnLogin((JTALogin)notification.readPayload());
+            System.out.println(notification.readPayload());
         }
-        else if (notification instanceof AuthStatusNotification) {
-            toUINotifier.notify(notification);
+        else if (notification instanceof RegistrationNotification) {
+            handleRegistration((JTARegistration)notification.readPayload());
         }
+    }
+
+    /**
+     * Checks if the user is not subscribed to the channel of the message then
+     * we will subscribe
+     */
+    private void verifyChannelSubscription(String channel) {
+        for (JTAChannel c : LoggedInUser.getInstance().getUser().getChannels()) {
+            if (channel.equals(c.getName())) {
+                return;
+            }
+        }
+        PubNubActions.getInstance().subscribe(Arrays.asList(channel));
+    }
+
+    private void handleRegistration(JTARegistration registration) {
+        String authMsg = "";
+        boolean isValidated = false;
+        if (JTARegistrationService.getInstance().register(registration)) {
+            authMsg = "Registration successful";
+            isValidated = true;
+        }
+        else {
+            authMsg = "Username was not unique";
+        }
+        toUINotifier.notify(new AuthStatusNotification(new AuthStatus(authMsg, isValidated, "registration")));
+    }
+
+    private void actionOnLogin(JTALogin login) {
+        String authMsg = "";
+        boolean isValidated = false;
+        if (AuthenticationService.getInstance().authorize(login)) {
+            JTAInitializerService.getInstance().init();
+            authMsg = "username and password authorized";
+            isValidated = true;
+        }
+        else {
+            authMsg = "Invalid username/password";
+        }
+        AuthStatus status = new AuthStatus(authMsg, isValidated, "login");
+        JTANotification notif = new AuthStatusNotification(status);
+        toUINotifier.notify(notif);
     }
 }

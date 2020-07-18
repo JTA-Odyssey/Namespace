@@ -7,6 +7,10 @@ import com.jtaodyssey.namespace.components.JTALogin;
  * to the appropriate component
  */
 public class AuthNotification extends JTANotification {
+    public AuthNotification(Payload payload) {
+        super(payload);
+    }
+
     @Override
     public void writePayload(Payload payload) {
         if (!(payload instanceof JTALogin)) {
