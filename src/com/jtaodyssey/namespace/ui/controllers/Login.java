@@ -171,7 +171,6 @@ public class Login implements Initializable, JTANotificationObserver
         {
             FromUINotifier.getInstance().notify(new AuthNotification(new JTALogin(username, password)));
         }
-
     }
 
     // On "Create Account" clicked this function will swap scenes to the "CreateAccount" scene.
@@ -183,7 +182,7 @@ public class Login implements Initializable, JTANotificationObserver
 
     // On "X" clicked this function will terminate the program.
     @FXML
-    public void OnCloseApplicationClicked(MouseEvent event)
+    public void OnCloseApplicationClicked()
     {
         Platform.exit();
         System.exit(0);
@@ -220,6 +219,7 @@ public class Login implements Initializable, JTANotificationObserver
 
         Platform.runLater(()->
         {
+            ToUINotifier.getInstance().removeObserver(this);
             window.setScene(scene);
             window.show();
         });

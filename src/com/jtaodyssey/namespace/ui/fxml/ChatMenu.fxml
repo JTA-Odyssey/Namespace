@@ -25,7 +25,7 @@
          </children>
       </AnchorPane>
       <Separator layoutX="149.0" layoutY="453.0" prefHeight="3.0" prefWidth="463.0" />
-      <TextField alignment="TOP_CENTER" layoutX="8.0" layoutY="8.0" prefHeight="27.0" prefWidth="134.0" promptText="Search" style="-fx-background-radius: 1em;" />
+      <TextField fx:id="channelNameField" alignment="TOP_CENTER" layoutX="8.0" layoutY="8.0" prefHeight="27.0" prefWidth="134.0" promptText="Search" style="-fx-background-radius: 1em;" />
       <Separator layoutY="42.0" prefHeight="2.0" prefWidth="149.0" />
       <Separator layoutX="149.0" layoutY="1.0" orientation="VERTICAL" prefHeight="523.0" prefWidth="6.0" />
       <Separator layoutX="612.0" orientation="VERTICAL" prefHeight="530.0" prefWidth="6.0" />
