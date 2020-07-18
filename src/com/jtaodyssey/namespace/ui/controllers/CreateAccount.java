@@ -4,9 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import com.jtaodyssey.namespace.notification.JTANotification;
-import com.jtaodyssey.namespace.notification.JTANotificationObserver;
-import com.jtaodyssey.namespace.notification.ToUINotifier;
+import com.jtaodyssey.namespace.components.AuthStatus;
+import com.jtaodyssey.namespace.components.BasicRegistration;
+import com.jtaodyssey.namespace.components.JTARegistration;
+import com.jtaodyssey.namespace.notification.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -144,7 +145,26 @@ public class CreateAccount implements Initializable, JTANotificationObserver
     @Override
     public void update(JTANotification notification)
     {
+        if(notification instanceof AuthStatusNotification)
+        {
+            AuthStatusNotification auth = (AuthStatusNotification) notification;
+            handleStatus((AuthStatus)auth.readPayload());
+        }
+    }
 
+    private void handleStatus(AuthStatus status)
+    {
+        if(status.getStatusType().equals("registration"))
+        {
+            if(status.isValidated())
+            {
+                // put success message here
+            }
+            else
+            {
+                // output error message here
+            }
+        }
     }
 
     // **************************
@@ -153,7 +173,7 @@ public class CreateAccount implements Initializable, JTANotificationObserver
 
     // On "Create Account" clicked this function will create a new account and error check for invalid credentials.
     @FXML
-    public void OnCreateAccountClicked(MouseEvent event)
+    public void OnCreateAccountClicked()
     {
         String firstName       = firstNameField.getText();
         String lastName        = lastNameField.getText();
@@ -164,7 +184,11 @@ public class CreateAccount implements Initializable, JTANotificationObserver
         if(!firstName.equals("") && !lastName.equals("") && !username.equals("")
                 && !password.equals("") && !confirmPassword.equals(""))
         {
-            // Implement checks with database to see if username matches any other user's in the system
+            if(password.equals(confirmPassword))
+            {
+                BasicRegistration registration = new BasicRegistration(firstName, lastName, username, password);
+                FromUINotifier.getInstance().notify(new RegistrationNotification(registration));
+            }
         }
     }
 

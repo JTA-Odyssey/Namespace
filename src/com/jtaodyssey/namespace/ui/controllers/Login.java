@@ -5,9 +5,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jtaodyssey.namespace.Main;
-import com.jtaodyssey.namespace.notification.JTANotification;
-import com.jtaodyssey.namespace.notification.JTANotificationObserver;
-import com.jtaodyssey.namespace.notification.ToUINotifier;
+import com.jtaodyssey.namespace.components.AuthStatus;
+import com.jtaodyssey.namespace.components.JTALogin;
+import com.jtaodyssey.namespace.notification.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -133,7 +133,27 @@ public class Login implements Initializable, JTANotificationObserver
     @Override
     public void update(JTANotification notification)
     {
+        if(notification instanceof AuthStatusNotification)
+        {
+            AuthStatusNotification auth = (AuthStatusNotification) notification;
+            handleStatus((AuthStatus)auth.readPayload());
+        }
+    }
 
+    private void handleStatus(AuthStatus status)
+    {
+        if(status.getStatusType().equals("login"))
+        {
+            if(status.isValidated())
+            {
+                swapScene("Home", loginButton);
+            }
+            else
+            {
+                errorCheckLabel.setVisible(true);
+                passwordField.clear();
+            }
+        }
     }
 
     // **************************
@@ -149,14 +169,8 @@ public class Login implements Initializable, JTANotificationObserver
 
         if(!username.equals("") && !password.equals(""))
         {
-            if(username.equals("test") && password.equals("1234"))
-            {
-                swapScene("Home", loginButton);
-            }
+            FromUINotifier.getInstance().notify(new AuthNotification(new JTALogin(username, password)));
         }
-
-        errorCheckLabel.setVisible(true);
-        passwordField.clear();
 
     }
 
