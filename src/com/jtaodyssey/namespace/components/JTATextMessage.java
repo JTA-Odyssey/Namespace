@@ -26,6 +26,12 @@ public class JTATextMessage implements Payload, Serializable {
         setTimestamp(LocalDateTime.now().toString());
     }
 
+    public JTATextMessage(String message, JTAUser user) {
+        setMessage(message);
+        setUserID(user.getId()); //todo tbd how we are going to do this
+        setTimestamp(LocalDateTime.now().toString());
+    }
+
     public String getMessage() {
         return message;
     }
