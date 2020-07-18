@@ -17,7 +17,7 @@ public class JTACachedUser {
     private Map<String, JTAChannel> channels;
 
     // todo we should be able to remove this
-    private void initStorageRoot() {
+    private void initUserRoot() {
         if (storageRoot == null) {
             Properties appProp = new Properties();
             String location = "config.properties";
@@ -27,19 +27,19 @@ public class JTACachedUser {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            File userRoot = new File(userPath);
-//            if (!userRoot.isDirectory()) {
-//                userRoot.mkdir();
-//            }
         }
     }
 
     public JTACachedUser(JTAUser user) {
         setUser(user);
-        initStorageRoot();
+        initUserRoot();
         setUserPath(storageRoot
                 + user.getFirstName().toLowerCase()
                 + "_" + user.getLastName().toLowerCase() + "/");
+        File userRoot = new File(userPath);
+        if (!userRoot.isDirectory()) {
+            userRoot.mkdir();
+        }
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
     }
