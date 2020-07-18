@@ -69,7 +69,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else {
             authMsg = "Username was not unique";
         }
-        toUINotifier.notify(new AuthStatusNotification(new AuthStatus(authMsg, isValidated)));
+        toUINotifier.notify(new AuthStatusNotification(new AuthStatus(authMsg, isValidated, "registration")));
     }
 
     private void actionOnLogin(JTALogin login) {
@@ -83,7 +83,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else {
             authMsg = "Invalid username/password";
         }
-        AuthStatus status = new AuthStatus(authMsg, isValidated);
+        AuthStatus status = new AuthStatus(authMsg, isValidated, "login");
         JTANotification notif = new AuthStatusNotification(status);
         toUINotifier.notify(notif);
     }

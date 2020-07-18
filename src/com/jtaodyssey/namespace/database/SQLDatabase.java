@@ -157,7 +157,7 @@ public class SQLDatabase implements DBManager
 
         try
         {
-            ps = connection.prepareStatement("INSERT INTO USER(ID, Username, Password, FirstName, LastName, Alias, Status, ProfilePicture) VALUES(?,?,?,?,?,?,?,?)");
+            ps = connection.prepareStatement("INSERT INTO USER(uniqueID, Username, Password, FirstName, LastName, Alias, Status, Picture) VALUES(?,?,?,?,?,?,?,?)");
             ps.setString(1, registration.getID());
             ps.setString(2, registration.getUsername());
             ps.setString(3, registration.getPassword());
@@ -167,7 +167,7 @@ public class SQLDatabase implements DBManager
             ps.setString(7, "Active");
             ps.setString(8, "");
 
-            rs = ps.executeQuery();
+            ps.executeUpdate();
             return true;
 
         }

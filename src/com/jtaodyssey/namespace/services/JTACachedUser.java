@@ -27,10 +27,10 @@ public class JTACachedUser {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            File userRoot = new File(userPath);
-            if (!userRoot.isDirectory()) {
-                userRoot.mkdir();
-            }
+//            File userRoot = new File(userPath);
+//            if (!userRoot.isDirectory()) {
+//                userRoot.mkdir();
+//            }
         }
     }
 

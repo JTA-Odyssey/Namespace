@@ -77,13 +77,27 @@ class MockController implements JTANotificationObserver {
             System.out.println(((JTATextMessage)notification.readPayload()).toString());
         }
         else if (notification instanceof AuthStatusNotification) {
-            boolean res = ((AuthStatus)notification.readPayload()).isValidated();
-            if (res) {
+            AuthStatusNotification auth = (AuthStatusNotification)notification;
+            handleAuthStatus((AuthStatus)auth.readPayload());
+        }
+    }
+
+    private void handleAuthStatus(AuthStatus auth) {
+        if (auth.getStatusType().equals("login")) {
+            if (auth.isValidated()) {
                 System.out.println("Valid Login System init");
                 valid = true;
             }
             else {
                 System.out.println("Invalid login, try again");
+            }
+        }
+        else {
+            if (auth.isValidated()) {
+                System.out.println("User was successfully registered");
+            }
+            else {
+                System.out.println("User could not be registered");
             }
         }
     }
