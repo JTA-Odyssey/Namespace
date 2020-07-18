@@ -1,11 +1,14 @@
 package com.jtaodyssey.namespace.notification;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
+import com.jtaodyssey.namespace.communication.PubNubClient;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.*;
 import com.jtaodyssey.namespace.services.AuthenticationService;
 import com.jtaodyssey.namespace.services.JTAInitializerService;
 import com.jtaodyssey.namespace.services.JTARegistrationService;
+
+import java.util.Arrays;
 
 /**
  * This class will facilitate notifications to the appropriate internal
@@ -36,6 +39,7 @@ public final class JTANotificationRouter implements JTANotificationObserver{
             OutgoingMessageNotification out = (OutgoingMessageNotification)notification;
             // todo remove after debugging
             PubNubActions.getInstance().publish(out.readPayload(), out.getChannel());
+            verifyChannelSubscription(out.getChannel());
 //            System.out.println("Message processed going out of Router: ");
 //            System.out.print((JTATextMessage)out.readPayload());
         }
@@ -57,6 +61,19 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         else if (notification instanceof RegistrationNotification) {
             handleRegistration((JTARegistration)notification.readPayload());
         }
+    }
+
+    /**
+     * Checks if the user is not subscribed to the channel of the message then
+     * we will subscribe
+     */
+    private void verifyChannelSubscription(String channel) {
+        for (JTAChannel c : LoggedInUser.getInstance().getUser().getChannels()) {
+            if (channel.equals(c.getName())) {
+                return;
+            }
+        }
+        PubNubActions.getInstance().subscribe(Arrays.asList(channel));
     }
 
     private void handleRegistration(JTARegistration registration) {

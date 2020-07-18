@@ -70,7 +70,13 @@ public class JTAInitializerService {
         PubNubReceiver.getInstance().listen();
         JTACachedUser user = LoggedInUser.getInstance().getUser();
         user.loadMessageData();
-        PubNubActions.getInstance().subscribe(Arrays.asList("A")); //todo remove soon
-        PubNubActions.getInstance().subscribe(new ArrayList<>(user.getChannelNames()));
+        subscribedToSavedChannels();
+    }
+
+    private void subscribedToSavedChannels() {
+        Set<String> channelNames =  LoggedInUser.getInstance().getUser().getChannelNames();
+        if (channelNames.size() > 0) {
+            PubNubActions.getInstance().subscribe(new ArrayList<>(channelNames));
+        }
     }
 }

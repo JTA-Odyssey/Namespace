@@ -131,7 +131,7 @@ class MockController implements JTANotificationObserver {
         System.out.print("Enter your message: ");
         String message = scanner.nextLine();
         while (!message.equals("end")) {
-            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message), "A"));
+            FromUINotifier.getInstance().notify(new OutgoingMessageNotification(new JTATextMessage(message, LoggedInUser.getInstance().getUser().getUser()), "A"));
 
             System.out.print("Enter your message: ");
             message = scanner.nextLine();
