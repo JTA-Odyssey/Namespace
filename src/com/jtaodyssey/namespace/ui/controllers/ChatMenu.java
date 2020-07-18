@@ -96,11 +96,10 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             {
                 String text = chatArea.getText().trim();
 
-                if(!text.equals(""))
+                if(!text.equals("") && !currentChannelID.equals(""))
                 {
-                    String channel = "A";
                     JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
-                    JTANotification notification = new OutgoingMessageNotification(new JTATextMessage(text, cachedUser.getUser()),channel);
+                    JTANotification notification = new OutgoingMessageNotification(new JTATextMessage(text, cachedUser.getUser()), currentChannelID);
                     FromUINotifier.getInstance().notify(notification);
                 }
 
@@ -234,8 +233,6 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
         if (!channel.equals("") && !channel.equals(currentChannelID))
         {
-            loadMessages();
-
             Label channelName = new Label(channel);
             channelName.setMinHeight(36);
             channelName.setMinWidth(130);
@@ -268,8 +265,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             channelBox.getChildren().add(channelHBox);
 
             currentChannelID = channel;
-            System.out.println(currentChannelID);
-
+            loadMessages();
         }
         channelNameField.setText("");
     }
@@ -294,8 +290,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         chatBox.getChildren().clear();
 
         JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
-//        String channel = currentChannelID;
-        String channel = "A";
+        String channel = currentChannelID;
         List<JTATextMessage> messageList = cachedUser.getMessages(channel);
 
         for(JTATextMessage m : messageList)
@@ -303,38 +298,5 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             formatMessage(m);
         }
     }
-
-
-
-
-//        Label channel = new Label("Test");
-//        channel.setMinHeight(36);
-//        channel.setMinWidth(130);
-//        channel.setPadding(new Insets(0,0,0,5));
-//        channel.getStyleClass().add("channelLabel");
-//
-//
-//        // Creating Profile Picture Icon
-//        Circle img = new Circle(30, 30, 15);
-//
-//        HBox channelHBox = new HBox();
-//        channelHBox.setAlignment(Pos.CENTER_LEFT);
-//
-//        try
-//        {
-//            String path = new File(String.format("/Users/jeffreyadams/Desktop/Namespace/src/com/jtaodyssey/namespace/ui/images/testProfilePicture.jpeg")).toURI().toString();
-//            img.setFill(new ImagePattern(new Image(path)));
-//        }
-//        catch(Exception e)
-//        {
-//            String path = new File("Namespace/src/com/jtaodyssey/namespace/ui/images/test3.png").toURI().toString();
-//            img.setFill(new ImagePattern(new Image(path)));
-//        }
-//
-//        channelHBox.getChildren().add(img);
-//        channelHBox.getChildren().add(channel);
-//        channelBox.getChildren().add(channelHBox);
-//
-//    }
 
 }
