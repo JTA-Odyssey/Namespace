@@ -4,7 +4,6 @@ import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTARegistration;
 
-import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.*;
 
 public class SQLDatabase implements DBManager
@@ -26,8 +25,8 @@ public class SQLDatabase implements DBManager
     private int firstName      = 4;
     private int lastName       = 5;
     private int alias          = 6;
-    private int profilePicture = 7;
-    private int status  = 8;
+    private int status         = 7;
+    private int profilePicture = 8;
 
     // ***************
     // * Constructor *
