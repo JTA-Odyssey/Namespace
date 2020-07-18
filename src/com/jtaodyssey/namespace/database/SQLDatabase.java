@@ -2,9 +2,7 @@ package com.jtaodyssey.namespace.database;
 
 import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTALogin;
-import com.jtaodyssey.namespace.components.JTARegistration;
 
-import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.*;
 
 public class SQLDatabase implements DBManager
