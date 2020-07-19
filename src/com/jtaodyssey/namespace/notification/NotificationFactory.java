@@ -11,10 +11,10 @@ package com.jtaodyssey.namespace.notification;
 public class NotificationFactory {
     public JTANotification createNotification(String type, Payload payload) {
         if (type.toLowerCase().equals("add-contact")) {
-
+            return new AddContactNotification(payload);
         }
         else if (type.toLowerCase().equals("lookup-contact")) {
-
+            return new RemoveContactNotification(payload);
         }
         else if (type.toLowerCase().equals("remove-contact")) {
 
