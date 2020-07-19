@@ -36,7 +36,7 @@ public class BasicRegistration implements JTARegistration, Payload {
     public String getType() { return "Basic Registration"; }
 
     @Override
-    public int hashCode() { return Objects.hash(login.getUsername(), login.getPassword()); }
+    public int hashCode() { return Objects.hash(user.hashCode()); }
 
     @Override
     public boolean equals(Object obj) {

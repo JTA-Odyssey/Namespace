@@ -33,24 +33,17 @@ public class JTAContact implements Payload, Serializable {
     public void setID(String id) { user.setId(id);}
     public void setImgPath(String imgPath) { user.setImgPath(imgPath);}
 
-    // payload overriden methods
+    // payload overridden methods
     @Override
     public String getType() { return "Contact"; }
 
     // Object Overloaded methods
+    @Override
+    public int hashCode() { return Objects.hash(user.hashCode()); }
 
     @Override
-    public int hashCode() {
-        return Objects.hash();
-    }
+    public boolean equals(Object obj) { return user.equals(obj); }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
+    public String toString() { return user.toString(); }
 }
