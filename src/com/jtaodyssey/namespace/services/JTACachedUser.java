@@ -34,8 +34,7 @@ public class JTACachedUser {
         setUser(user);
         initUserRoot();
         setUserPath(storageRoot
-                + user.getFirstName().toLowerCase()
-                + "_" + user.getLastName().toLowerCase() + "/");
+                + ((BasicUser)user).getUsername().toLowerCase() + "/");
         File userRoot = new File(userPath);
         if (!userRoot.isDirectory()) {
             userRoot.mkdir();
