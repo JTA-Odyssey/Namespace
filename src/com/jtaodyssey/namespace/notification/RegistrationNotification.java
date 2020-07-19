@@ -10,7 +10,7 @@ public class RegistrationNotification extends JTANotification {
     @Override
     public void writePayload(Payload payload) {
         if (!(payload instanceof JTARegistration)) {
-            throw new IllegalArgumentException("Authentication message must " +
+            throw new IllegalArgumentException("Registration message must " +
                     "be of type JTARegistration");
         }
         super.writePayload(payload);

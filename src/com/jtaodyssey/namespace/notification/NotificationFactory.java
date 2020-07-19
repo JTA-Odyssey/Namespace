@@ -15,7 +15,7 @@ public class NotificationFactory {
         }
         else if (type.toLowerCase().equals("lookup-contact")) {
 
-        } 
+        }
         else if (type.toLowerCase().equals("remove-contact")) {
 
         }
