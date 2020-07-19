@@ -8,6 +8,7 @@ import java.util.UUID;
  */
 public class BasicUser extends JTAUser {
     private String username;
+    private String imgPath;
 
     public BasicUser(String fn, String ln) {
         this(fn, ln, "", "");
@@ -18,12 +19,19 @@ public class BasicUser extends JTAUser {
     }
 
     public BasicUser(String fn, String ln, String alias, String username) {
+        this (fn, ln, alias, username, null);
+    }
+
+    public BasicUser(String fn, String ln, String alias, String username, String imgPath) {
         super(fn, ln, alias);
         setUsername(username);
+        setImgPath(imgPath);
     }
 
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
+    public String getImgPath() { return imgPath; }
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
     @Override
     public void setId(String id) {
