@@ -1,12 +1,15 @@
 package com.jtaodyssey.namespace.components;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 public class MessagingChannel implements JTAChannel {
     private static final String CH_PREFIX = "jta";
     private String channelName;
     private String timeOfUpdate;
+    private Set<JTAUser> subscribers;
 
     public MessagingChannel(String channelName) {
         update();
@@ -15,6 +18,11 @@ public class MessagingChannel implements JTAChannel {
 
     public String getTimeOfUpdate() { return timeOfUpdate; }
     public String getChannelName() { return channelName; }
+
+    public void addSubscriber(JTAUser user) { subscribers.add(user); }
+    public Set<JTAUser> subscribers() {
+        return Collections.unmodifiableSet(subscribers);
+    }
 
     private void setChannelName(String channelName) { this.channelName = channelName; }
     private void setTimeOfUpdate(String timeOfUpdate) { this.timeOfUpdate = timeOfUpdate; }
