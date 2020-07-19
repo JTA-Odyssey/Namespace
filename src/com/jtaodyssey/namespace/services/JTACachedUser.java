@@ -63,7 +63,7 @@ public class JTACachedUser {
         if (messages.get(channel.getName()) == null) {
             messages.put(channel.getName(), new ArrayList<>());
         }
-        processChannel(channel);
+        processChannel(message.getUser(), channel);
         messages.get(channel.getName()).add(message);
         saveMessageData();
     }
@@ -72,8 +72,12 @@ public class JTACachedUser {
      * Process channels. If they don't exist then add it to the list of
      * channels that the user currently follows
      */
-    private void processChannel(JTAChannel channel) {
+    private void processChannel(JTAUser user, JTAChannel channel) {
         channels.putIfAbsent(channel.getName(), channel);
+        Set<JTAUser> subs = ((MessagingChannel)channels.get(channel.getName())).subscribers();
+        if (!subs.contains(user)) {
+            ((MessagingChannel)channels.get(channel.getName())).addSubscriber(user);
+        }
     }
 
     /**
@@ -152,4 +156,8 @@ public class JTACachedUser {
     }
 
     public JTAContactsList getContacts() { return contacts; }
+
+    public Set<JTAUser> getSubscribers(String channel) {
+        return Collections.unmodifiableSet(((MessagingChannel)channels.get(channel)).subscribers());
+    }
 }
