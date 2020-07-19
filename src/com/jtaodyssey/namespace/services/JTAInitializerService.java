@@ -66,6 +66,8 @@ public class JTAInitializerService {
     public void init() {
         //todo this service should also make sure the filepaths are correctly set
 
+        // only load if the user does not already exist in the system
+
         PubNubReceiver.getInstance().listen();
         JTACachedUser user = LoggedInUser.getInstance().getUser();
         user.loadUserData();

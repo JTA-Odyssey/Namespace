@@ -42,7 +42,7 @@ public class JTACachedUser {
         }
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
-        this.contacts = new JTAContactsList();
+        this.contacts = new JTAContactsList(((BasicUser)user).getUsername());
     }
 
     public JTAUser getUser() {

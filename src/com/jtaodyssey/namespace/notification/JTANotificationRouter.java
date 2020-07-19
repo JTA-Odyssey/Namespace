@@ -5,6 +5,7 @@ import com.jtaodyssey.namespace.communication.PubNubClient;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.*;
 import com.jtaodyssey.namespace.services.AuthenticationService;
+import com.jtaodyssey.namespace.services.JTACachedUser;
 import com.jtaodyssey.namespace.services.JTAInitializerService;
 import com.jtaodyssey.namespace.services.JTARegistrationService;
 
@@ -56,10 +57,33 @@ public final class JTANotificationRouter implements JTANotificationObserver{
         }
         else if (notification instanceof AuthNotification) {
             actionOnLogin((JTALogin)notification.readPayload());
-            System.out.println(notification.readPayload());
+            //System.out.println(notification.readPayload());
         }
         else if (notification instanceof RegistrationNotification) {
             handleRegistration((JTARegistration)notification.readPayload());
+        }
+        else if (notification instanceof AddContactNotification ||
+                 notification instanceof LookupContactNotification ||
+                 notification instanceof RemoveContactNotification) {
+            handleContactAction(notification.getType(), (JTAContact)notification.readPayload());
+        }
+    }
+
+    /**
+     * This method will either add, remove, lookup based on the type of
+     * contact information requested
+     */
+    private void handleContactAction(String type, JTAContact contact) {
+        JTACachedUser user = LoggedInUser.getInstance().getUser();
+        if (type.equals("add-contact")) {
+            user.getContacts().add(contact);
+        }
+        else if (type.equals("lookup-contact")) {
+            user.getContacts().lookup(contact);
+            // todo return to ui the result of the lookup
+        }
+        else if (type.equals("remove-contact")) {
+            user.getContacts().remove(contact);
         }
     }
 
