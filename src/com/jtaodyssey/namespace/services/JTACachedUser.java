@@ -41,7 +41,6 @@ public class JTACachedUser {
         }
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
-        this.contacts = new JTAContactsList(((BasicUser)user).getUsername());
     }
 
     public JTAUser getUser() {
@@ -96,9 +95,7 @@ public class JTACachedUser {
         if (o instanceof HashMap) {
             channels =  (HashMap<String, JTAChannel>)o;
         }
-
-        //todo call the contacts information to load the data from the contacts class
-        // contacts = loadContacts();
+        this.contacts = new JTAContactsList(((BasicUser)user).getUsername());
     }
 
     private void saveFile(String relativeFilePath, Object o) {
