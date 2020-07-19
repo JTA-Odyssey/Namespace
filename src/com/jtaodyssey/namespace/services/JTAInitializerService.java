@@ -2,7 +2,6 @@ package com.jtaodyssey.namespace.services;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
-import com.jtaodyssey.namespace.components.JTAChannel;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 
@@ -69,7 +68,7 @@ public class JTAInitializerService {
 
         PubNubReceiver.getInstance().listen();
         JTACachedUser user = LoggedInUser.getInstance().getUser();
-        user.loadMessageData();
+        user.loadUserData();
         subscribedToSavedChannels();
     }
 

@@ -12,9 +12,9 @@ public class JTACachedUser {
     private static String storageRoot = null;
     private JTAUser user;
     private String userPath;
-    private Map<String, List<JTATextMessage>> messages; // maps texts to the channel
-                                                            // they were found on
+    private Map<String, List<JTATextMessage>> messages;
     private Map<String, JTAChannel> channels;
+    private JTAContactsList contacts;
 
     // todo we should be able to remove this
     private void initUserRoot() {
@@ -42,6 +42,7 @@ public class JTACachedUser {
         }
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
+        this.contacts = new JTAContactsList();
     }
 
     public JTAUser getUser() {
@@ -86,7 +87,7 @@ public class JTACachedUser {
         saveFile(userPath + "channels.dat", channels);
     }
 
-    void loadMessageData() {
+    void loadUserData() {
         // todo will it be necessary to thread this
         Object o = loadFile(userPath + "messages.dat");
         if (o instanceof HashMap) {
@@ -96,6 +97,9 @@ public class JTACachedUser {
         if (o instanceof HashMap) {
             channels =  (HashMap<String, JTAChannel>)o;
         }
+
+        //todo call the contacts information to load the data from the contacts class
+        // contacts = loadContacts();
     }
 
     private void saveFile(String relativeFilePath, Object o) {
@@ -150,4 +154,6 @@ public class JTACachedUser {
     Set<String> getChannelNames() {
         return Collections.unmodifiableSet(channels.keySet());
     }
+
+    public JTAContactsList getContacts() { return contacts; }
 }
