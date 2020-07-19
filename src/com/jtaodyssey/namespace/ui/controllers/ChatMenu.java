@@ -159,12 +159,12 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
         try
         {
-            String path = new File(String.format("/Users/jeffreyadams/Desktop/Namespace/src/com/jtaodyssey/namespace/ui/images/testProfilePicture.jpeg")).toURI().toString();
+            String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
             img.setFill(new ImagePattern(new Image(path)));
         }
         catch (Exception e)
         {
-            String path = new File("com/jtaodyssey/namespace/ui/images/test3.png").toURI().toString();
+            String path = new File("images/testProfilePicture.jpeg").toURI().toString();
             img.setFill(new ImagePattern(new Image(path)));
 
             e.printStackTrace();
@@ -243,12 +243,12 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
             try
             {
-                String path = new File(String.format("/Users/jeffreyadams/Desktop/Namespace/src/com/jtaodyssey/namespace/ui/images/testProfilePicture.jpeg")).toURI().toString();
+                String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
                 img.setFill(new ImagePattern(new Image(path)));
             }
             catch (Exception e)
             {
-                String path = new File("Namespace/src/com/jtaodyssey/namespace/ui/images/test3.png").toURI().toString();
+                String path = new File("images/testProfilePicture.jpeg").toURI().toString();
                 img.setFill(new ImagePattern(new Image(path)));
             }
             channelHBox.setOnMousePressed(event ->
