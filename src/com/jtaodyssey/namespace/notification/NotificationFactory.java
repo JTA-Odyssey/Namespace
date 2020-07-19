@@ -17,7 +17,7 @@ public class NotificationFactory {
             return new RemoveContactNotification(payload);
         }
         else if (type.toLowerCase().equals("remove-contact")) {
-
+            return new LookupContactNotification(payload);
         }
         return null;
     }
