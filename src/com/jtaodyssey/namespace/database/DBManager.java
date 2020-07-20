@@ -1,8 +1,6 @@
 package com.jtaodyssey.namespace.database;
 
-import com.jtaodyssey.namespace.components.BasicUser;
-import com.jtaodyssey.namespace.components.JTALogin;
-import com.jtaodyssey.namespace.components.JTARegistration;
+import com.jtaodyssey.namespace.components.*;
 
 import java.sql.SQLException;
 
@@ -15,4 +13,8 @@ public interface DBManager
     BasicUser Login(JTALogin userLogin) throws Exception;
 
     Boolean Registration(JTARegistration registration) throws Exception;
+
+//    JTAContactsList addContact(JTAContact contact) throws Exception;
+//
+//    void removeContact(String username) throws Exception;
 }

@@ -74,10 +74,10 @@ public class JTACachedUser {
      */
     private void processChannel(JTAUser user, JTAChannel channel) {
         channels.putIfAbsent(channel.getName(), channel);
-        Set<JTAUser> subs = ((MessagingChannel)channels.get(channel.getName())).subscribers();
-        if (!subs.contains(user)) {
-            ((MessagingChannel)channels.get(channel.getName())).addSubscriber(user);
-        }
+//        Set<JTAUser> subs = ((MessagingChannel)channels.get(channel.getName())).subscribers();
+//        if (!subs.contains(user)) {
+//            ((MessagingChannel)channels.get(channel.getName())).addSubscriber(user);
+//        }
     }
 
     /**

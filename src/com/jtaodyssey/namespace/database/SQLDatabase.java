@@ -1,8 +1,7 @@
 package com.jtaodyssey.namespace.database;
 
-import com.jtaodyssey.namespace.components.BasicUser;
-import com.jtaodyssey.namespace.components.JTALogin;
-import com.jtaodyssey.namespace.components.JTARegistration;
+import com.jtaodyssey.namespace.components.*;
+import com.jtaodyssey.namespace.services.JTACachedUser;
 
 import java.sql.*;
 
@@ -175,9 +174,64 @@ public class SQLDatabase implements DBManager
         {
             System.out.println(e.toString());
             throw new Exception("This username already exists!");
-
         }
     }
+
+//    @Override
+//    public JTAContactsList addContact(JTAContact contact) throws Exception
+//    {
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        try
+//        {
+//            ps = connection.prepareStatement("SELECT FROM USER(FirstName, LastName, Alias, Username, UniqueID, Picture) VALUES(?,?,?,?,?,?)");
+//            ps.setString(1, contact.getFirstName());
+//            ps.setString(2, contact.getLastName());
+//            ps.setString(3, contact.getAlias());
+//            ps.setString(4, contact.getUsername());
+//            ps.setString(5, contact.getID());
+//            ps.setString(6, contact.getImgPath());
+//
+//            rs = ps.executeQuery();
+//
+//            JTAContactsList list = new JTAContactsList(rs.getString(this.username));
+//
+//            return list;
+//        }
+//        catch(Exception e)
+//        {
+//            System.out.println(e.toString());
+//            throw new Exception("Contact does not exist!");
+//        }
+//    }
+//
+//    @Override
+//    public void removeContact(String username) throws Exception
+//    {
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        try
+//        {
+//            ps = connection.prepareStatement("DELETE FROM CONTACT WHERE Username = ?");
+//            ps.setString(1, username);
+//
+//            rs = ps.executeQuery();
+//        }
+//        catch(Exception e)
+//        {
+//            System.out.println(e.toString());
+//            throw new Exception("Cannot remove contact, because that contact does not exist!");
+//        }
+//    }
+//
+//    public static void createTable()
+//    {
+//        String url = "jdbc:sqlite:";
+//    }
+
+
 }
 
 
