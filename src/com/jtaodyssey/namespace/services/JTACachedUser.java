@@ -74,10 +74,6 @@ public class JTACachedUser {
      */
     private void processChannel(JTAUser user, JTAChannel channel) {
         channels.putIfAbsent(channel.getName(), channel);
-//        Set<JTAUser> subs = ((MessagingChannel)channels.get(channel.getName())).subscribers();
-//        if (!subs.contains(user)) {
-//            ((MessagingChannel)channels.get(channel.getName())).addSubscriber(user);
-//        }
     }
 
     /**
@@ -87,6 +83,7 @@ public class JTACachedUser {
     private void saveMessageData() {
         saveFile(userPath + "messages.dat", messages);
         saveFile(userPath + "channels.dat", channels);
+        saveFile(userPath + "contacts.dat", contacts);
     }
 
     void loadUserData() {
@@ -99,7 +96,10 @@ public class JTACachedUser {
         if (o instanceof HashMap) {
             channels =  (HashMap<String, JTAChannel>)o;
         }
-        this.contacts = new JTAContactsList(((BasicUser)user).getUsername());
+        o = loadFile(userPath + "contacts.dat");
+        if (o instanceof JTAContactsList) {
+            contacts = (JTAContactsList)o;
+        }
     }
 
     private void saveFile(String relativeFilePath, Object o) {
