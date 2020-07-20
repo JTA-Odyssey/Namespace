@@ -161,14 +161,13 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
         String myID = cachedUser.getUser().getId();
 
-//        if(text.getUserID() == null || !text.getUserID().equals(myID))
-        if (text.getUserID() != null)
+        if(text.getUserID() == null || !text.getUserID().equals(myID))
+//        if (text.getUserID() != null)
         {
             JTAContactsList contactsList = cachedUser.getContacts();
             JTAContact contact = contactsList.lookupByID(text.getUserID());
 
             Text txtName = null;
-            System.out.println(contact);
 
             if(contact != null)
             {
