@@ -157,7 +157,7 @@ public class JTACachedUser {
 
     public JTAContactsList getContacts() { return contacts; }
 
-    public Set<JTAUser> getSubscribers(String channel) {
-        return Collections.unmodifiableSet(((MessagingChannel)channels.get(channel)).subscribers());
-    }
+//    public Set<JTAUser> getSubscribers(String channel) {
+//        return Collections.unmodifiableSet(((MessagingChannel)channels.get(channel)).subscribers());
+//    }
 }

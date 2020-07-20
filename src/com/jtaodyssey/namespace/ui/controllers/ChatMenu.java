@@ -161,24 +161,24 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
         String myID = cachedUser.getUser().getId();
 
-//        if(text.getUserID() == null || !text.getUserID().equals(myID))
-//        {
-//            JTAContactsList contactsList = cachedUser.getContacts();
-//            JTAContact contact = contactsList.lookupByID(text.getUserID());
-//
-//            Text txtName = null;
-//
-//            if(contact != null)
-//            {
-//                txtName = new Text(contact.getUsername() + "\n");
-//            }
-//            else
-//            {
-//                txtName = new Text(text.getUserID() + "\n");
-//            }
-//            txtName.getStyleClass().add("txtName");
-//            tempFlow.getChildren().add(txtName);
-//        }
+        if(text.getUserID() == null || !text.getUserID().equals(myID))
+        {
+            JTAContactsList contactsList = cachedUser.getContacts();
+            JTAContact contact = contactsList.lookupByID(text.getUserID());
+
+            Text txtName = null;
+
+            if(contact != null)
+            {
+                txtName = new Text(contact.getUsername() + "\n");
+            }
+            else
+            {
+                txtName = new Text(text.getUserID() + "\n");
+            }
+            txtName.getStyleClass().add("txtName");
+            tempFlow.getChildren().add(txtName);
+        }
 
         tempFlow.getChildren().add(textMessage);
         tempFlow.setMaxWidth(200);
@@ -192,18 +192,18 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         // Creating Profile Picture Icon
         Circle img = new Circle(32, 32, 16);
 
-        try
-        {
-            String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
-            img.setFill(new ImagePattern(new Image(path)));
-        }
-        catch (Exception e)
-        {
-            String path = new File("images/testProfilePicture.jpeg").toURI().toString();
-            img.setFill(new ImagePattern(new Image(path)));
-
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
+//            img.setFill(new ImagePattern(new Image(path)));
+//        }
+//        catch (Exception e)
+//        {
+//            String path = new File("images/testProfilePicture.jpeg").toURI().toString();
+//            img.setFill(new ImagePattern(new Image(path)));
+//
+//            e.printStackTrace();
+//        }
 
         // Formatting ImageView
         img.getStyleClass().add("imageView");
@@ -255,16 +255,16 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             HBox channelHBox = new HBox();
             channelHBox.setAlignment(Pos.CENTER_LEFT);
 
-            try
-            {
-                String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
-                img.setFill(new ImagePattern(new Image(path)));
-            }
-            catch (Exception e)
-            {
-                String path = new File("images/testProfilePicture.jpeg").toURI().toString();
-                img.setFill(new ImagePattern(new Image(path)));
-            }
+//            try
+//            {
+//                String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
+//                img.setFill(new ImagePattern(new Image(path)));
+//            }
+//            catch (Exception e)
+//            {
+//                String path = new File("images/testProfilePicture.jpeg").toURI().toString();
+//                img.setFill(new ImagePattern(new Image(path)));
+//            }
             channelHBox.setOnMousePressed(event ->
             {
                 handleChannelEvent(event);
