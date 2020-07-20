@@ -35,16 +35,10 @@ public abstract class JTAUser implements Serializable {
     public void setAlias(String alias) { this.alias = alias; }
 
     public void setFirstName(String fn) {
-        if (!verifyString(fn, "[a-zA-Z]+")) {
-            throw new IllegalArgumentException("Illegal first name");
-        }
         this.fn = fn;
     }
 
     public void setLastName(String ln) {
-        if (!verifyString(fn, "[a-zA-Z]+")) {
-            throw new IllegalArgumentException("Illegal first name");
-        }
         this.ln = ln;
     }
 
