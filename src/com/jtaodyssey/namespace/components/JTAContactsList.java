@@ -39,6 +39,11 @@ public class JTAContactsList implements Serializable {
         return contacts.remove(username) != null;
     }
 
+    public boolean remove(JTAContact contact) {
+        return contacts.remove(contact.getUsername()) != null ||
+               contacts.remove(contact.getID()) != null;
+    }
+
     public boolean removeByID(String id) {
         return contacts.remove(id) != null;
     }
