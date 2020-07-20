@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jtaodyssey.namespace.ui.controllers.AddFriendPopup">
+   <children>
+      <Label layoutX="22.0" layoutY="14.0" text="Add Friend" underline="true">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="friendUsernameField" layoutX="22.0" layoutY="52.0" prefHeight="27.0" prefWidth="260.0" promptText="Enter Username..." />
+      <JFXButton fx:id="addFriend" layoutX="300.0" layoutY="100.0" onMouseClicked="#onClickCloseFriendMenu" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: GREEN;" text="Add" />
+      <Label fx:id="errorCheckLabel" layoutX="22.0" layoutY="138.0" style="-fx-text-fill: RED;" text="Invalid Username! Please try again!" />
+      <JFXTextField fx:id="idField" layoutX="22.0" layoutY="100.0" prefHeight="27.0" prefWidth="260.0" promptText="Enter ID..." />
+   </children>
+</AnchorPane>

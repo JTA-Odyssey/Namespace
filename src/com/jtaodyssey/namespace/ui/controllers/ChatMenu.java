@@ -1,19 +1,23 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import com.jtaodyssey.namespace.components.JTAContact;
+import com.jtaodyssey.namespace.components.JTAContactsList;
 import com.jtaodyssey.namespace.components.JTATextMessage;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.*;
 import com.jtaodyssey.namespace.services.JTACachedUser;
+import com.sun.javafx.fxml.FXMLLoaderHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -24,14 +28,18 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable, JTANotificationObserver
 {
+
     private String currentChannelID = "";
 
     // *************
@@ -40,6 +48,9 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
     @FXML
     private JFXButton createNewMessageButton;
+    @FXML
+    private JFXButton addFriendButton;
+
 
     // ****************
     // * Container(s) *
@@ -47,6 +58,8 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
     @FXML
     private ScrollPane chatScrollPane;
+
+    private ScrollBar chatVertical;
 
     @FXML
     private VBox chatBox;
@@ -61,6 +74,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     // ****************
     // * Text Area(s) *
     // ****************
+
 
     @FXML
     private TextArea chatArea;
@@ -98,9 +112,14 @@ public class ChatMenu implements Initializable, JTANotificationObserver
                     FromUINotifier.getInstance().notify(notification);
                 }
 
+
+
+
                 chatArea.setText("");
             }
         });
+
+
 
 
     }
@@ -138,9 +157,25 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         // Creating & Formatting temporary TextFlow
         TextFlow tempFlow = new TextFlow();
         // Add username to TextFlow here
-//        if(!this.username.equals(username))
+
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
+        String myID = cachedUser.getUser().getId();
+
+//        if(text.getUserID() == null || !text.getUserID().equals(myID))
 //        {
-//            Text txtName = new Text(username + "\n");
+//            JTAContactsList contactsList = cachedUser.getContacts();
+//            JTAContact contact = contactsList.findUserByID(text.getUserID());
+//
+//            Text txtName = null;
+//
+//            if(contact != null)
+//            {
+//                txtName = new Text(contact.getUsername() + "\n");
+//            }
+//            else
+//            {
+//                txtName = new Text(text.getUserID() + "\n");
+//            }
 //            txtName.getStyleClass().add("txtName");
 //            tempFlow.getChildren().add(txtName);
 //        }
@@ -173,29 +208,6 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         // Formatting ImageView
         img.getStyleClass().add("imageView");
 
-//        if(!this.username.equals(username))
-//        {
-//            tempFlow.getStyleClass().add("tempFlowReceiver");
-//            flow.getStyleClass().add("textFlowReceiver");
-//            chatBox.setAlignment(Pos.TOP_LEFT);
-//            textMessageBox.setAlignment(Pos.CENTER_LEFT);
-//            textMessageBox.getChildren().add(img);
-//            textMessageBox.getChildren().add(flow);
-//        }
-//        else
-//        {
-//            tempFlow.getStyleClass().add("tempFlowSender");
-//            flow.getStyleClass().add("textFlowSender");
-//            textMessageBox.setAlignment(Pos.BOTTOM_RIGHT);
-//            textMessageBox.getChildren().add(flow);
-//            textMessageBox.getChildren().add(img);
-//        }
-
-        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
-        String myID = cachedUser.getUser().getId();
-
-
-
         if(text.getUserID() == null || !text.getUserID().equals(myID))
         {
             tempFlow.getStyleClass().add("tempFlowReceiver");
@@ -218,6 +230,8 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         textMessageBox.getStyleClass().add("textMessageBox");
 
         chatBox.getChildren().addAll(textMessageBox);
+
+        chatBox.heightProperty().addListener(observable -> chatScrollPane.setVvalue(1D));
     }
 
     @FXML
@@ -292,6 +306,22 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         {
             formatMessage(m);
         }
+    }
+
+    public void onClickOpenFriendMenu(MouseEvent event) throws IOException
+    {
+        Stage stage;
+        Parent root;
+        if(event.getSource() == addFriendButton)
+        {
+            stage = new Stage();
+            root = FXMLLoader.load(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/AddFriendPopup.fxml"));
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(addFriendButton.getScene().getWindow());
+            Platform.runLater(() -> stage.showAndWait());
+        }
+
     }
 
 }
