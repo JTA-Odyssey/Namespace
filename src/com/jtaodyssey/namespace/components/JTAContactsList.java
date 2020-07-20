@@ -1,6 +1,5 @@
 package com.jtaodyssey.namespace.components;
 
-import com.jtaodyssey.namespace.database.DBManager;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -36,9 +35,12 @@ public class JTAContactsList implements Serializable {
     }
 
     // remove functions
-    public void remove(String username) {
-        contacts.remove(username);
-        // remove it from the db here
+    public boolean remove(String username) {
+        return contacts.remove(username) != null;
+    }
+
+    public boolean removeByID(String id) {
+        return contacts.remove(id) != null;
     }
 
     // lookup functions
