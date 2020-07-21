@@ -17,6 +17,7 @@ import java.util.*;
 public class JTAInitializerService {
     private static volatile JTAInitializerService init = null;
     private static String userStoragePath;
+    private static String defaultImgPath;
 
     private void initialize() {
         Properties appProp = new Properties();
@@ -24,17 +25,12 @@ public class JTAInitializerService {
         try {
             appProp.load(new BufferedInputStream(new FileInputStream(location)));
             JTAInitializerService.userStoragePath = appProp.getProperty("userStoragePath");
+            JTAInitializerService.defaultImgPath = appProp.getProperty("defaultImg");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private JTAInitializerService() {
-//        initialize();
-//        File root = new File(userStoragePath);
-//        if (!root.isDirectory()) {
-//            root.mkdir();
-//        }
-    }
+    private JTAInitializerService() {}
 
     /**
      * Should be called before anything else to make sure file structure
@@ -43,7 +39,16 @@ public class JTAInitializerService {
     public void prepare() {
         JTANotificationRouter.getInstance().init();
         initialize();
-        File root = new File(userStoragePath);
+        buildDirectory(userStoragePath);
+        buildDirectory(defaultImgPath);
+    }
+
+    /**
+     * This method will call mkdir() if the directory doesn't already
+     * exist
+     */
+    private void buildDirectory(String location) {
+        File root = new File(location);
         if (!root.isDirectory()) {
             root.mkdir();
         }
