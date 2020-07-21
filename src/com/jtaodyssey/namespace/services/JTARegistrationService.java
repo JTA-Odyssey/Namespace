@@ -35,4 +35,13 @@ public class JTARegistrationService {
         }
         return false;
     }
+
+    /**
+     * This will apply the update for a given user to the user database
+     *  Will return true if successful or false if the username already exists
+     */
+    public boolean update(JTARegistration updatedReg) {
+        // make call to update
+        return false;
+    }
 }

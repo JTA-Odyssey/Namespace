@@ -67,6 +67,22 @@ public final class JTANotificationRouter implements JTANotificationObserver{
                  notification instanceof RemoveContactNotification) {
             handleContactAction(notification.getType(), (JTAContact)notification.readPayload());
         }
+        else if (notification instanceof UpdateUserNotification) {
+            handleUserUpdate((JTARegistration)notification.readPayload());
+        }
+    }
+
+    private void handleUserUpdate(JTARegistration update) {
+        String res = "";
+        boolean isValid = false;
+        if (JTARegistrationService.getInstance().update(update)) {
+            isValid = true;
+            res = "update successful";
+        }
+        else {
+            res = "username was not unique";
+        }
+        toUINotifier.notify(new AuthStatusNotification(new AuthStatus(res, isValid, "update")));
     }
 
     /**
