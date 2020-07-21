@@ -39,7 +39,8 @@ import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable, JTANotificationObserver
 {
-
+    private String defaultImgPath = "images/default-1.png";
+    private String secondaryImage = "images/default-2.png";
     private String currentChannelID = "";
 
     // *************
@@ -193,18 +194,18 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         // Creating Profile Picture Icon
         Circle img = new Circle(32, 32, 16);
 
-//        try
-//        {
-//            String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
-//            img.setFill(new ImagePattern(new Image(path)));
-//        }
-//        catch (Exception e)
-//        {
-//            String path = new File("images/testProfilePicture.jpeg").toURI().toString();
-//            img.setFill(new ImagePattern(new Image(path)));
-//
-//            e.printStackTrace();
-//        }
+        try
+        {
+            String path = new File(String.format(defaultImgPath)).toURI().toString();
+            img.setFill(new ImagePattern(new Image(path)));
+        }
+        catch (Exception e)
+        {
+            String path = new File(defaultImgPath).toURI().toString();
+            img.setFill(new ImagePattern(new Image(path)));
+
+            e.printStackTrace();
+        }
 
         // Formatting ImageView
         img.getStyleClass().add("imageView");
@@ -256,16 +257,16 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             HBox channelHBox = new HBox();
             channelHBox.setAlignment(Pos.CENTER_LEFT);
 
-//            try
-//            {
-//                String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
-//                img.setFill(new ImagePattern(new Image(path)));
-//            }
-//            catch (Exception e)
-//            {
-//                String path = new File("images/testProfilePicture.jpeg").toURI().toString();
-//                img.setFill(new ImagePattern(new Image(path)));
-//            }
+            try
+            {
+                String path = new File(String.format(secondaryImage)).toURI().toString();
+                img.setFill(new ImagePattern(new Image(path)));
+            }
+            catch (Exception e)
+            {
+                String path = new File(secondaryImage).toURI().toString();
+                img.setFill(new ImagePattern(new Image(path)));
+            }
             channelHBox.setOnMousePressed(event ->
             {
                 handleChannelEvent(event);
