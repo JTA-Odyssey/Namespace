@@ -7,6 +7,7 @@ package com.jtaodyssey.namespace.notification;
  *  (1) "add-contact" -> addContactNotification
  *  (2) "lookup-contact" -> lookupContactNotification
  *  (3) "remove-contact" -> removeContactNotification
+ *  (4) "update-user" -> updateUserNotification
  */
 public class NotificationFactory {
     public JTANotification createNotification(String type, Payload payload) {
@@ -18,6 +19,9 @@ public class NotificationFactory {
         }
         else if (type.toLowerCase().equals("remove-contact")) {
             return new LookupContactNotification(payload);
+        }
+        else if (type.toLowerCase().equals("update-user")) {
+            return new UpdateUserNotification(payload);
         }
         return null;
     }

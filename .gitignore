@@ -228,7 +228,6 @@ buildNumber.properties
 ### Files that I have manually added ###
 *.properties
 .storage/
-images/
 *.db
 
 # End of https://www.gitignore.io/api/java,linux,macos,windows,java-web,intellij,code-java

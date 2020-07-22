@@ -1,6 +1,5 @@
 package com.jtaodyssey.namespace.components;
 
-import com.jtaodyssey.namespace.database.DBManager;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.Map;
  */
 public class JTAContactsList implements Serializable {
     private Map<String, JTAContact> contacts;
-    private DBManager database;
 
     public JTAContactsList(String username) {
         this.contacts = new HashMap<>();
@@ -25,23 +23,33 @@ public class JTAContactsList implements Serializable {
 
     // add functions
     public void add(String fn, String ln, String id) { add(fn, ln, "", "", id, ""); }
+    public void add(String username, String id) {
+        add("","", "", username, id, "");
+    }
+
     public void add(JTAContact contact) {
-        contacts.putIfAbsent(contact.getFirstName(), contact);
-        // also add the contacts to the database here at the same time
+        contacts.putIfAbsent(contact.getUsername(), contact);
+        if (contact.getID() != null) {
+            contacts.putIfAbsent(contact.getID(), contact);
+        }
     }
 
     // remove functions
-    public void remove(String firstname) {
-        contacts.remove(firstname);
-        // remove it from the db here
+    public boolean remove(String username) {
+        return contacts.remove(username) != null;
     }
 
-    public void remove(JTAContact contact) {
-        contacts.remove(contact.getFirstName(), contact);
-        // remove from the db here
+    public boolean remove(JTAContact contact) {
+        return contacts.remove(contact.getUsername()) != null ||
+               contacts.remove(contact.getID()) != null;
+    }
+
+    public boolean removeByID(String id) {
+        return contacts.remove(id) != null;
     }
 
     // lookup functions
-    public JTAContact lookup(String firstname){ return contacts.get(firstname); }
-    public JTAContact lookup(JTAContact contact) { return lookup(contact.getFirstName()); }
+    public JTAContact lookup(String username){ return contacts.get(username); }
+    public JTAContact lookup(JTAContact contact) { return lookup(contact.getUsername()); }
+    public JTAContact lookupByID(String id) { return contacts.get(id); }
 }

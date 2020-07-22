@@ -38,6 +38,13 @@ import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable, JTANotificationObserver
 {
+<<<<<<< HEAD
+=======
+    private String defaultImgPath = "images/default-1.png";
+    private String secondaryImage = "images/default-2.png";
+    private String currentChannelID = "";
+
+>>>>>>> origin/tucker-Develop
     // *************
     // * Button(s) *
     // *************
@@ -151,24 +158,25 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
         String myID = cachedUser.getUser().getId();
 
-//        if(text.getUserID() == null || !text.getUserID().equals(myID))
-//        {
-//            JTAContactsList contactsList = cachedUser.getContacts();
-//            JTAContact contact = contactsList.findUserByID(text.getUserID());
-//
-//            Text txtName = null;
-//
-//            if(contact != null)
-//            {
-//                txtName = new Text(contact.getUsername() + "\n");
-//            }
-//            else
-//            {
-//                txtName = new Text(text.getUserID() + "\n");
-//            }
-//            txtName.getStyleClass().add("txtName");
-//            tempFlow.getChildren().add(txtName);
-//        }
+        if(text.getUserID() == null || !text.getUserID().equals(myID))
+//        if (text.getUserID() != null)
+        {
+            JTAContactsList contactsList = cachedUser.getContacts();
+            JTAContact contact = contactsList.lookupByID(text.getUserID());
+
+            Text txtName = null;
+
+            if(contact != null)
+            {
+                txtName = new Text(contact.getUsername() + "\n");
+            }
+            else
+            {
+                txtName = new Text(text.getUserID() + "\n");
+            }
+            txtName.getStyleClass().add("txtName");
+            tempFlow.getChildren().add(txtName);
+        }
 
         tempFlow.getChildren().add(textMessage);
         tempFlow.setMaxWidth(200);
@@ -184,12 +192,12 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
         try
         {
-            String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
+            String path = new File(String.format(defaultImgPath)).toURI().toString();
             img.setFill(new ImagePattern(new Image(path)));
         }
         catch (Exception e)
         {
-            String path = new File("images/testProfilePicture.jpeg").toURI().toString();
+            String path = new File(defaultImgPath).toURI().toString();
             img.setFill(new ImagePattern(new Image(path)));
 
             e.printStackTrace();
@@ -245,12 +253,12 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 
             try
             {
-                String path = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
+                String path = new File(String.format(secondaryImage)).toURI().toString();
                 img.setFill(new ImagePattern(new Image(path)));
             }
             catch (Exception e)
             {
-                String path = new File("images/testProfilePicture.jpeg").toURI().toString();
+                String path = new File(secondaryImage).toURI().toString();
                 img.setFill(new ImagePattern(new Image(path)));
             }
             channelHBox.setOnMousePressed(event ->

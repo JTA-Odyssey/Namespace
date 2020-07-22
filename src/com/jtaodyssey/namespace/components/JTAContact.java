@@ -12,6 +12,10 @@ public class JTAContact implements Payload, Serializable {
         this(new BasicUser(fn, ln, alias, username, imgPath), id);
     }
 
+    public JTAContact(String username, String id) {
+        this("", "", "", username, id, "");
+    }
+
     private JTAContact(BasicUser user, String id) {
         this.user = user;
         this.user.setId(id);

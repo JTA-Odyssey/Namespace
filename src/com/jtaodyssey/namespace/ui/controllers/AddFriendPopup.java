@@ -85,7 +85,7 @@ public class AddFriendPopup implements Initializable
         {
             Stage stage;
 
-            FromUINotifier.getInstance().notify(new AddContactNotification(new JTAContact("", "", "", username, id, "")));
+            FromUINotifier.getInstance().notify(new AddContactNotification(new JTAContact(username, id)));
 
             stage = (Stage) addFriend.getScene().getWindow();
             stage.close();
