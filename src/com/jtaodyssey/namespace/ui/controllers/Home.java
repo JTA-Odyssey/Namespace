@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -16,6 +17,8 @@ import java.util.ResourceBundle;
 
 public class Home implements Initializable, JTANotificationObserver
 {
+    private boolean currentScene = false;
+
     // ****************
     // * Container(s) *
     // ****************
@@ -72,11 +75,16 @@ public class Home implements Initializable, JTANotificationObserver
 
     // On "ChatMenu icon" clicked show chat menu in scene window
     @FXML
-    public void onClickShowChatMenu()
+    public void onClickShowChatMenu(MouseEvent event)
     {
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("ChatMenu");
-        viewScreen.setCenter(view);
+        if(!currentScene)
+        {
+            FxmlLoader object = new FxmlLoader();
+            Pane view = object.getPage("ChatMenu");
+            viewScreen.setCenter(view);
+            currentScene = true;
+        }
+
     }
 
     // On "X" clicked this function will terminate the program.
