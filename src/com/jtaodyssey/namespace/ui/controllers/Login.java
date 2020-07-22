@@ -156,9 +156,9 @@ public class Login implements Initializable, JTANotificationObserver
         }
     }
 
-    // **************************
-    // * MouseEvent Function(s) *
-    // **************************
+    // ***************
+    // * Function(s) *
+    // ***************
 
     // On "Login" clicked this function will verify login credentials and log the user in.
     @FXML

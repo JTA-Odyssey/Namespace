@@ -8,7 +8,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -17,8 +16,6 @@ import java.util.ResourceBundle;
 
 public class Home implements Initializable, JTANotificationObserver
 {
-    private boolean currentScene = false;
-
     // ****************
     // * Container(s) *
     // ****************
@@ -39,6 +36,12 @@ public class Home implements Initializable, JTANotificationObserver
 
     @FXML
     private JFXButton closeApplicationButton;
+
+    // ***************
+    // * Variable(s) *
+    // ***************
+
+    private String currentScene = "";
 
     // ***************
     // * Constructor *
@@ -75,16 +78,64 @@ public class Home implements Initializable, JTANotificationObserver
 
     // On "ChatMenu icon" clicked show chat menu in scene window
     @FXML
-    public void onClickShowChatMenu(MouseEvent event)
+    public void onClickShowChatMenu()
     {
-        if(!currentScene)
+        if(!currentScene.equals("ChatMenu"))
         {
             FxmlLoader object = new FxmlLoader();
             Pane view = object.getPage("ChatMenu");
             viewScreen.setCenter(view);
-            currentScene = true;
+            currentScene = "ChatMenu";
         }
+    }
 
+    // On "Profile icon" clicked show profile in scene window
+    @FXML
+    public void onClickShowProfile()
+    {
+        if(!currentScene.equals("Profile"))
+        {
+            FxmlLoader object = new FxmlLoader();
+            Pane view = object.getPage("Profile");
+            viewScreen.setCenter(view);
+            currentScene = "Profile";
+        }
+    }
+
+    @FXML
+    public void onClickShowProfileEdit()
+    {
+        if(!currentScene.equals("ProfileEdit"))
+        {
+            FxmlLoader object = new FxmlLoader();
+            Pane view = object.getPage("ProfileEdit");
+            viewScreen.setCenter(view);
+            currentScene = "ProfileEdit";
+        }
+    }
+
+    @FXML
+    public void onClickShowProfileEditUsername()
+    {
+        if(!currentScene.equals("ProfileEditUsername"))
+        {
+            FxmlLoader object = new FxmlLoader();
+            Pane view = object.getPage("ProfileEditUsername");
+            viewScreen.setCenter(view);
+            currentScene = "ProfileEditUsername";
+        }
+    }
+
+    @FXML
+    public void onClickShowProfileEditPassword()
+    {
+        if(!currentScene.equals("ProfileEditPassword"))
+        {
+            FxmlLoader object = new FxmlLoader();
+            Pane view = object.getPage("ProfileEditPassword");
+            viewScreen.setCenter(view);
+            currentScene = "ProfileEditPassword";
+        }
     }
 
     // On "X" clicked this function will terminate the program.
@@ -94,5 +145,10 @@ public class Home implements Initializable, JTANotificationObserver
         ToUINotifier.getInstance().removeObserver(this);
         Platform.exit();
         System.exit(0);
+    }
+
+    public BorderPane getViewScreen()
+    {
+        return viewScreen;
     }
 }
