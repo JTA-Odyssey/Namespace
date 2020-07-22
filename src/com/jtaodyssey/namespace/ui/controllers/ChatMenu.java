@@ -1,6 +1,8 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jtaodyssey.namespace.components.JTAContact;
+import com.jtaodyssey.namespace.components.JTAContactsList;
 import com.jtaodyssey.namespace.components.JTATextMessage;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.*;
@@ -38,13 +40,6 @@ import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable, JTANotificationObserver
 {
-<<<<<<< HEAD
-=======
-    private String defaultImgPath = "images/default-1.png";
-    private String secondaryImage = "images/default-2.png";
-    private String currentChannelID = "";
-
->>>>>>> origin/tucker-Develop
     // *************
     // * Button(s) *
     // *************
@@ -86,6 +81,8 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     // ***************
 
     private String currentChannelID = "";
+    private String defaultImgPath = "images/default-1.png";
+    private String secondaryImage = "images/default-2.png";
 
     // ***************
     // * Constructor *
