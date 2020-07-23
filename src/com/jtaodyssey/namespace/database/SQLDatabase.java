@@ -46,7 +46,7 @@ public class SQLDatabase implements DBManager
         {
             // This is the connection to the database holding the user table
             Class.forName("org.sqlite.JDBC");
-            this.connection = DriverManager.getConnection("jdbc:sqlite:.storage/database.db");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:.storage/users.db");
 
             System.out.println("Connected!");
 
@@ -254,12 +254,17 @@ public class SQLDatabase implements DBManager
     @Override
     public void createTable()
     {
-        String url = "jdbc:sqlite:C://sqlite/db/tests.db";
+        String url = "jdbc:sqlite:.storage/users.db";
 
-        String sql = "CREATE TABLE IF NOT EXISTS warehouses (\n"
-                + "     id integer PRIMARY KEY,\n"
-                + "     name text NOT NULL,\n"
-                + "     capacity real\n"
+        String sql = "CREATE TABLE IF NOT EXISTS USER (\n"
+                + "     UniqueID text PRIMARY KEY,\n"
+                + "     Username text NOT NULL,\n"
+                + "     Password text NOT NULL,\n"
+                + "     FirstName text NOT NULL,\n"
+                + "     LastName text NOT NULL,\n"
+                + "     Alias text NOT NULL,\n"
+                + "     Status text NOT NULL,\n"
+                + "     Picture text NULL"
                 + ");";
 
         try
@@ -273,8 +278,6 @@ public class SQLDatabase implements DBManager
             e.printStackTrace();
         }
     }
-
-
 }
 
 
