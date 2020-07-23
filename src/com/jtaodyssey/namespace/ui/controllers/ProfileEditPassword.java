@@ -2,9 +2,10 @@ package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.jtaodyssey.namespace.notification.JTANotification;
-import com.jtaodyssey.namespace.notification.JTANotificationObserver;
-import com.jtaodyssey.namespace.notification.ToUINotifier;
+import com.jtaodyssey.namespace.components.AuthStatus;
+import com.jtaodyssey.namespace.components.BasicRegistration;
+import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.notification.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,7 +75,26 @@ public class ProfileEditPassword implements Initializable, JTANotificationObserv
     @Override
     public void update(JTANotification notification)
     {
+        if (notification instanceof AuthStatusNotification) {
+            AuthStatusNotification auth = (AuthStatusNotification) notification;
+            validatePasswordSaved((AuthStatus)auth.readPayload());
+        }
+    }
 
+    private void validatePasswordSaved(AuthStatus status) {
+        if (status.getStatusType().equals("update"))
+        {
+            if (status.isValidated())
+            {
+                swapScene("Home", savePasswordButton);
+            }
+            else
+            {
+                // notify that there was an error saving the password
+                // THIS IS NOT A RESULT OF PASSWORD NOT BEING DIFFERENT
+                // SINCE OUT LOGIC ISNT CHECKING THAT. could change later
+            }
+        }
     }
 
 
@@ -91,7 +111,16 @@ public class ProfileEditPassword implements Initializable, JTANotificationObserv
 
         if(!password.equals("") && !newPassword.equals("") && !confirmPassword.equals(""))
         {
-            swapScene("Home", savePasswordButton);
+            String userPassword = LoggedInUser.getInstance().getUser().getPassword();
+
+            String id = LoggedInUser.getInstance().getUser().getUser().getId();
+            String firstName = LoggedInUser.getInstance().getUser().getUser().getFirstName();
+            String lastName = LoggedInUser.getInstance().getUser().getUser().getLastName();
+            String username = LoggedInUser.getInstance().getUser().getUsername();
+
+            FromUINotifier.getInstance().notify(new UpdateUserNotification(
+                    new BasicRegistration(firstName, lastName, username, newPassword, id)));
+            //swapScene("Home", savePasswordButton);
         }
     }
 
