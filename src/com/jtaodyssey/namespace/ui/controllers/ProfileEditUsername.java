@@ -98,8 +98,14 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
 
         if(!password.equals("") && !newUsername.equals("") && !confirmUsername.equals(""))
         {
-            JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
-            //FromUINotifier.getInstance().notify(new UpdateUserNotification(new BasicRegistration(cachedUser.getUser().getFirstName(), cachedUser.getUser().getLastName())));
+            String userPassword = LoggedInUser.getInstance().getUser().getPassword();
+
+            String firstName = LoggedInUser.getInstance().getUser().getUser().getFirstName();
+            String lastName = LoggedInUser.getInstance().getUser().getUser().getLastName();
+            String id = LoggedInUser.getInstance().getUser().getUser().getId();
+
+            FromUINotifier.getInstance().notify(new UpdateUserNotification(
+                    new BasicRegistration(firstName, lastName, confirmUsername, password, id)));
             swapScene("Home", saveUsernameButton);
         }
     }

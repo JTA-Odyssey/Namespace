@@ -19,6 +19,8 @@ public class ToUINotifier extends JTANotificationSubject {
 
     @Override
     public void addObserver(JTANotificationObserver o) {
+        // logic probably should only allow multiple adds simultaneously for
+        // certain class types
         observers.clear();
         observers.add(o);
     }
