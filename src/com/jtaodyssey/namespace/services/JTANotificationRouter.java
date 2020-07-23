@@ -1,13 +1,9 @@
-package com.jtaodyssey.namespace.notification;
+package com.jtaodyssey.namespace.services;
 
 import com.jtaodyssey.namespace.communication.PubNubActions;
-import com.jtaodyssey.namespace.communication.PubNubClient;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.*;
-import com.jtaodyssey.namespace.services.AuthenticationService;
-import com.jtaodyssey.namespace.services.JTACachedUser;
-import com.jtaodyssey.namespace.services.JTAInitializerService;
-import com.jtaodyssey.namespace.services.JTARegistrationService;
+import com.jtaodyssey.namespace.notification.*;
 
 import java.util.Arrays;
 
@@ -18,7 +14,7 @@ import java.util.Arrays;
  *
  * This router will sit on its own thread and should be able to run async
  */
-public final class JTANotificationRouter implements JTANotificationObserver{
+public final class JTANotificationRouter implements JTANotificationObserver {
     private static final JTANotificationRouter notif = new JTANotificationRouter(); // happening at compile so call an init
     private final JTANotificationSubject toUINotifier = ToUINotifier.getInstance();
 

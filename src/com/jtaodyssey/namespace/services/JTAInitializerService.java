@@ -4,7 +4,6 @@ import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.database.SQLDatabase;
-import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 
 import java.io.BufferedInputStream;
 import java.io.File;
