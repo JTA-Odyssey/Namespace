@@ -9,9 +9,13 @@ public class BasicRegistration implements JTARegistration, Payload {
     private JTAUser user;
     private JTALogin login;
 
-    public BasicRegistration(String fn, String ln, String username, String password) {
+    public BasicRegistration(String fn, String ln, String username, String password, String id) {
         this(new BasicUser(fn, ln), new JTALogin(username, password));
-        user.setId(UUID.randomUUID().toString());
+        user.setId(id);
+    }
+
+    public BasicRegistration(String fn, String ln, String username, String password) {
+        this(fn, ln, username, password, UUID.randomUUID().toString());
     }
 
     public BasicRegistration(JTAUser user, JTALogin login) {
