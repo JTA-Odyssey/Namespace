@@ -29,7 +29,9 @@ public class AuthStatus implements JTAStatus, Payload {
 
     private void setStatusType(String statusType) {
         // todo add an enum class
-        if (!(statusType.toLowerCase().equals("login") || statusType.toLowerCase().equals("registration"))) {
+        if (!(statusType.toLowerCase().equals("login") ||
+              statusType.toLowerCase().equals("registration")) ||
+              statusType.toLowerCase().equals("update")) {
             throw new IllegalArgumentException(statusType + " not of login or registration");
         }
         this.statusType = statusType;
