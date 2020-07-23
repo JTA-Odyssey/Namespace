@@ -35,10 +35,11 @@ public class BasicUser extends JTAUser {
 
     @Override
     public void setId(String id) {
-        if (!isUUID(id)) {
-            throw new IllegalArgumentException("BasicUser ID must be a UUID");
-        }
-        else if (super.id != null) {
+//        if (!isUUID(id)) {
+//            throw new IllegalArgumentException("BasicUser ID must be a UUID");
+//        }
+//        else
+        if (super.id != null) {
             throw new IllegalArgumentException("ID has already been set");
         }
         super.id = id;

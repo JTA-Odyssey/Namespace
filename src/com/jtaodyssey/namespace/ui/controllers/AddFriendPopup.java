@@ -53,7 +53,7 @@ public class AddFriendPopup implements Initializable
         String username = friendUsernameField.getText();
         String id = idField.getText();
 
-        if(!username.equals("") && isUUID(id))
+        if(!username.equals("") && !id.equals(""))
         {
             Stage stage;
 

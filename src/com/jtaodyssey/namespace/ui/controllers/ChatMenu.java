@@ -166,7 +166,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
 //        if (text.getUserID() != null)
         {
             JTAContactsList contactsList = cachedUser.getContacts();
-            JTAContact contact = contactsList.lookupByID(text.getUserID());
+            JTAContact contact = contactsList.lookupByID(text.getUserID().substring(0, 8));
 
             Text txtName = null;
 
@@ -176,7 +176,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             }
             else
             {
-                txtName = new Text(text.getUserID() + "\n");
+                txtName = new Text(text.getUserID().substring(0, 8) + "\n");
             }
             txtName.getStyleClass().add("txtName");
             tempFlow.getChildren().add(txtName);

@@ -52,4 +52,5 @@ public class JTAContactsList implements Serializable {
     public JTAContact lookup(String username){ return contacts.get(username); }
     public JTAContact lookup(JTAContact contact) { return lookup(contact.getUsername()); }
     public JTAContact lookupByID(String id) { return contacts.get(id); }
+    public int size() { return contacts.size(); }
 }
