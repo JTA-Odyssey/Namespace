@@ -1,6 +1,8 @@
 package com.jtaodyssey.namespace.services;
 
+import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTARegistration;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.database.DBManager;
 import com.jtaodyssey.namespace.database.SQLDatabase;
 
@@ -43,10 +45,20 @@ public class JTARegistrationService {
     public boolean update(JTARegistration updatedReg) {
         try {
             manager.updateUser(updatedReg);
+            JTACachedUser user = LoggedInUser.getInstance().getUser();
+            cacheUpdate(user, updatedReg);
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void cacheUpdate(JTACachedUser user, JTARegistration info) {
+        user.getUser().setFirstName(info.getFirstName());
+        user.getUser().setLastName(info.getLastName());
+        //user.getUser().setAlias(info.get);
+        user.setLogin(info.getUsername(), info.getPassword());
     }
 }

@@ -166,6 +166,9 @@ public class JTACachedUser {
 
     public String getPassword() { return userLogin.getPassword(); }
     public String getUsername() { return userLogin.getUsername(); }
+    void setLogin(String username, String password) {
+        userLogin = new JTALogin(username, password);
+    }
 
 //    public Set<JTAUser> getSubscribers(String channel) {
 //        return Collections.unmodifiableSet(((MessagingChannel)channels.get(channel)).subscribers());
