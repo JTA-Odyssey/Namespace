@@ -17,6 +17,12 @@ public class ToUINotifier extends JTANotificationSubject {
                                                         //  solution to last project
     }
 
+    @Override
+    public void addObserver(JTANotificationObserver o) {
+        observers.clear();
+        observers.add(o);
+    }
+
     public static ToUINotifier getInstance() {
         if (notifier == null) {
             synchronized (ToUINotifier.class) {
