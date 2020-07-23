@@ -41,7 +41,12 @@ public class JTARegistrationService {
      *  Will return true if successful or false if the username already exists
      */
     public boolean update(JTARegistration updatedReg) {
-        // make call to update
+        try {
+            manager.updateUser(updatedReg);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

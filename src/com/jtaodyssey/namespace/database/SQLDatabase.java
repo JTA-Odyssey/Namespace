@@ -177,6 +177,31 @@ public class SQLDatabase implements DBManager
         }
     }
 
+    @Override
+    public void updateUser(JTARegistration regUser) throws Exception
+    {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try
+        {
+            ps = connection.prepareStatement("UPDATE USER SET Username = ?, Password = ?, FirstName = ?, LastName = ? WHERE UniqueID = ?");
+            ps.setString(1, regUser.getUsername());
+            ps.setString(2, regUser.getPassword());
+            ps.setString(3, regUser.getFirstName());
+            ps.setString(4, regUser.getLastName());
+            ps.setString(5, regUser.getID());
+
+            ps.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.toString());
+            throw new Exception("Was not a unique username");
+        }
+    }
+
+
 //    @Override
 //    public JTAContactsList addContact(JTAContact contact) throws Exception
 //    {
@@ -226,10 +251,28 @@ public class SQLDatabase implements DBManager
 //        }
 //    }
 //
-//    public static void createTable()
-//    {
-//        String url = "jdbc:sqlite:";
-//    }
+    @Override
+    public void createTable()
+    {
+        String url = "jdbc:sqlite:C://sqlite/db/tests.db";
+
+        String sql = "CREATE TABLE IF NOT EXISTS warehouses (\n"
+                + "     id integer PRIMARY KEY,\n"
+                + "     name text NOT NULL,\n"
+                + "     capacity real\n"
+                + ");";
+
+        try
+        {
+            Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
 }

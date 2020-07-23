@@ -16,23 +16,52 @@ import java.util.UUID;
 
 public class AddFriendPopup implements Initializable
 {
-    @FXML
-    private JFXButton addFriend;
+    // ************
+    // * Label(s) *
+    // ************
 
     @FXML
     private Label errorCheckLabel;
 
-    @FXML
-    private JFXTextField friendUsernameField;
+    // *************
+    // * Button(s) *
+    // *************
 
     @FXML
+    private JFXButton addFriend;
+
+    // *****************
+    // * Text Field(s) *
+    // *****************
+
+    @FXML
+    private JFXTextField friendUsernameField;
+    @FXML
     private JFXTextField idField;
+
+    // ***************
+    // * Constructor *
+    // ***************
+
+
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         errorCheckLabel.setVisible(false);
     }
+
+    // ***********************
+    // * Notification Update *
+    // ***********************
+
+
+    // ***************
+    // * Function(s) *
+    // ***************
 
     private boolean isUUID(String id)
     {
@@ -46,7 +75,6 @@ public class AddFriendPopup implements Initializable
         }
         return true;
     }
-
 
     public void onClickCloseFriendMenu()
     {

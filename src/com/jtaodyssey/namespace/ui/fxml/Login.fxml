@@ -5,9 +5,8 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jtaodyssey.namespace.ui.controllers.Login">
@@ -58,18 +57,9 @@
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="520.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff); background-image: linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff); -fx-background-radius: 1em;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <AnchorPane fx:id="test" layoutX="14.0" layoutY="14.0" prefHeight="520.0" prefWidth="380.0" style="-fx-background-color: linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff); background-image: linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff) linear-gradient(to right top, #000000, #220b17, #370e2e, #47144e, #492275, #473c97, #3a56b9, #0071da, #0095f2, #00b7fe, #00d7ff, #00f5ff); -fx-background-radius: 1em;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
-                  <ImageView fitHeight="240.0" fitWidth="180.0" layoutX="100.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/spartanhelm.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="309.0" layoutX="50.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/rsz_logo.png" />
-                     </image>
-                  </ImageView>
+                  <Rectangle fx:id="logoRectangle" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="520.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 1em; -fx-arc-width: 1em;" width="380.0" />
                </children>
             </AnchorPane>
          </children>

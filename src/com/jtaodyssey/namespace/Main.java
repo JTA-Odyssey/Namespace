@@ -6,6 +6,8 @@ import com.jtaodyssey.namespace.components.BasicUser;
 import com.jtaodyssey.namespace.components.JTATextMessage;
 import com.jtaodyssey.namespace.components.JTAUser;
 import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.database.DBManager;
+import com.jtaodyssey.namespace.database.SQLDatabase;
 import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 import com.jtaodyssey.namespace.services.JTACachedUser;
 import com.jtaodyssey.namespace.services.JTAInitializerService;

@@ -1,11 +1,13 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import com.jtaodyssey.namespace.components.*;
+import com.jtaodyssey.namespace.components.JTAContact;
+import com.jtaodyssey.namespace.components.JTAContactsList;
+import com.jtaodyssey.namespace.components.JTATextMessage;
+import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.*;
 import com.jtaodyssey.namespace.services.JTACachedUser;
-import com.sun.javafx.fxml.FXMLLoaderHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +16,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -38,10 +43,6 @@ import java.util.ResourceBundle;
 
 public class ChatMenu implements Initializable, JTANotificationObserver
 {
-    private String defaultImgPath = "images/default-1.png";
-    private String secondaryImage = "images/default-2.png";
-    private String currentChannelID = "";
-
     // *************
     // * Button(s) *
     // *************
@@ -51,36 +52,40 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     @FXML
     private JFXButton addFriendButton;
 
-
     // ****************
     // * Container(s) *
     // ****************
 
     @FXML
     private ScrollPane chatScrollPane;
-
-    private ScrollBar chatVertical;
-
     @FXML
     private VBox chatBox;
-
     @FXML
     private ScrollPane channelScrollPane;
-
     @FXML
     private VBox channelBox;
-
 
     // ****************
     // * Text Area(s) *
     // ****************
 
-
     @FXML
     private TextArea chatArea;
 
+    // *****************
+    // * Text Field(s) *
+    // *****************
+
     @FXML
     private TextField channelNameField;
+
+    // ***************
+    // * Variable(s) *
+    // ***************
+
+    private String currentChannelID = "";
+    private String defaultImgPath = "images/default-1.png";
+    private String secondaryImage = "images/default-2.png";
 
     // ***************
     // * Constructor *
@@ -112,21 +117,18 @@ public class ChatMenu implements Initializable, JTANotificationObserver
                     FromUINotifier.getInstance().notify(notification);
                 }
 
-
-
-
                 chatArea.setText("");
             }
         });
-        //initChannels();
+        initChannels();
     }
 
-//    private void initChannels() {
-//        Collection<JTAChannel> channels = LoggedInUser.getInstance().getUser().getChannels();
-//        for(JTAChannel c : channels) {
-//            addChannel(c.getName());
-//        }
-//    }
+    private void initChannels() {
+        Collection<JTAChannel> channels = LoggedInUser.getInstance().getUser().getChannels();
+        for(JTAChannel c : channels) {
+            addChannel(c.getName());
+        }
+    }
 
     // ***********************
     // * Notification Update *
@@ -146,11 +148,10 @@ public class ChatMenu implements Initializable, JTANotificationObserver
         }
     }
 
-    // ************************
-    // * ChatMenu Function(s) *
-    // ************************
+    // ***************
+    // * Function(s) *
+    // ***************
 
-    // TO-DO - Add username/User to format message to output the username of the person who sent the message
     public void formatMessage(JTATextMessage text)
     {
         // Creating & Formatting Text
@@ -255,7 +256,6 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             channelName.setPadding(new Insets(0, 0, 0, 5));
             channelName.getStyleClass().add("channelLabel");
 
-
             // Creating Profile Picture Icon
             Circle img = new Circle(30, 30, 15);
 
@@ -297,8 +297,6 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             currentChannelID = channel;
             loadMessages();
         }
-
-
     }
 
     private void loadMessages()
@@ -328,7 +326,5 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             stage.initOwner(addFriendButton.getScene().getWindow());
             Platform.runLater(() -> stage.showAndWait());
         }
-
     }
-
 }

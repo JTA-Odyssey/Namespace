@@ -135,7 +135,6 @@ public class CreateAccount implements Initializable, JTANotificationObserver
                 confirmPasswordField.validate();
             }
         });
-
     }
 
     // ***********************
@@ -242,6 +241,4 @@ public class CreateAccount implements Initializable, JTANotificationObserver
             window.show();
         });
     }
-
-
 }

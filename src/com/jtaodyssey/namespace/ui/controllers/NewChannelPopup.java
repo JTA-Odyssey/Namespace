@@ -11,11 +11,28 @@ import java.util.ResourceBundle;
 
 public class NewChannelPopup implements Initializable
 {
+    // ****************
+    // * Container(s) *
+    // ****************
+
     @FXML
     private VBox friendBox;
 
+    // *************
+    // * Button(s) *
+    // *************
+
     @FXML
     private JFXButton createNewMessageButton;
+
+    // ***************
+    // * Constructor *
+    // ***************
+
+
+    // **************
+    // * Initialize *
+    // **************
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
