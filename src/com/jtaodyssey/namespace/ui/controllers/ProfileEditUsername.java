@@ -121,13 +121,19 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
         {
             String userPassword = LoggedInUser.getInstance().getUser().getPassword();
 
-            String firstName = LoggedInUser.getInstance().getUser().getUser().getFirstName();
-            String lastName = LoggedInUser.getInstance().getUser().getUser().getLastName();
-            String id = LoggedInUser.getInstance().getUser().getUser().getId();
+            if(password.equals(userPassword) && newUsername.equals(confirmUsername))
+            {
+                String firstName = LoggedInUser.getInstance().getUser().getUser().getFirstName();
+                String lastName = LoggedInUser.getInstance().getUser().getUser().getLastName();
+                String id = LoggedInUser.getInstance().getUser().getUser().getId();
 
-            FromUINotifier.getInstance().notify(new UpdateUserNotification(
-                    new BasicRegistration(firstName, lastName, confirmUsername, password, id)));
-//            swapScene("Home", saveUsernameButton);
+                FromUINotifier.getInstance().notify(new UpdateUserNotification(
+                        new BasicRegistration(firstName, lastName, confirmUsername, password, id)));
+            }
+            else
+            {
+                // error check label show
+            }
         }
     }
 
