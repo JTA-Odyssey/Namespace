@@ -3,6 +3,7 @@ package com.jtaodyssey.namespace.ui.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jtaodyssey.namespace.components.AuthStatus;
 import com.jtaodyssey.namespace.components.BasicRegistration;
 import com.jtaodyssey.namespace.components.JTARegistration;
 import com.jtaodyssey.namespace.components.LoggedInUser;
@@ -80,7 +81,27 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
     @Override
     public void update(JTANotification notification)
     {
+        if(notification instanceof AuthStatusNotification)
+        {
+            AuthStatusNotification auth = (AuthStatusNotification) notification;
+            checkUpdateStatus((AuthStatus)auth.readPayload());
+        }
+    }
 
+    private void checkUpdateStatus(AuthStatus status)
+    {
+        if (status.getStatusType().equals("update"))
+        {
+            if (status.isValidated())
+            {
+                swapScene("Home", saveUsernameButton);
+            }
+            else
+            {
+                // todo notify the user that the update to their username
+                //  could not be changed
+            }
+        }
     }
 
 
@@ -106,7 +127,7 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
 
             FromUINotifier.getInstance().notify(new UpdateUserNotification(
                     new BasicRegistration(firstName, lastName, confirmUsername, password, id)));
-            swapScene("Home", saveUsernameButton);
+//            swapScene("Home", saveUsernameButton);
         }
     }
 
