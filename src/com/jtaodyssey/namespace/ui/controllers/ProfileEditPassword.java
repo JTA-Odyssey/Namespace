@@ -85,7 +85,14 @@ public class ProfileEditPassword implements Initializable, JTANotificationObserv
     @FXML
     public void onClickSavePassword()
     {
-        swapScene("Home", savePasswordButton);
+        String password        = oldPasswordField.getText();
+        String newPassword     = newPasswordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+        if(!password.equals("") && !newPassword.equals("") && !confirmPassword.equals(""))
+        {
+            swapScene("Home", savePasswordButton);
+        }
     }
 
     @FXML
@@ -106,7 +113,7 @@ public class ProfileEditPassword implements Initializable, JTANotificationObserv
             Stage window = (Stage)(button).getScene().getWindow();
 
             Home crtl = loader.getController();
-            crtl.onClickShowProfileEdit();
+            crtl.onClickShowProfile();
 
             Platform.runLater(()->
             {

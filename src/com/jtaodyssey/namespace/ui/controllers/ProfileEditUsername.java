@@ -3,9 +3,11 @@ package com.jtaodyssey.namespace.ui.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.jtaodyssey.namespace.notification.JTANotification;
-import com.jtaodyssey.namespace.notification.JTANotificationObserver;
-import com.jtaodyssey.namespace.notification.ToUINotifier;
+import com.jtaodyssey.namespace.components.BasicRegistration;
+import com.jtaodyssey.namespace.components.JTARegistration;
+import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.notification.*;
+import com.jtaodyssey.namespace.services.JTACachedUser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +50,7 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
     private JFXButton saveUsernameButton;
 
     @FXML
-    private JFXButton returnToLoginButton;
+    private JFXButton returnToProfileButton;
 
     // ***************
     // * Constructor *
@@ -96,14 +98,16 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
 
         if(!password.equals("") && !newUsername.equals("") && !confirmUsername.equals(""))
         {
-
+            JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
+            //FromUINotifier.getInstance().notify(new UpdateUserNotification(new BasicRegistration(cachedUser.getUser().getFirstName(), cachedUser.getUser().getLastName())));
+            swapScene("Home", saveUsernameButton);
         }
     }
 
     @FXML
     public void onClickReturnToProfile()
     {
-        swapScene("Home", returnToLoginButton);
+        swapScene("Home", returnToProfileButton);
     }
 
     // This function is used to swap scenes

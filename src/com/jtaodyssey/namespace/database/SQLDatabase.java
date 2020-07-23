@@ -177,6 +177,31 @@ public class SQLDatabase implements DBManager
         }
     }
 
+    @Override
+    public void updateUser(JTARegistration regUser) throws Exception
+    {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try
+        {
+            ps = connection.prepareStatement("UPDATE USER SET Username = ?, Password = ?, FirstName = ?, LastName = ? WHERE UniqueID = ?");
+            ps.setString(1, regUser.getUsername());
+            ps.setString(2, regUser.getPassword());
+            ps.setString(3, regUser.getFirstName());
+            ps.setString(4, regUser.getLastName());
+            ps.setString(5, regUser.getID());
+
+            ps.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.toString());
+            throw new Exception("Was not a unique username");
+        }
+    }
+
+
 //    @Override
 //    public JTAContactsList addContact(JTAContact contact) throws Exception
 //    {

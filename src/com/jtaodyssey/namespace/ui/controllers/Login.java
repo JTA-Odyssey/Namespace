@@ -16,12 +16,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,6 +67,8 @@ public class Login implements Initializable, JTANotificationObserver
 
     private double xOffset;
     private double yOffset;
+    @FXML
+    private Rectangle logoRectangle;
 
     // ***************
     // * Constructor *
@@ -78,6 +86,10 @@ public class Login implements Initializable, JTANotificationObserver
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+
+        String profilePicture = new File(String.format("images/testlogo11.png")).toURI().toString();
+        logoRectangle.setFill(new ImagePattern(new Image(profilePicture)));
+        logoRectangle.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
 
         usernameField.setOnKeyPressed(keyEvent ->
         {

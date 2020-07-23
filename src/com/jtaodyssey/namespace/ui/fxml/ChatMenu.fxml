@@ -29,9 +29,9 @@
       <Separator layoutY="42.0" prefHeight="2.0" prefWidth="149.0" />
       <Separator layoutX="149.0" layoutY="1.0" orientation="VERTICAL" prefHeight="523.0" prefWidth="6.0" />
       <Separator layoutX="612.0" orientation="VERTICAL" prefHeight="530.0" prefWidth="6.0" />
-      <ScrollPane fx:id="chatScrollPane" fitToWidth="true" layoutX="152.0" layoutY="46.0" prefHeight="404.0" prefWidth="460.0" stylesheets="@../css/ChatDesign.css">
+      <ScrollPane fx:id="chatScrollPane" fitToWidth="true" layoutX="152.0" layoutY="44.0" prefHeight="408.0" prefWidth="460.0" style="-fx-background-color: #141414;" stylesheets="@../css/ChatDesign.css">
          <content>
-            <VBox fx:id="chatBox" prefHeight="398.0" prefWidth="454.0" spacing="30.0">
+            <VBox fx:id="chatBox" prefHeight="406.0" prefWidth="458.0" spacing="30.0">
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding></VBox>
