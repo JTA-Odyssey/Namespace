@@ -258,7 +258,7 @@ public class SQLDatabase implements DBManager
 
         String sql = "CREATE TABLE IF NOT EXISTS USER (\n"
                 + "     UniqueID text PRIMARY KEY,\n"
-                + "     Username text NOT NULL,\n"
+                + "     Username text NOT NULL UNIQUE,\n"
                 + "     Password text NOT NULL,\n"
                 + "     FirstName text NOT NULL,\n"
                 + "     LastName text NOT NULL,\n"

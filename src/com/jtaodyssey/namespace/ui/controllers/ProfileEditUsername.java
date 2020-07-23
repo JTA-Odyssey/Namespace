@@ -70,7 +70,9 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
 
+        usernameLabel.setText(cachedUser.getUsername());
     }
 
 

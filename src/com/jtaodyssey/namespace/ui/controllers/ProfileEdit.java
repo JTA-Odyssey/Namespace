@@ -39,11 +39,11 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
     // * Text Field(s) *
     // *****************
     @FXML
-    private JFXTextField aliasField;
+    private JFXTextField changeAliasField;
     @FXML
-    private JFXTextField firstNameField;
+    private JFXTextField changeFirstNameField;
     @FXML
-    private JFXTextField lastNameField;
+    private JFXTextField changeLastNameField;
 
     // *************
     // * Button(s) *
@@ -82,9 +82,9 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
         JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
 
         usernameLabel.setText(cachedUser.getUsername());
-        aliasField.setText(cachedUser.getUser().getAlias());
-        firstNameField.setText(cachedUser.getUser().getFirstName());
-        lastNameField.setText(cachedUser.getUser().getLastName());
+        changeAliasField.setText(cachedUser.getUser().getAlias());
+        changeFirstNameField.setText(cachedUser.getUser().getFirstName());
+        changeLastNameField.setText(cachedUser.getUser().getLastName());
 
 
         String profilePicture = new File(String.format("images/default-1.png")).toURI().toString();
@@ -134,15 +134,16 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
     @FXML
     public void onClickSaveChanges()
     {
-        String firstName = firstNameField.getText();
-        String lastName  = lastNameField.getText();
-        String alias     = aliasField.getText();
+        String firstName = changeFirstNameField.getText();
+        String lastName  = changeLastNameField.getText();
+        String alias     = changeAliasField.getText();
 
-        if(!firstName.equals("") && lastName.equals(""))
+        if(!firstName.equals("") && !lastName.equals(""))
         {
             String id       = LoggedInUser.getInstance().getUser().getUser().getId();
             String username = LoggedInUser.getInstance().getUser().getUsername();
             String password = LoggedInUser.getInstance().getUser().getPassword();
+
 
             // TO - FIX - Add alias to reg
             FromUINotifier.getInstance().notify(

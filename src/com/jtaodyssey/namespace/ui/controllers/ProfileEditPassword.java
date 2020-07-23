@@ -6,6 +6,7 @@ import com.jtaodyssey.namespace.components.AuthStatus;
 import com.jtaodyssey.namespace.components.BasicRegistration;
 import com.jtaodyssey.namespace.components.LoggedInUser;
 import com.jtaodyssey.namespace.notification.*;
+import com.jtaodyssey.namespace.services.JTACachedUser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,7 +66,9 @@ public class ProfileEditPassword implements Initializable, JTANotificationObserv
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
 
+        usernameLabel.setText(cachedUser.getUsername());
     }
 
     // ***********************
