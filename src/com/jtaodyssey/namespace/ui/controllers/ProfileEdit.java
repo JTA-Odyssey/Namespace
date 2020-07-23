@@ -2,9 +2,10 @@ package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.jtaodyssey.namespace.notification.JTANotification;
-import com.jtaodyssey.namespace.notification.JTANotificationObserver;
-import com.jtaodyssey.namespace.notification.ToUINotifier;
+import com.jtaodyssey.namespace.components.BasicRegistration;
+import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.notification.*;
+import com.jtaodyssey.namespace.services.JTACachedUser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,11 +39,11 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
     // * Text Field(s) *
     // *****************
     @FXML
-    private JFXTextField aliasField;
+    private JFXTextField changeAliasField;
     @FXML
-    private JFXTextField firstNameField;
+    private JFXTextField changeFirstNameField;
     @FXML
-    private JFXTextField lastNameField;
+    private JFXTextField changeLastNameField;
 
     // *************
     // * Button(s) *
@@ -78,7 +79,15 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        String profilePicture = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
+
+        usernameLabel.setText(cachedUser.getUsername());
+        changeAliasField.setText(cachedUser.getUser().getAlias());
+        changeFirstNameField.setText(cachedUser.getUser().getFirstName());
+        changeLastNameField.setText(cachedUser.getUser().getLastName());
+
+
+        String profilePicture = new File(String.format("images/default-1.png")).toURI().toString();
         profilePictureCircle.setFill(new ImagePattern(new Image(profilePicture)));
         profilePictureCircle.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
     }
@@ -125,7 +134,24 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
     @FXML
     public void onClickSaveChanges()
     {
-        swapScene("Home", saveChangesButton);
+        String firstName = changeFirstNameField.getText();
+        String lastName  = changeLastNameField.getText();
+        String alias     = changeAliasField.getText();
+
+        if(!firstName.equals("") && !lastName.equals(""))
+        {
+            String id       = LoggedInUser.getInstance().getUser().getUser().getId();
+            String username = LoggedInUser.getInstance().getUser().getUsername();
+            String password = LoggedInUser.getInstance().getUser().getPassword();
+
+
+            // TO - FIX - Add alias to reg
+            FromUINotifier.getInstance().notify(
+                    new UpdateUserNotification(new BasicRegistration(firstName, lastName, username, password, id)));
+
+            swapScene("Home", saveChangesButton);
+        }
+
     }
 
     // This function is used to swap scenes

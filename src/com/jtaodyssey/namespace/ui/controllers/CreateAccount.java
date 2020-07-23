@@ -157,7 +157,7 @@ public class CreateAccount implements Initializable, JTANotificationObserver
         {
             if(status.isValidated())
             {
-                // put success message here
+                swapScene("Login", createAccountButton);
             }
             else
             {

@@ -21,8 +21,8 @@
             <JFXTextField fx:id="changeAliasField" layoutX="266.0" layoutY="103.0" prefHeight="27.0" prefWidth="204.0" promptText="Enter Alias..." />
          </children>
       </Pane>
-      <JFXTextField fx:id="changeFirstNameField" layoutX="266.0" layoutY="166.0" prefHeight="27.0" prefWidth="204.0" promptText="Enter Alias..." text="Enter First Name..." />
-      <JFXTextField fx:id="changeLastNameField" layoutX="266.0" layoutY="213.0" prefHeight="27.0" prefWidth="204.0" promptText="Enter Alias..." text="Enter Last Name..." />
+      <JFXTextField fx:id="changeFirstNameField" layoutX="266.0" layoutY="166.0" prefHeight="27.0" prefWidth="204.0" promptText="Enter First Name..." />
+      <JFXTextField fx:id="changeLastNameField" layoutX="266.0" layoutY="213.0" prefHeight="27.0" prefWidth="204.0" promptText="Enter Last Name..." />
       <JFXButton fx:id="changeProfilePictureButton" buttonType="RAISED" layoutX="46.0" layoutY="240.0" onMouseClicked="#onClickChangeProfilePicture" text="Change Profile Picture" />
       <JFXButton fx:id="changeUsernameButton" buttonType="RAISED" layoutX="55.0" layoutY="298.0" onMouseClicked="#onClickChangeUsername" text="Change Username" />
       <JFXButton fx:id="changePasswordButton" buttonType="RAISED" layoutX="56.0" layoutY="361.0" onMouseClicked="#onClickChangePassword" text="Change Password" />
