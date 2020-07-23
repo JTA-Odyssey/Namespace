@@ -16,6 +16,8 @@ public interface DBManager
 
     void updateUser(JTARegistration regUser) throws Exception;
 
+    void createTable();
+
 //    JTAContactsList addContact(JTAContact contact) throws Exception;
 //
 //    void removeContact(String username) throws Exception;

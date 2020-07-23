@@ -251,10 +251,28 @@ public class SQLDatabase implements DBManager
 //        }
 //    }
 //
-//    public static void createTable()
-//    {
-//        String url = "jdbc:sqlite:";
-//    }
+    @Override
+    public void createTable()
+    {
+        String url = "jdbc:sqlite:C://sqlite/db/tests.db";
+
+        String sql = "CREATE TABLE IF NOT EXISTS warehouses (\n"
+                + "     id integer PRIMARY KEY,\n"
+                + "     name text NOT NULL,\n"
+                + "     capacity real\n"
+                + ");";
+
+        try
+        {
+            Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
 }
