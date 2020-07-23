@@ -3,6 +3,7 @@ package com.jtaodyssey.namespace.services;
 import com.jtaodyssey.namespace.communication.PubNubActions;
 import com.jtaodyssey.namespace.communication.PubNubReceiver;
 import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.database.SQLDatabase;
 import com.jtaodyssey.namespace.notification.JTANotificationRouter;
 
 import java.io.BufferedInputStream;
@@ -30,7 +31,7 @@ public class JTAInitializerService {
             e.printStackTrace();
         }
     }
-    private JTAInitializerService() {}
+    private JTAInitializerService() { }
 
     /**
      * Should be called before anything else to make sure file structure
@@ -40,7 +41,7 @@ public class JTAInitializerService {
         JTANotificationRouter.getInstance().init();
         initialize();
         buildDirectory(userStoragePath);
-        buildDirectory(defaultImgPath);
+        SQLDatabase.getInstance().createTable();
     }
 
     /**
@@ -69,8 +70,6 @@ public class JTAInitializerService {
      * loads all the files and caches information for use
      */
     public void init() {
-        //todo this service should also make sure the filepaths are correctly set
-
         // only load if the user does not already exist in the system
 
         PubNubReceiver.getInstance().listen();
