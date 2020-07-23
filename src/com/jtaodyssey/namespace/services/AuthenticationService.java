@@ -38,7 +38,7 @@ public final class AuthenticationService implements JTAAuthenticator {
         try {
             JTAUser user = manager.Login(login);
             if (user != null) {
-                JTAAppUsers.getInstance().addUser(user);
+                JTAAppUsers.getInstance().addUser(user, login);
                 LoggedInUser.getInstance().setUser(JTAAppUsers.getInstance().getUser(user));
                 return true;
             }

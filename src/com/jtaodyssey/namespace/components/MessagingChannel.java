@@ -9,7 +9,7 @@ public class MessagingChannel implements JTAChannel {
     private static final String CH_PREFIX = "jta";
     private String channelName;
     private String timeOfUpdate;
-    //private Set<JTAUser> subscribers; 
+    //private Set<JTAUser> subscribers;
 
     public MessagingChannel(String channelName) {
         update();

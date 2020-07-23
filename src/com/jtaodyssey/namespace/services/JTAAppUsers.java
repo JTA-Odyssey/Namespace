@@ -1,5 +1,6 @@
 package com.jtaodyssey.namespace.services;
 
+import com.jtaodyssey.namespace.components.JTALogin;
 import com.jtaodyssey.namespace.components.JTAUser;
 
 import java.io.BufferedInputStream;
@@ -31,10 +32,14 @@ public class JTAAppUsers {
     /**
      * Auth services should use this method to add the user
      */
-    void addUser(JTAUser user) {
+    void addUser(JTAUser user, JTALogin login) {
         if (cachedUsers.get(user) == null) {
-            cachedUsers.put(user, new JTACachedUser(user));
+            cachedUsers.put(user, new JTACachedUser(user, login));
         }
+    }
+
+    void addUser(JTAUser user) {
+        addUser(user, null);
     }
 
     /**

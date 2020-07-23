@@ -11,6 +11,7 @@ import java.util.*;
 public class JTACachedUser {
     private static String storageRoot = null;
     private JTAUser user;
+    private JTALogin userLogin;
     private String userPath;
     private Map<String, List<JTATextMessage>> messages;
     private Map<String, JTAChannel> channels;
@@ -30,11 +31,11 @@ public class JTACachedUser {
         }
     }
 
-    public JTACachedUser(JTAUser user) {
+    public JTACachedUser(JTAUser user, JTALogin login) {
         setUser(user);
         initUserRoot();
         setUserPath(storageRoot
-                + ((BasicUser)user).getUsername().toLowerCase() + "/");
+                + login.getUsername().toLowerCase() + "/");
         File userRoot = new File(userPath);
         if (!userRoot.isDirectory()) {
             userRoot.mkdir();
@@ -42,6 +43,11 @@ public class JTACachedUser {
         this.messages = new HashMap<>();
         this.channels = new HashMap<>();
         this.contacts = new JTAContactsList(((BasicUser) user).getUsername());
+        this.userLogin = login;
+    }
+
+    public JTACachedUser(JTAUser user) {
+        this(user, null);
     }
 
     public JTAUser getUser() {
@@ -157,6 +163,9 @@ public class JTACachedUser {
     }
 
     public JTAContactsList getContacts() { return contacts; }
+
+    public String getPassword() { return userLogin.getPassword(); }
+    public String getUsername() { return userLogin.getUsername(); }
 
 //    public Set<JTAUser> getSubscribers(String channel) {
 //        return Collections.unmodifiableSet(((MessagingChannel)channels.get(channel)).subscribers());
