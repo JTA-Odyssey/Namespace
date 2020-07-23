@@ -2,10 +2,7 @@ package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.jtaodyssey.namespace.components.JTAContact;
-import com.jtaodyssey.namespace.components.JTAContactsList;
-import com.jtaodyssey.namespace.components.JTATextMessage;
-import com.jtaodyssey.namespace.components.LoggedInUser;
+import com.jtaodyssey.namespace.components.*;
 import com.jtaodyssey.namespace.notification.*;
 import com.jtaodyssey.namespace.services.JTACachedUser;
 import com.sun.javafx.fxml.FXMLLoaderHelper;
@@ -34,6 +31,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -119,11 +118,15 @@ public class ChatMenu implements Initializable, JTANotificationObserver
                 chatArea.setText("");
             }
         });
-
-
-
-
+        //initChannels();
     }
+
+//    private void initChannels() {
+//        Collection<JTAChannel> channels = LoggedInUser.getInstance().getUser().getChannels();
+//        for(JTAChannel c : channels) {
+//            addChannel(c.getName());
+//        }
+//    }
 
     // ***********************
     // * Notification Update *
@@ -239,9 +242,11 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     @FXML
     public void createNewMessageOnClick()
     {
-
         String channel = channelNameField.getText();
+        addChannel(channel);
+    }
 
+    private void addChannel(String channel) {
         if (!channel.equals("") && !channel.equals(currentChannelID))
         {
             Label channelName = new Label(channel);
