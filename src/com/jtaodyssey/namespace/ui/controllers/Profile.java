@@ -81,7 +81,14 @@ public class Profile implements Initializable, JTANotificationObserver
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        String profilePicture = new File(String.format("images/testProfilePicture.jpeg")).toURI().toString();
+        JTACachedUser cachedUser = LoggedInUser.getInstance().getUser();
+
+        usernameLabel.setText(cachedUser.getUsername());
+        aliasLabel.setText(cachedUser.getUser().getAlias());
+        fullNameLabel.setText(cachedUser.getUser().getFirstName() + " " + cachedUser.getUser().getLastName());
+
+        // Temporary way of displaying profile icon
+        String profilePicture = new File(String.format("images/default-1.png")).toURI().toString();
         profilePictureCircle.setFill(new ImagePattern(new Image(profilePicture)));
         profilePictureCircle.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
 
@@ -105,7 +112,6 @@ public class Profile implements Initializable, JTANotificationObserver
     public void onClickEditProfile()
     {
         swapScene("Home", editProfileButton);
-
     }
 
     @FXML
