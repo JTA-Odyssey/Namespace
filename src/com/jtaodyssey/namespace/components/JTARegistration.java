@@ -10,5 +10,6 @@ public interface JTARegistration
     String getUsername();
     String getPassword();
     String getID();
+    String getAlias();
 }
 

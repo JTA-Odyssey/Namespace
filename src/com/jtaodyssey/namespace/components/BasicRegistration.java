@@ -9,9 +9,13 @@ public class BasicRegistration implements JTARegistration, Payload {
     private JTAUser user;
     private JTALogin login;
 
-    public BasicRegistration(String fn, String ln, String username, String password, String id) {
-        this(new BasicUser(fn, ln), new JTALogin(username, password));
+    public BasicRegistration(String fn, String ln, String username, String password, String id, String alias) {
+        this(new BasicUser(fn, ln, alias), new JTALogin(username, password));
         user.setId(id);
+    }
+
+    public BasicRegistration(String fn, String ln, String username, String password, String id) {
+        this(fn, ln, username, password, id, "");
     }
 
     public BasicRegistration(String fn, String ln, String username, String password) {
@@ -36,6 +40,8 @@ public class BasicRegistration implements JTARegistration, Payload {
     public String getPassword() { return login.getPassword(); }
     @Override
     public String getID() { return user.getId(); }
+    @Override
+    public String getAlias() { return user.getAlias(); }
     @Override
     public String getType() { return "Basic Registration"; }
 

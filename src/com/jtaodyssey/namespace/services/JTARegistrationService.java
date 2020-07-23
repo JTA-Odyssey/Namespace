@@ -58,7 +58,7 @@ public class JTARegistrationService {
     private void cacheUpdate(JTACachedUser user, JTARegistration info) {
         user.getUser().setFirstName(info.getFirstName());
         user.getUser().setLastName(info.getLastName());
-        //user.getUser().setAlias(info.get);
+        user.getUser().setAlias(info.getAlias());
         user.setLogin(info.getUsername(), info.getPassword());
     }
 }

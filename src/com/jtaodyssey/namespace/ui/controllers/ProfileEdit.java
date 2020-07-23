@@ -147,7 +147,7 @@ public class ProfileEdit implements Initializable, JTANotificationObserver
 
             // TO - FIX - Add alias to reg
             FromUINotifier.getInstance().notify(
-                    new UpdateUserNotification(new BasicRegistration(firstName, lastName, username, password, id)));
+                    new UpdateUserNotification(new BasicRegistration(firstName, lastName, username, password, id, alias)));
 
             swapScene("Home", saveChangesButton);
         }

@@ -185,12 +185,13 @@ public class SQLDatabase implements DBManager
 
         try
         {
-            ps = connection.prepareStatement("UPDATE USER SET Username = ?, Password = ?, FirstName = ?, LastName = ? WHERE UniqueID = ?");
+            ps = connection.prepareStatement("UPDATE USER SET Username = ?, Password = ?, FirstName = ?, LastName = ?, Alias = ? WHERE UniqueID = ?");
             ps.setString(1, regUser.getUsername());
             ps.setString(2, regUser.getPassword());
             ps.setString(3, regUser.getFirstName());
             ps.setString(4, regUser.getLastName());
-            ps.setString(5, regUser.getID());
+            ps.setString(5, regUser.getAlias());
+            ps.setString(6, regUser.getID());
 
             ps.executeUpdate();
         }
