@@ -128,9 +128,10 @@ public class ProfileEditUsername implements Initializable, JTANotificationObserv
                 String firstName = LoggedInUser.getInstance().getUser().getUser().getFirstName();
                 String lastName = LoggedInUser.getInstance().getUser().getUser().getLastName();
                 String id = LoggedInUser.getInstance().getUser().getUser().getId();
+                String alias = LoggedInUser.getInstance().getUser().getUser().getAlias();
 
                 FromUINotifier.getInstance().notify(new UpdateUserNotification(
-                        new BasicRegistration(firstName, lastName, confirmUsername, password, id)));
+                        new BasicRegistration(firstName, lastName, confirmUsername, password, id, alias)));
             }
             else
             {

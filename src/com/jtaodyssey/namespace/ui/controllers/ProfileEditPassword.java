@@ -120,11 +120,12 @@ public class ProfileEditPassword implements Initializable, JTANotificationObserv
             {
                 String id = LoggedInUser.getInstance().getUser().getUser().getId();
                 String firstName = LoggedInUser.getInstance().getUser().getUser().getFirstName();
+                String alias = LoggedInUser.getInstance().getUser().getUser().getAlias();
                 String lastName = LoggedInUser.getInstance().getUser().getUser().getLastName();
                 String username = LoggedInUser.getInstance().getUser().getUsername();
 
                 FromUINotifier.getInstance().notify(new UpdateUserNotification(
-                        new BasicRegistration(firstName, lastName, username, newPassword, id)));
+                        new BasicRegistration(firstName, lastName, username, newPassword, id, alias)));
             }
             else
             {
