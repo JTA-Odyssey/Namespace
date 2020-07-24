@@ -202,6 +202,7 @@ public class CreateAccount implements Initializable, JTANotificationObserver
     @FXML
     public void OnCloseApplicationClicked()
     {
+        FromUINotifier.getInstance().notify(new ExitNotification());
         Platform.exit();
         System.exit(0);
     }

@@ -1,9 +1,7 @@
 package com.jtaodyssey.namespace.ui.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jtaodyssey.namespace.notification.JTANotification;
-import com.jtaodyssey.namespace.notification.JTANotificationObserver;
-import com.jtaodyssey.namespace.notification.ToUINotifier;
+import com.jtaodyssey.namespace.notification.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -143,6 +141,7 @@ public class Home implements Initializable, JTANotificationObserver
     public void OnCloseApplicationClicked()
     {
         ToUINotifier.getInstance().removeObserver(this);
+        FromUINotifier.getInstance().notify(new ExitNotification());
         Platform.exit();
         System.exit(0);
     }

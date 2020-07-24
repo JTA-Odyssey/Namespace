@@ -72,7 +72,7 @@ public class JTACachedUser {
         }
         processChannel(message.getUser(), channel);
         messages.get(channel.getName()).add(message);
-        saveMessageData();
+        saveUserData();
     }
 
     /**
@@ -87,7 +87,7 @@ public class JTACachedUser {
      * because this runs on a thread. if another thread tries to read before
      * it closes there will be a problem
      */
-    private void saveMessageData() {
+    void saveUserData() {
         saveFile(userPath + "messages.dat", messages);
         saveFile(userPath + "channels.dat", channels);
         saveFile(userPath + "contacts.dat", contacts);
@@ -110,16 +110,14 @@ public class JTACachedUser {
     }
 
     private void saveFile(String relativeFilePath, Object o) {
-        new Thread(()-> {
-            try {
-                ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(relativeFilePath)));
-                os.writeObject(o);
-                os.flush();
-                os.close();
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        }).start();
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(relativeFilePath)));
+            os.writeObject(o);
+            os.flush();
+            os.close();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
     private Object loadFile(String relativePathFromRoot) {

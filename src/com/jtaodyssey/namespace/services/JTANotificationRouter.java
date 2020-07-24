@@ -66,6 +66,13 @@ public final class JTANotificationRouter implements JTANotificationObserver {
         else if (notification instanceof UpdateUserNotification) {
             handleUserUpdate((JTARegistration)notification.readPayload());
         }
+        else if (notification instanceof ExitNotification) {
+            prepareShutdown();
+        }
+    }
+
+    private void prepareShutdown() {
+        LoggedInUser.getInstance().getUser().saveUserData();
     }
 
     private void handleUserUpdate(JTARegistration update) {
