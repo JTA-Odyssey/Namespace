@@ -86,8 +86,10 @@ public class Login implements Initializable, JTANotificationObserver
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        loginButton.getStyleClass().add("buttonGradients");
+        createAccountButton.getStyleClass().add("buttonGradients");
 
-        String profilePicture = new File(String.format("images/testlogo11.png")).toURI().toString();
+        String profilePicture = new File(String.format("images/LoginLogo.jpeg")).toURI().toString();
         logoRectangle.setFill(new ImagePattern(new Image(profilePicture)));
         logoRectangle.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
 
@@ -206,34 +208,40 @@ public class Login implements Initializable, JTANotificationObserver
         Parent root = null;
         try
         {
-            root = FXMLLoader.load(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/" + fileName + ".fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/jtaodyssey/namespace/ui/fxml/" + fileName + ".fxml"));
+            root = loader.load();
+            Scene scene  = new Scene(root);
+            Stage window = (Stage)(button).getScene().getWindow();
+            scene.setFill(Color.TRANSPARENT);
+
+            if(button.equals(loginButton))
+            {
+            Home crtl = loader.getController();
+            crtl.onClickShowChatMenu();
+            }
+
+            // This event allows the user to move the window wherever if the mouse is dragged in the scene boundaries
+            root.setOnMousePressed(event ->
+            {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+            root.setOnMouseDragged(event ->
+            {
+                window.setX(event.getScreenX() - xOffset);
+                window.setY(event.getScreenY() - yOffset);
+            });
+
+            Platform.runLater(()->
+            {
+                ToUINotifier.getInstance().removeObserver(this);
+                window.setScene(scene);
+                window.show();
+            });
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-
-        Scene scene  = new Scene(root);
-        Stage window = (Stage)(button).getScene().getWindow();
-        scene.setFill(Color.TRANSPARENT);
-
-        // This event allows the user to move the window wherever if the mouse is dragged in the scene boundaries
-        root.setOnMousePressed(event ->
-        {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event ->
-        {
-            window.setX(event.getScreenX() - xOffset);
-            window.setY(event.getScreenY() - yOffset);
-        });
-
-        Platform.runLater(()->
-        {
-            ToUINotifier.getInstance().removeObserver(this);
-            window.setScene(scene);
-            window.show();
-        });
     }
 }

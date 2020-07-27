@@ -15,10 +15,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,6 +62,8 @@ public class CreateAccount implements Initializable, JTANotificationObserver
 
     private double xOffset;
     private double yOffset;
+    @FXML
+    private Rectangle logoRectangle;
 
     // ***************
     // * Constructor *
@@ -74,6 +81,10 @@ public class CreateAccount implements Initializable, JTANotificationObserver
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        String profilePicture = new File(String.format("images/LoginLogo.jpeg")).toURI().toString();
+        logoRectangle.setFill(new ImagePattern(new Image(profilePicture)));
+        logoRectangle.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
+
         RequiredFieldValidator validator = new RequiredFieldValidator();
 
         firstNameField.getValidators().add(validator);

@@ -7,15 +7,22 @@ import com.jtaodyssey.namespace.notification.ToUINotifier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Home implements Initializable, JTANotificationObserver
 {
+
     // ****************
     // * Container(s) *
     // ****************
@@ -26,7 +33,8 @@ public class Home implements Initializable, JTANotificationObserver
     // ****************
     // * ImageView(s) *
     // ****************
-
+    @FXML
+    private ImageView profile;
     @FXML
     private ImageView chatMenu;
 
@@ -42,6 +50,10 @@ public class Home implements Initializable, JTANotificationObserver
     // ***************
 
     private String currentScene = "";
+    @FXML
+    private Rectangle displayLogo;
+    @FXML
+    private Rectangle displayLogoTitle;
 
     // ***************
     // * Constructor *
@@ -59,7 +71,13 @@ public class Home implements Initializable, JTANotificationObserver
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        String profilePicture = new File(String.format("images/oddyssey_logo.png")).toURI().toString();
+        displayLogo.setFill(new ImagePattern(new Image(profilePicture)));
+        displayLogo.setEffect(new DropShadow(+20d, 0d, +1d, Color.BLACK));
 
+        String profilePicture1 = new File(String.format("images/testLabel.png")).toURI().toString();
+        displayLogoTitle.setFill(new ImagePattern(new Image(profilePicture1)));
+        displayLogoTitle.setEffect(new DropShadow(+20d, 0d, +1d, Color.BLACK));
     }
 
     // ***********************

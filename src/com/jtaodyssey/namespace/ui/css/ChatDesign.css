@@ -189,7 +189,6 @@
 .textFlowSender
 {
     -fx-background-color: linear-gradient(to right bottom, #1a8989, #147f7f, #0d7575, #066c6c, #006262);
-    /*linear-gradient(to left, #1a8989, #1fa3a3, #25bebe, #2adada, #30f6f6);*/
     -fx-background-insets: -5 -10 -5 -5;
     -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.08),2,1.0,0.5,0.5);
     -fx-shape: "M 94.658379,129.18587 H 46.277427 c -3.545458,0.23354 -5.32763,-1.59167 -5.14193,-4.67449
