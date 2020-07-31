@@ -29,14 +29,9 @@
                   <Image url="@../images/Whatsapp.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="120.0" onMouseClicked="#onClickShowAboutUs" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/Settings.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/Shutdown.png" />
                </image>
             </ImageView>
          </children>

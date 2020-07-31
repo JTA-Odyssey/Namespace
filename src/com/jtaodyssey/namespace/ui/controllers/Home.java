@@ -107,6 +107,18 @@ public class Home implements Initializable, JTANotificationObserver
         }
     }
 
+    @FXML
+    public void onClickShowAboutUs()
+    {
+        if(!currentScene.equals("AboutUs"))
+        {
+            FxmlLoader object = new FxmlLoader();
+            Pane view = object.getPage("AboutUs");
+            viewScreen.setCenter(view);
+            currentScene = "AboutUs";
+        }
+    }
+
     // On "Profile icon" clicked show profile in scene window
     @FXML
     public void onClickShowProfile()
