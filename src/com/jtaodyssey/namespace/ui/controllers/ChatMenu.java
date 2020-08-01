@@ -64,6 +64,8 @@ public class ChatMenu implements Initializable, JTANotificationObserver
     private ScrollPane channelScrollPane;
     @FXML
     private VBox channelBox;
+    @FXML
+    private Label header;
 
     // ****************
     // * Text Area(s) *
@@ -281,6 +283,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             channelBox.getChildren().add(channelHBox);
 
             currentChannelID = channel;
+            header.setText(currentChannelID);
             loadMessages();
         }
         channelNameField.setText("");
@@ -297,6 +300,7 @@ public class ChatMenu implements Initializable, JTANotificationObserver
             currentChannelID = channel;
             loadMessages();
         }
+        header.setText(currentChannelID);
     }
 
     private void loadMessages()
