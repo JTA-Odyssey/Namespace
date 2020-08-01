@@ -14,3 +14,5 @@ yourname-featureName
 `
 
 Classes in the components and notification packages must be prefixed by JTA
+
+![](gif/login.gif)
