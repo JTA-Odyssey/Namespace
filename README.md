@@ -8,11 +8,16 @@ Run the following command to make a copy of this repository on your computer:
 git clone https://github.com/JTA-Odyssey/Namespace.git
 ```
 
-Make sure that your branches contain the following rules
-`
-yourname-featureName
-`
 
-Classes in the components and notification packages must be prefixed by JTA
 
+
+#Application Preview
+######Login
 ![](gif/login.gif)
+
+######Channel Feature
+![](gif/channels.gif)
+
+#####Profile Feature
+![](gif/profile.gif)
+
