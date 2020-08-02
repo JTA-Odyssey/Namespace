@@ -13,7 +13,6 @@ git clone https://github.com/JTA-Odyssey/Namespace.git
 
 #Application Preview
 ##Login
-
 ![](gif/login.gif)
 
 ##Channel Feature
