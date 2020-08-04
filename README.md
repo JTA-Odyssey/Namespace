@@ -11,6 +11,9 @@ git clone https://github.com/JTA-Odyssey/Namespace.git
 ### Login
 ![](gif/login.gif)
 
+### Messaging
+![](gif/messaging.gif)
+
 ### Channel Feature
 ![](gif/channels.gif)
 
